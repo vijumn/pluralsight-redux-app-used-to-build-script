@@ -7,3 +7,51 @@
 5. **Install Node Packages.** - `npm install`
 6. **Run the app.** - `npm start`
 This will run the automated build process, start up a webserver, and open the application in your default browser. When doing development with this kit, this command will continue watching files all your files. Every time you hit save the code is rebuilt, linting runs, and tests run automatically. Note: The -s flag is optional. It enables silent mode which suppresses unnecessary messages during the build.
+
+### What are the dependencies in package.json used for?
+| **Dependency** | **Use** |
+|----------|-------|
+|connect-history-api-fallback  | Support reloading deep links |
+|babel-polyfill | Polyfill for Babel features that cannot be transpiled |
+|react|React library |
+|react-dom|React library for DOM rendering |
+|react-redux|Redux library for connecting React components to Redux |
+|react-router|React library for routing |
+|redux|Library for unidirectional data flows |
+|babel-cli|Babel Command line interface |
+|babel-core|Babel Core for transpiling the new JavaScript to old |
+|babel-eslint|Connects Babel and ESLint so ES6 code can be linted |
+|babel-loader|Adds Babel support to Webpack |
+|babel-plugin-react-display-name| Add displayName to React.createClass calls |
+|babel-plugin-react-transform| Add support for transforming React code to Babel |
+|babel-preset-es2015|Babel preset for ES2015|
+|babel-preset-react| Add JSX support to Babel |
+|babel-preset-stage-1| Include stage 1 feature support in Babel |
+|browser-sync| Supports synchronized testing on multiple devices and serves local app on public URL |
+|chai|Assertion library for use with Mocha|
+|cheerio|Supports querying DOM with jQuery like syntax - Useful in testing and build process for HTML manipulation|
+|colors|Adds color support to terminal |
+|cross-env|Cross-environment friendly way to handle environment variables|
+|css-loader|Add CSS support to Webpack|
+|enzyme|Simplified JavaScript Testing utilities for React|
+|eslint|Lints JavaScript |
+|eslint-loader|Adds ESLint support to Webpack |
+|eslint-plugin-react|Adds additional React-related rules to ESLint|
+|extract-text-webpack-plugin| Extracts CSS into separate file for production build | 
+|file-loader| Adds file loading support to Webpack |
+|ignore-styles| Ignore imported style files when running in Node |
+|mocha| JavaScript testing library |
+|node-sass| Adds SASS support to Webpack |
+|parallelshell| Display results of multiple commands on single command line |
+|react-addons-test-utils| Adds React TestUtils |
+|react-transform-catch-errors| Catches React errors. Necessary for use with redbox-react |
+|react-transform-hmr| Transform React components to support hot module reloading |
+|redbox-react| Display nicely formatted React errors in browser |
+|rimraf|Delete files |
+|sass-loader| Adds Sass support to Webpack|
+|sinon| Standalone test spies, stubs and mocks for JavaScript |
+|sinon-chai| Extends Chai with assertions for the Sinon.JS mocking framework|
+|style-loader| Add Style support to Webpack |
+|webpack| Bundler with plugin system and integrated development server |
+|webpack-dev-middleware| Used to integrate Webpack with Browser-sync |
+|webpack-hot-middleware| Use to integrate Webpack's hot reloading support with Browser-sync |
