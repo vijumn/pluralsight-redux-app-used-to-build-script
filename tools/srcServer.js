@@ -1,12 +1,11 @@
 import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
-import webpackConfigBuilder from '../webpack.config';
+import config from '../webpack.config.dev';
 import open from 'open';
 
 /*eslint-disable no-console */
 
-const config = webpackConfigBuilder('development');
 const port = 3000;
 const app = express();
 const compiler = webpack(config);
