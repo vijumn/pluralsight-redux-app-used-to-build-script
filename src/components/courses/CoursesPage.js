@@ -27,8 +27,8 @@ class CoursesPage extends React.Component {
     this.props.actions.createCourse(this.state.course);
   }
 
-  courseRow(course) {
-    return <div>{course.title}</div>;
+  courseRow(course, index) {
+    return <div key={index}>{course.title}</div>;
   }
 
   render() {
