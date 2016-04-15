@@ -1,7 +1,9 @@
+import delay from './delay';
+
 // This file mocks a web API by working with the hard-coded data below.
 // It uses setTimeout to simulate the delay of an AJAX call.
 // All calls return promises.
-const	authors =	[
+const authors = [
   {
     id: 'cory-house',
     firstName: 'Cory',
@@ -19,10 +21,6 @@ const	authors =	[
   }
 ];
 
-// Using setTimeout to simulate the delay of an AJAX call.
-// This configures the amount of delay.
-const delay = 1000;
-
 //This would be performed on the server in a real app. Just stubbing in.
 const generateId = (author) => {
   return author.firstName.toLowerCase() + '-' + author.lastName.toLowerCase();
@@ -30,7 +28,7 @@ const generateId = (author) => {
 
 class AuthorApi {
   static getAllAuthors() {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(Object.assign([], authors));
       }, delay);
@@ -38,7 +36,7 @@ class AuthorApi {
   }
 
   static saveAuthor(author) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simulate server-side validation
         const minAuthorNameLength = 3;
@@ -67,9 +65,11 @@ class AuthorApi {
   }
 
   static deleteAuthor(authorId) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const indexOfAuthorToDelete = authors.findIndex(author => { author.authorId == authorId; } );
+        const indexOfAuthorToDelete = authors.findIndex(author => {
+          author.authorId == authorId;
+        });
         authors.splice(indexOfAuthorToDelete, 1);
         resolve();
       }, delay);
