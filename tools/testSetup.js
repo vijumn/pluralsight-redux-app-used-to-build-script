@@ -9,21 +9,14 @@
 
 /* This setting assures the .babelrc dev config (which includes
  hot module reloading code) doesn't apply for tests.
- But also, setting the environment to prod here
- assures that our tests are run against the
- production version of React which has 3 advantages:
- 1. It runs faster
- 2. It assures we're testing the final prod code (obviously)
- 3. We don't have to pass all required PropTypes in our tests.
- If we set the environment to something other than production
- then we have to pass every required propType or propType warnings
- will litter our test results.
-
- However, it also has a downside:
- 1. You won't see any PropType validation warnings, since the
+ But also, we don't want to set it to production here for
+ two reasons:
+ 1. You won't see any PropType validation warnings when
  code is running in prod mode.
+ 2. Tests will not display detailed error messages
+ when running against production version code
  */
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = 'test';
 
 // Register babel so that it will transpile ES6 to ES5
 // before our tests run.
