@@ -90,7 +90,7 @@ ManageCoursePage.propTypes = {
 
 //Pull in the React Router context so router is available on this.context.router.
 ManageCoursePage.contextTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object
 };
 
 function getCourseById(courses, id) {
