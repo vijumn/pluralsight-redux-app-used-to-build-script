@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
-import {browserHistory} from 'react-router';
+import {withRouter} from 'react-router-dom';
 import * as courseActions from '../../actions/courseActions';
 import CourseList from './CourseList';
 
@@ -14,7 +14,7 @@ class CoursesPage extends React.Component {
   }
 
   redirectToAddCoursePage() {
-    browserHistory.push('/course');
+    this.props.history.push('/course');
   }
 
   render() {
@@ -34,7 +34,8 @@ class CoursesPage extends React.Component {
 
 CoursesPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  courses: PropTypes.array.isRequired
+  courses: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
@@ -49,4 +50,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CoursesPage));

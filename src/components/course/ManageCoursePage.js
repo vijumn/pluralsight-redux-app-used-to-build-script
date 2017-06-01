@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
@@ -14,7 +15,8 @@ export class ManageCoursePage extends React.Component {
     this.state = {
       course: Object.assign({}, this.props.course),
       errors: {},
-      saving: false
+      saving: false,
+      redirect: false
     };
 
     this.saveCourse = this.saveCourse.bind(this);
@@ -65,12 +67,15 @@ export class ManageCoursePage extends React.Component {
   }
 
   redirect() {
-    this.setState({saving: false});
+    this.setState({saving: false, redirect: true});
     toastr.success('Course saved.');
-    this.context.router.push('/courses');
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/courses" />;
+    }
+
     return (
       <CourseForm
         course={this.state.course}
@@ -87,12 +92,8 @@ export class ManageCoursePage extends React.Component {
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   authors: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
-};
-
-//Pull in the React Router context so router is available on this.context.router.
-ManageCoursePage.contextTypes = {
-  router: PropTypes.object
+  actions: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 };
 
 function getCourseById(courses, id) {
@@ -102,7 +103,7 @@ function getCourseById(courses, id) {
 }
 
 function mapStateToProps(state, ownProps) {
-  const courseId = ownProps.params.id; // from the path `/course/:id`
+  const courseId = ownProps.match.params.id; // from the path `/course/:id`
 
   let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
 
