@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import LoadingDots from './LoadingDots';
 
 const Header = ({loading}) => {
+  const activeStyle = { color: 'blue' };
   return (
     <nav>
-      <Link to="/">Home</Link>
+      <NavLink to="/" activeStyle={activeStyle} exact>Home</NavLink>
       {" | "}
-      <Link to="/courses">Courses</Link>
+      <NavLink to="/courses" activeStyle={activeStyle}>Courses</NavLink>
       {" | "}
-      <Link to="/about">About</Link>
+      <NavLink to="/about" activeStyle={activeStyle}>About</NavLink>
       {loading && <LoadingDots interval={100} dots={20}/>}
     </nav>
   );
