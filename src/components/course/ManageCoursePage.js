@@ -29,7 +29,7 @@ export class ManageCoursePage extends React.Component {
 
   updateCourseState(event) {
     const field = event.target.name;
-    let course = this.state.course;
+    let course = Object.assign({}, this.state.course);
     course[field] = event.target.value;
     return this.setState({course: course});
   }
