@@ -96,9 +96,8 @@ class CourseApi {
   static deleteCourse(courseId) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const indexOfCourseToDelete = courses.findIndex(course => {
-          course.courseId == courseId;
-        });
+        // Bug fix for issue #6 - Now returns since return is implied on arrow funcs without braces.
+        const indexOfCourseToDelete = courses.findIndex(course => course.courseId == courseId );
         courses.splice(indexOfCourseToDelete, 1);
         resolve();
       }, delay);

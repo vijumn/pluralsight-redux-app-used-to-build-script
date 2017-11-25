@@ -70,9 +70,8 @@ class AuthorApi {
   static deleteAuthor(authorId) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const indexOfAuthorToDelete = authors.findIndex(author => {
-          author.authorId == authorId;
-        });
+        // Bug fix for issue #6 - Now returns since return is implied on arrow funcs without braces.
+        const indexOfAuthorToDelete = authors.findIndex(author => author.id == authorId );
         authors.splice(indexOfAuthorToDelete, 1);
         resolve();
       }, delay);
