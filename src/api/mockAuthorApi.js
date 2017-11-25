@@ -36,6 +36,8 @@ class AuthorApi {
   }
 
   static saveAuthor(author) {
+    // clone to avoid mutating reference passed in.
+    author = Object.assign({}, author);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simulate server-side validation
@@ -59,7 +61,8 @@ class AuthorApi {
           authors.push(author);
         }
 
-        resolve(Object.assign({}, author));
+        // Just return here, since cloning at the beginning of the function instead.
+        resolve(author);
       }, delay);
     });
   }

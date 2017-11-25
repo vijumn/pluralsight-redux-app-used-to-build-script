@@ -65,6 +65,8 @@ class CourseApi {
   }
 
   static saveCourse(course) {
+    // clone to avoid mutating reference passed in.
+    course = Object.assign({}, course);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simulate server-side validation
@@ -85,7 +87,8 @@ class CourseApi {
           courses.push(course);
         }
 
-        resolve(Object.assign({}, course));
+        // Just return here, since cloning at the beginning of the function instead.
+        resolve(course);
       }, delay);
     });
   }
