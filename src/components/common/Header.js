@@ -5,6 +5,7 @@ import LoadingDots from './LoadingDots';
 const Header = ({loading}) => {
   return (
     <nav>
+      <img src={require('../../images/pluralsight.png')} />
       <IndexLink to="/" activeClassName="active">Home</IndexLink>
       {" | "}
       <Link to="/courses" activeClassName="active">Courses</Link>
