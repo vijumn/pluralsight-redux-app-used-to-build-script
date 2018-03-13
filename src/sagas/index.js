@@ -5,8 +5,9 @@ import * as ajaxActions from "../actions/ajaxStatusActions";
 import CourseApi from "../api/mockCourseApi";
 import AuthorApi from "../api/mockAuthorApi";
 import {
+  LOAD_COURSES,
+  SAVE_COURSE,
   LOAD_COURSES_SUCCESS,
-  SAVE_COURSE_SUCCESS,
   AJAX_CALL_ERROR
 } from "../actions/actionTypes";
 
@@ -48,9 +49,9 @@ export function* watchSaveCourse() {
 }
 
 function* watchAndLog() {
-  while (true) {
-    const action = yield take("*");
-    const state = yield select();
+  while (true) { // eslint-disable-line no-constant-condition
+    let action = yield take("*");
+    let state = yield select();
 
     console.log("action", action); //eslint-disable-line no-console
     console.log("state after", state); //eslint-disable-line no-console
