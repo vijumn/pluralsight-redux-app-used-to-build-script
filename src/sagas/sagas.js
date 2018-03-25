@@ -18,7 +18,7 @@ export function* loadCourses() {
     const courses = yield call(CourseApi.getAllCourses); // call func. Can optionally pass additional params (as 2nd param) to pass to args to the func
     yield put(courseActions.loadCoursesSuccess(courses)); // dispatch an action
   } catch (error) {
-    yield put(courseActions.ajaxCallError(error)); // dispatch an action
+    yield put(ajaxActions.ajaxCallError(error)); // dispatch an action
   }
 }
 

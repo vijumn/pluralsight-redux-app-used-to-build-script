@@ -2,8 +2,8 @@ import CourseApi from "../api/mockCourseApi";
 import * as types from "./actionTypes";
 import { beginAjaxCall, ajaxCallError } from "./ajaxStatusActions";
 
-export function loadCourses() {
-  return { type: types.LOAD_COURSES };
+export function loadCoursesSuccess(courses) {
+  return { type: types.LOAD_COURSES_SUCCESS, courses };
 }
 
 export function createCourseSuccess(course) {
