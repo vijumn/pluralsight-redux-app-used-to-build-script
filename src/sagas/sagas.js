@@ -1,15 +1,10 @@
-import { takeLatest, put, call, all, select, take } from "redux-saga/effects";
+/* eslint-disable no-constant-condition no-console */
+import { takeLatest, fork, put, call, all, select, take } from "redux-saga/effects";
 import * as authorActions from "../actions/authorActions";
 import * as courseActions from "../actions/courseActions";
 import * as ajaxActions from "../actions/ajaxStatusActions";
 import CourseApi from "../api/mockCourseApi";
 import AuthorApi from "../api/mockAuthorApi";
-import {
-  LOAD_COURSES,
-  SAVE_COURSE,
-  LOAD_COURSES_SUCCESS,
-  AJAX_CALL_ERROR
-} from "../actions/actionTypes";
 
 export function* loadAuthors() {
   yield put(ajaxActions.beginAjaxCall);
@@ -19,11 +14,11 @@ export function* loadAuthors() {
 
 export function* loadCourses() {
   try {
-    yield put(ajaxActions.beginAjaxCall);
-    const courses = yield call(CourseApi.getAllCourses); // call a func. Can optionally pass additional params to call to args to the func
-    yield put({ type: LOAD_COURSES_SUCCESS, courses }); // dispatch an action
+    yield put(ajaxActions.beginAjaxCall()); // dispatch an action
+    const courses = yield call(CourseApi.getAllCourses); // call func. Can optionally pass additional params (as 2nd param) to pass to args to the func
+    yield put(courseActions.loadCoursesSuccess(courses)); // dispatch an action
   } catch (error) {
-    yield put({ type: AJAX_CALL_ERROR, error }); // dispatch an action
+    yield put(courseActions.ajaxCallError(error)); // dispatch an action
   }
 }
 
@@ -38,7 +33,7 @@ export function* saveCourse(course) {
   yield put(action);
 }
 
-// Spawn a new loadCourse task on each SAVE_COURSE
+// Spawn a new loadCourse task on each LOAD_COURSE
 export function* watchLoadCourses() {
   yield take(LOAD_COURSES, loadCourses);
 }
@@ -49,16 +44,21 @@ export function* watchSaveCourse() {
 }
 
 function* watchAndLog() {
-  while (true) { // eslint-disable-line no-constant-condition
+  while (true) {
     let action = yield take("*");
     let state = yield select();
 
-    console.log("action", action); //eslint-disable-line no-console
-    console.log("state after", state); //eslint-disable-line no-console
+    console.log("action", action);
+    console.log("state after", state);
   }
 }
 
-export default function* root() {
-  // This will start all the sagas in paralell.
-  yield all([loadCourses(), loadAuthors(), watchSaveCourse(), watchAndLog()]);
+export default function* rootSaga() {
+  // Start all sagas in paralell.
+  yield all([
+    fork(loadCourses)
+    // fork(loadAuthors),
+    // fork(watchSaveCourse),
+    // fork(watchAndLog)
+  ]);
 }
