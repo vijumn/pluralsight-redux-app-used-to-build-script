@@ -29,6 +29,7 @@ export function* loadCourses() {
 }
 
 export function* saveCourse(course) {
+  yield put(ajaxActions.beginAjaxCall()); // dispatch an action
   // yield will suspend the saga until it comples.
   const savedCourse = yield call(CourseApi.saveCourse, course);
   // Put is an effect. Effects are just JS objects that contain instructions that are handled by middleware.
