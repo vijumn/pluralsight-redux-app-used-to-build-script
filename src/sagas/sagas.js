@@ -7,6 +7,7 @@ import * as ajaxActions from "../actions/ajaxStatusActions";
 import {SAVE_COURSE, LOAD_COURSES} from '../actions/actionTypes';
 import CourseApi from "../api/mockCourseApi";
 import AuthorApi from "../api/mockAuthorApi";
+import { fail } from "assert";
 
 export function* loadAuthors() {
   try {
@@ -28,16 +29,21 @@ export function* loadCourses() {
   }
 }
 
-export function* saveCourse(course) {
-  yield put(ajaxActions.beginAjaxCall()); // dispatch an action
-  // yield will suspend the saga until it comples.
-  const savedCourse = yield call(CourseApi.saveCourse, course);
-  // Put is an effect. Effects are just JS objects that contain instructions that are handled by middleware.
-  // Sagas are paused while the middlware is processing a yielded effect.
-  const action = course.id
-    ? courseActions.updateCourseSuccess(savedCourse)
-    : courseActions.createCourseSuccess(savedCourse);
-  yield put(action);
+export function* saveCourse(course, successCallback, failureCallback) {
+  try {
+    yield put(ajaxActions.beginAjaxCall()); // dispatch an action
+    // yield will suspend the saga until it comples.
+    const savedCourse = yield call(CourseApi.saveCourse, course);
+    // Put is an effect. Effects are just JS objects that contain instructions that are handled by middleware.
+    // Sagas are paused while the middlware is processing a yielded effect.
+    const action = course.id
+      ? courseActions.updateCourseSuccess(savedCourse)
+      : courseActions.createCourseSuccess(savedCourse);
+    yield put(action);
+    successCallback();
+  } catch (error) {
+    failureCallback(error);
+  }
 }
 
 // Spawn a new loadCourse task on each LOAD_COURSE
@@ -53,7 +59,7 @@ export function* watchLoadCourses() {
 export function* watchSaveCourse() {
   while(true) {
     const action = yield take(SAVE_COURSE);
-    yield call(saveCourse, action.course);
+    yield call(saveCourse, action.course, action.successCallback, action.failureCallback);
   }
 }
 

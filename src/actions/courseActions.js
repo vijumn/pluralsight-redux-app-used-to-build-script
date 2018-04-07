@@ -18,6 +18,6 @@ export function updateCourseSuccess(course) {
   return { type: types.UPDATE_COURSE_SUCCESS, course };
 }
 
-export function saveCourse(course) {
-  return { type: types.SAVE_COURSE, course };
+export function saveCourse(course, successCallback, failureCallback) {
+  return { type: types.SAVE_COURSE, course, successCallback, failureCallback };
 }

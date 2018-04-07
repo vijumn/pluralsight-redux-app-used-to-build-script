@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as courseActions from '../../actions/courseActions';
+import {saveCourse} from '../../actions/courseActions';
 import CourseForm from './CourseForm';
 import {authorsFormattedForDropdown} from '../../selectors/selectors';
 import toastr from 'toastr';
@@ -18,6 +18,8 @@ export class ManageCoursePage extends React.Component {
 
     this.saveCourse = this.saveCourse.bind(this);
     this.updateCourseState = this.updateCourseState.bind(this);
+    this.saveCourseSuccess = this.saveCourseSuccess.bind(this);
+    this.saveCourseFailure = this.saveCourseFailure.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,18 +57,19 @@ export class ManageCoursePage extends React.Component {
     }
 
     this.setState({saving: true});
-    this.props.actions.saveCourse(this.state.course)
-      .then(() => this.redirect())
-      .catch(error => {
-        toastr.error(error);
-        this.setState({saving: false});
-      });
+    // Passing handlers for success and failure to saga so we can handle each here when the saga completes.
+    this.props.saveCourse(this.state.course, this.saveCourseSuccess, this.saveCourseFailure);
   }
 
-  redirect() {
+  saveCourseSuccess() {
     this.setState({saving: false});
     toastr.success('Course saved.');
     this.context.router.push('/courses');
+  }
+
+  saveCourseFailure(error) {
+    toastr.error(error);
+    this.setState({saving: false});
   }
 
   render() {
@@ -86,7 +89,7 @@ export class ManageCoursePage extends React.Component {
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   authors: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  saveCourse: PropTypes.func.isRequired
 };
 
 //Pull in the React Router context so router is available on this.context.router.
@@ -115,10 +118,6 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(courseActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
+export default connect(
+  mapStateToProps,
+  { saveCourse})(ManageCoursePage);
