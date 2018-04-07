@@ -63,8 +63,8 @@ export default function* rootSaga() {
   // Start all sagas in paralell.
   yield all([
     fork(loadCourses),
-    fork(loadAuthors)
-    // fork(watchSaveCourse),
-    // fork(watchAndLog)
+    fork(loadAuthors),
+    fork(watchSaveCourse),
+    fork(watchAndLog)
   ]);
 }
