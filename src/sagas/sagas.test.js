@@ -1,6 +1,6 @@
 import "babel-polyfill";
 import expect from "expect";
-import { loadCourses } from "./index";
+import { loadCourses } from "./sagas";
 import { call, put } from "redux-saga/effects";
 import CourseApi from "../api/mockCourseApi";
 import { LOAD_COURSES_SUCCESS, AJAX_CALL_ERROR } from "../actions/actionTypes";
