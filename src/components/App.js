@@ -1,14 +1,14 @@
 // This component handles the App template used on every page.
 import React, {PropTypes} from 'react';
+import CourseApi from '../api/mockCourseApi';
 import Header from './common/Header';
-import {connect} from 'react-redux';
 
 class App extends React.Component {
   render() {
     return (
       <div className="container-fluid">
         <Header
-          loading={this.props.loading}
+          loading={false}
         />
         {this.props.children}
       </div>
@@ -17,14 +17,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  children: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired
+  children: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state, ownProps) {
-  return {
-    loading: state.ajaxCallsInProgress > 0
-  };
-}
-
-export default connect(mapStateToProps)(App);
+export default App;
