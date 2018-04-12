@@ -21,6 +21,9 @@ class CoursesPage extends React.Component {
     return (
       <div>
         <h1>Courses</h1>
+        <UserContext.Consumer>
+          { user => <div>Hello {user.username}</div>}
+        </UserContext.Consumer>
         <input type="submit"
                value="Add Course"
                className="btn btn-primary"

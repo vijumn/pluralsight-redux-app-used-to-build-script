@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TextInput from '../common/TextInput';
 import SelectInput from '../common/SelectInput';
+import UserContext from '../UserContext';
 
 const CourseForm = ({course, allAuthors, onSave, onChange, saving, errors}) => {
   return (
     <form>
       <h1>Manage Course</h1>
+      <UserContext.Consumer>
+        { user => <p>Editor: {user.username}</p>}
+      </UserContext.Consumer>
       <TextInput
         name="title"
         label="Title"
