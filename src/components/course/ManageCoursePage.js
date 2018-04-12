@@ -1,4 +1,6 @@
 import React, {PropTypes} from 'react';
+import CourseApi from "../../api/mockCourseApi";
+import AuthorApi from "../../api/mockAuthorApi";
 import CourseForm from './CourseForm';
 import toastr from 'toastr';
 
@@ -8,6 +10,7 @@ export class ManageCoursePage extends React.Component {
 
     this.state = {
       course: Object.assign({}, {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''}),
+      authors: [],
       errors: {},
       saving: false
     };
@@ -16,11 +19,14 @@ export class ManageCoursePage extends React.Component {
     this.updateCourseState = this.updateCourseState.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.course.id != nextProps.course.id) {
-      // Necessary to populate form when existing course is loaded directly.
-      this.setState({course: Object.assign({}, nextProps.course)});
-    }
+  componentDidMount() {
+    CourseApi.getCourseById(this.props.course.id).then(course => {
+      this.setState({course: course});
+    });
+
+    AuthorApi.getAllAuthors().then(authors => {
+      this.setState({authors: authors});
+    });
   }
 
   updateCourseState(event) {
@@ -51,9 +57,10 @@ export class ManageCoursePage extends React.Component {
     }
 
     this.setState({saving: true});
-    this.props.actions.saveCourse(this.state.course)
-      .then(() => this.redirect())
-      .catch(error => {
+    CourseApi.saveCourse(this.state.course).then(course => {
+      this.setState({saving: false});
+      this.redirect()
+    }).catch(error => {
         toastr.error(error);
         this.setState({saving: false});
       });
@@ -72,18 +79,12 @@ export class ManageCoursePage extends React.Component {
         onChange={this.updateCourseState}
         onSave={this.saveCourse}
         errors={this.state.errors}
-        allAuthors={this.props.authors}
+        allAuthors={this.state.authors}
         saving={this.state.saving}
       />
     );
   }
 }
-
-ManageCoursePage.propTypes = {
-  course: PropTypes.object.isRequired,
-  authors: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
-};
 
 //Pull in the React Router context so router is available on this.context.router.
 ManageCoursePage.contextTypes = {
