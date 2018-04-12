@@ -64,6 +64,14 @@ class CourseApi {
     });
   }
 
+  static getCourseById(id) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(Object.assign({}, courses.find(c=>c.id === id)));
+      }, delay);
+    })
+  }
+
   static saveCourse(course) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
