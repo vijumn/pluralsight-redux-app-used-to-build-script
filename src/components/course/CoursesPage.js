@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import * as courseActions from '../../actions/courseActions';
 import CourseList from './CourseList';
+import UserContext from '../UserContext';
 
 class CoursesPage extends React.Component {
   constructor(props, context) {
