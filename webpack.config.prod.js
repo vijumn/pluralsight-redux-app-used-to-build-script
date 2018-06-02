@@ -8,6 +8,7 @@ const GLOBALS = {
 };
 
 export default {
+  mode: 'production',
   devtool: 'source-map', // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
   entry: './src/index',
   target: 'web',
@@ -22,8 +23,6 @@ export default {
   plugins: [
     new webpack.DefinePlugin(GLOBALS),
     new ExtractTextPlugin('styles.css'),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     rules: [
