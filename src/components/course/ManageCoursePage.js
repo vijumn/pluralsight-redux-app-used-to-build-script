@@ -23,11 +23,12 @@ export class ManageCoursePage extends React.Component {
     this.updateCourseState = this.updateCourseState.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.course.id != nextProps.course.id) {
+  static getDerivedStateFromProps(props, state) {
+    if (props.course.id != state.course.id) {
       // Necessary to populate form when existing course is loaded directly.
-      this.setState({course: Object.assign({}, nextProps.course)});
+      return props.course;
     }
+    return null;
   }
 
   updateCourseState(event) {
