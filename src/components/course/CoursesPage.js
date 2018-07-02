@@ -2,12 +2,14 @@ import React, {PropTypes} from 'react';
 import {browserHistory} from 'react-router';
 import CourseApi from '../../api/mockCourseApi';
 import CourseList from './CourseList';
+import LoadingDots from '../common/LoadingDots';
 
 class CoursesPage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      courses: []
+      courses: [],
+      loading: true
     };
 
     this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
@@ -15,8 +17,8 @@ class CoursesPage extends React.Component {
 
   componentDidMount() {
     CourseApi.getAllCourses().then(courses => {
-      this.setState({courses: courses});
-    })
+      this.setState({courses: courses, loading: false});
+    });
   }
 
   redirectToAddCoursePage() {
@@ -24,6 +26,7 @@ class CoursesPage extends React.Component {
   }
 
   render() {
+    if (this.state.loading) return <LoadingDots />;
     return (
       <div>
         <h1>Courses</h1>
