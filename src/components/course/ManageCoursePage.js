@@ -12,7 +12,8 @@ export class ManageCoursePage extends React.Component {
       course: Object.assign({}, {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''}),
       authors: [],
       errors: {},
-      saving: false
+      saving: false,
+      loading: true
     };
 
     this.saveCourse = this.saveCourse.bind(this);
@@ -20,11 +21,12 @@ export class ManageCoursePage extends React.Component {
   }
 
   componentDidMount() {
-    CourseApi.getCourseById(this.props.course.id).then(course => {
-      this.setState({course: course});
+    CourseApi.getCourseById(this.props.params.id).then(course => {
+      this.setState({course: course, loading: false});
     });
 
-    AuthorApi.getAllAuthors().then(authors => {
+    AuthorApi.getAllAuthors().then(response => {
+      const authors = response.map(author => ({value: author.id, text: author.firstName + ' ' + author.lastName}));
       this.setState({authors: authors});
     });
   }
