@@ -18,10 +18,9 @@ export default function courses(state = initialState.courses, action) {
       ];
 
     case types.UPDATE_COURSE_SUCCESS:
-      return [
-        ...state.filter(course => course.id !== action.course.id),
-        Object.assign({}, action.course)
-      ];
+      return state.map(
+        course => (course.id === action.course.id ? action.course : course)
+      );
 
     default:
       return state;
