@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 
 export default {
@@ -20,7 +21,8 @@ export default {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new HtmlWebpackPlugin({ template: 'src/index.html'})
   ],
   module: {
     rules: [
