@@ -1,10 +1,9 @@
-import 'babel-polyfill';
+import '@babel/polyfill';
 import React from 'react';
 import {render} from 'react-dom';
-import {Route, BrowserRouter as Router} from 'react-router-dom';
-import App from './components/App';
+import Root from './components/Root';
+import { AppContainer } from 'react-hot-loader';
 import configureStore from './store/configureStore';
-import {Provider} from 'react-redux';
 import {loadCourses} from './actions/courseActions';
 import {loadAuthors} from './actions/authorActions';
 import './styles/styles.css'; //Webpack can import CSS files too!
@@ -18,10 +17,20 @@ store.dispatch(loadCourses());
 store.dispatch(loadAuthors());
 
 render(
-  <Provider store={store}>
-    <Router>
-      <Route path="/" component={App} />
-    </Router>
-  </Provider>,
+  <AppContainer>
+    <Root store={store} history={history} />
+  </AppContainer>,
   document.getElementById('app')
 );
+
+if (module.hot) {
+  module.hot.accept('./components/Root', () => {
+    const NewRoot = require('./components/Root').default;
+    render(
+      <AppContainer>
+        <NewRoot store={store} history={history} />
+      </AppContainer>,
+      document.getElementById('app')
+    );
+  });
+}
