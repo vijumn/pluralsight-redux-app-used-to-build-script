@@ -7,6 +7,11 @@ const CourseForm = ({course, allAuthors, onSave, onChange, saving, errors}) => {
   return (
     <form>
       <h1>Manage Course</h1>
+      {errors.onSave && (
+        <div className="alert alert-danger" role="alert">
+          { errors.onSave }
+        </div>
+      )}
       <TextInput
         name="title"
         label="Title"
