@@ -7,24 +7,41 @@ import * as courseActions from '../../actions/courseActions';
 import CourseList from './CourseList';
 
 class CoursesPage extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  state = {
+    displaySavedMessage: false
+  };
 
-    this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
+  // TODO: USE REDIRECT INSTEAD TO SHOW HOW THAT WORKS
+  redirectToAddCoursePage = () => {
+    this.props.history.push("/course");
+  };
+
+  componentDidMount() {
+    const saved = this.props.location.state && this.props.location.state.saved;
+    if (saved)
+      this.setState({ displaySavedMessage: true }, this.hideAlertAfterDelay());
   }
 
-  redirectToAddCoursePage() {
-    this.props.history.push('/course');
-  }
+  hideAlertAfterDelay = () => {
+    setTimeout(() => {
+      this.setState({ displaySavedMessage: false });
+    }, 2000);
+  };
 
   render() {
     return (
       <div>
         <h1>Courses</h1>
-        <input type="submit"
-               value="Add Course"
-               className="btn btn-primary"
-               onClick={this.redirectToAddCoursePage}/>
+        {this.state.displaySavedMessage && (
+          <div className="alert alert-success" role="alert">
+            Course saved.
+          </div>
+        )}
+        <input
+          type="submit"
+          value="Add Course"
+          className="btn btn-primary"
+          onClick={this.redirectToAddCoursePage}/>
 
         <CourseList courses={this.props.courses}/>
       </div>

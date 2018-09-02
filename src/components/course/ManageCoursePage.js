@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
 import {authorsFormattedForDropdown} from '../../selectors/selectors';
-import toastr from 'toastr';
 
 export class ManageCoursePage extends React.Component {
   constructor(props, context) {
@@ -18,9 +16,6 @@ export class ManageCoursePage extends React.Component {
       saving: false,
       redirect: false
     };
-
-    this.saveCourse = this.saveCourse.bind(this);
-    this.updateCourseState = this.updateCourseState.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -31,7 +26,7 @@ export class ManageCoursePage extends React.Component {
     return null;
   }
 
-  updateCourseState(event) {
+  updateCourseState = event => {
     const field = event.target.name;
     // Fix: Clone state to avoid manipulating below.
     let course = Object.assign({}, this.state.course);
@@ -52,7 +47,7 @@ export class ManageCoursePage extends React.Component {
     return formIsValid;
   }
 
-  saveCourse(event) {
+  saveCourse = event => {
     event.preventDefault();
 
     if (!this.courseFormIsValid()) {
@@ -61,23 +56,17 @@ export class ManageCoursePage extends React.Component {
 
     this.setState({saving: true});
     this.props.actions.saveCourse(this.state.course)
-      .then(() => this.redirect())
+      .then(() => this.props.history.push('/courses', { saved: true }))
       .catch(error => {
-        toastr.error(error);
-        this.setState({saving: false});
+        this.setState({saving: false, errors: {onSave: error}});
       });
   }
 
   redirect() {
     this.setState({saving: false, redirect: true});
-    toastr.success('Course saved.');
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to="/courses" />;
-    }
-
     return (
       <CourseForm
         course={this.state.course}
