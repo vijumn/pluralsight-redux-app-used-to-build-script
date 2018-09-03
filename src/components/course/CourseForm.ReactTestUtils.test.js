@@ -1,46 +1,38 @@
 import expect from 'expect';
 import React from 'react';
-import {createRenderer} from 'react-test-renderer/shallow';
+import TestRenderer from 'react-test-renderer';
 import CourseForm from './CourseForm';
 
-function setup(saving) {
-  let props = {
+function getCourseForm(args) {
+  const defaultProps = {
     allAuthors: [],
     course: {},
-    saving: saving,
+    saving: false,
     errors: {},
     onSave: () => {},
     onChange: () => {}
   };
-
-  let renderer = createRenderer();
-  renderer.render(<CourseForm {...props}/>);
-  let output = renderer.getRenderOutput();
-
-  return {
-    props,
-    output,
-    renderer
-  };
+  const props = {...defaultProps, ...args};
+  return TestRenderer.create(<CourseForm {...props} />).root;
 }
 
 describe('CourseForm via React Test Utils', () => {
   it('renders form and h1', () => {
-    const { output } = setup();
-    expect(output.type).toBe('form');
-    let [ h1 ] = output.props.children;
-    expect(h1.type).toBe('h1');
+    const root = getCourseForm();
+    expect(root.findAllByType('form').length).toEqual(1);
+    expect(root.findAllByType('h1').length).toEqual(1);
   });
 
   it('save button is labeled "Save" when not saving', () => {
-    const { output } = setup(false);
-    const submitButton = output.props.children[5];
+    const root = getCourseForm();
+    const submitButton = root.findByProps({type: 'submit'});
     expect(submitButton.props.value).toBe('Save');
   });
 
   it('save button is labeled "Saving..." when saving', () => {
-    const { output } = setup(true);
-    const submitButton = output.props.children[5];
+    // console.log(TestRenderer.create(<CourseForm {...props} />).toJSON());
+    const root = getCourseForm({saving: true});
+    const submitButton = root.findByProps({type: 'submit'});
     expect(submitButton.props.value).toBe('Saving...');
   });
 });
