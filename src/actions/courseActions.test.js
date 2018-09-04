@@ -49,10 +49,6 @@ describe('Async Actions', () => {
       //   .get('/courses')
       //   .reply(200, { body: { course: [{ id: 'clean-code', title: 'Clean Code'}] }});
 
-      const expectedActions = [
-        {type: types.BEGIN_AJAX_CALL},
-        {type: types.LOAD_COURSES_SUCCESS, body: {courses: [{id: 'clean-code', title: 'Clean Code'}]}}
-      ];
       const store = mockStore({courses: []});
       store.dispatch(courseActions.loadCourses()).then(() => {
         const actions = store.getActions();
