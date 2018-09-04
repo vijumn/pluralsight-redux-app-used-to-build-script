@@ -32,7 +32,7 @@ App.propTypes = {
   match: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) { // eslint-disable-line no-unused-vars
   return {
     loading: state.ajaxCallsInProgress > 0
   };
