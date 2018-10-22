@@ -54,7 +54,13 @@ export default {
           {
             loader: 'css-loader',
             options: {
-              minimize: true,
+              sourceMap: true
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins: () => [require("cssnano"), require("autoprefixer")],
               sourceMap: true
             }
           }
