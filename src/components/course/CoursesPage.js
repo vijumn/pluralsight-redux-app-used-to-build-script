@@ -67,7 +67,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-// TODO: withRouter necessary?
+// TODO: Eliminate. withRouter shouldn't be necessary since using Redirect.
 export default withRouter(
   connect(
     mapStateToProps,
