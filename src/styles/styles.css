@@ -13,3 +13,7 @@ a.active {
 nav {
   padding-top: 20px;
 }
+
+.alert-success {
+  transition: visibility 0s, opacity 0.5s linear;
+}
