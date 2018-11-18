@@ -1,38 +1,36 @@
-// import expect from 'expect';
-// import React from 'react';
-// import { cleanup, render } from 'react-testing-library';
-// import CourseForm from './CourseForm';
+import React from "react";
+import { cleanup, render } from "react-testing-library";
+import CourseForm from "./CourseForm";
 
-// afterEach(cleanup);
+afterEach(cleanup);
 
-// function getCourseForm(args) {
-//   let defaultProps = {
-//     allAuthors: [],
-//     course: {},
-//     saving: false,
-//     errors: {},
-//     onSave: () => {},
-//     onChange: () => {}
-//   };
+function renderCourseForm(args) {
+  let defaultProps = {
+    allAuthors: [],
+    course: {},
+    saving: false,
+    errors: {},
+    onSave: () => {},
+    onChange: () => {}
+  };
 
-//   const props = {...defaultProps, args};
-//   return <CourseForm {...props}/>;
-// }
+  const props = { ...defaultProps, ...args };
+  return render(<CourseForm {...props} />);
+}
 
-// describe('CourseForm via React Test Utils', () => {
-//   it('should render h1', () => {
-//     const { getByText } = render(getCourseForm());
-//     const header = getByText('Course Form');
-//     expect(header).toExist();
-//   });
+describe("CourseForm via React Test Utils", () => {
+  it("should render h1", () => {
+    const { getByText } = renderCourseForm();
+    getByText("Manage Course");
+  });
 
-//   it('should label save button as "Save" when not saving', () => {
-//     const { getByText } = render(getCourseForm());
-//     expect(getByText('Save')).toExist();
-//   });
+  it('should label save button as "Save" when not saving', () => {
+    const { getByText } = renderCourseForm();
+    getByText("Save");
+  });
 
-//   it('should label save button as "Saving..." when saving', () => {
-//     const { getByText } = render(getCourseForm({saving: true}));
-//     expect(getByText('Saving...')).toExist();
-//   });
-// });
+  it('should label save button as "Saving..." when saving', () => {
+    const { getByText } = renderCourseForm({ saving: true });
+    getByText("Saving...");
+  });
+});
