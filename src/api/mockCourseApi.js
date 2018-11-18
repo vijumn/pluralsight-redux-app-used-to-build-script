@@ -90,15 +90,13 @@ const generateId = (course) => {
 class CourseApi {
   static getAllCourses() {
     return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(Object.assign([], courses));
-      }, delay);
+      setTimeout(() => resolve([...courses]), delay);
     });
   }
 
   static saveCourse(course) {
     // clone to avoid mutating reference passed in.
-    course = Object.assign({}, course);
+    course = {...course};
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simulate server-side validation
