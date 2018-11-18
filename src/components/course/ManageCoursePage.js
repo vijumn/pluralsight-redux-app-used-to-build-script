@@ -28,11 +28,8 @@ export class ManageCoursePage extends React.Component {
   }
 
   updateCourseState = event => {
-    const field = event.target.name;
-    // Fix: Clone state to avoid manipulating below.
-    let course = Object.assign({}, this.state.course);
-    course[field] = event.target.value;
-    return this.setState({ course: course });
+    let course = {...this.state.course, [event.target.name]: event.target.value };
+    return this.setState({ course });
   };
 
   courseFormIsValid() {
@@ -57,7 +54,11 @@ export class ManageCoursePage extends React.Component {
 
     this.setState({ saving: true });
     this.props.actions
-      .saveCourse(this.state.course)
+    .saveCourse(this.state.course)
+      // TODO: Note that this uses an alternative style of redirect. See CoursesPage for <Redirect/>
+      // More: https://tylermcginnis.com/react-router-programmatically-navigate/
+      // The 2nd param passes state so toast shows.
+      // Perhaps I should use a React component like react-toast instead of my homemade notification.
       .then(() => this.props.history.push("/courses", { saved: true }))
       .catch(error => {
         this.setState({ saving: false, errors: { onSave: error } });
