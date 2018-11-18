@@ -11,7 +11,7 @@ export class ManageCoursePage extends React.Component {
     super(props, context);
 
     this.state = {
-      course: {...this.props.course },
+      course: { ...this.props.course },
       errors: {},
       saving: false,
       redirect: false
@@ -28,7 +28,10 @@ export class ManageCoursePage extends React.Component {
   }
 
   updateCourseState = event => {
-    let course = {...this.state.course, [event.target.name]: event.target.value };
+    let course = {
+      ...this.state.course,
+      [event.target.name]: event.target.value
+    };
     return this.setState({ course });
   };
 
@@ -54,7 +57,7 @@ export class ManageCoursePage extends React.Component {
 
     this.setState({ saving: true });
     this.props.actions
-    .saveCourse(this.state.course)
+      .saveCourse(this.state.course)
       // TODO: Note that this uses an alternative style of redirect. See CoursesPage for <Redirect/>
       // More: https://tylermcginnis.com/react-router-programmatically-navigate/
       // The 2nd param passes state so toast shows.

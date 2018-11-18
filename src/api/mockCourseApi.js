@@ -1,10 +1,10 @@
-import delay from './delay';
+import delay from "./delay";
 
 // This file mocks a web API by working with the hard-coded data below.
 // It uses setTimeout to simulate the delay of an AJAX call.
 // All calls return promises.
 const courses = [
-    {
+  {
     id: "react-big-picture",
     title: "React: The Big Picture",
     watchHref: "http://www.pluralsight.com/courses/react-big-picture",
@@ -15,15 +15,17 @@ const courses = [
   {
     id: "react-creating-reusable-components",
     title: "Creating Reusable React Components",
-    watchHref: "http://www.pluralsight.com/courses/react-creating-reusable-components",
+    watchHref:
+      "http://www.pluralsight.com/courses/react-creating-reusable-components",
     authorId: "cory-house",
     length: "1:11",
     category: "JavaScript"
   },
-   {
+  {
     id: "javascript-development-environment",
     title: "Building a JavaScript Development Environment",
-    watchHref: "http://www.pluralsight.com/courses//javascript-development-environment",
+    watchHref:
+      "http://www.pluralsight.com/courses//javascript-development-environment",
     authorId: "cory-house",
     length: "5:19",
     category: "JavaScript"
@@ -31,15 +33,17 @@ const courses = [
   {
     id: "react-flux-building-applications",
     title: "Building Applications in React and Flux",
-    watchHref: "http://www.pluralsight.com/courses/react-flux-building-applications",
+    watchHref:
+      "http://www.pluralsight.com/courses/react-flux-building-applications",
     authorId: "cory-house",
     length: "6:20",
     category: "JavaScript"
   },
-    {
+  {
     id: "react-redux-react-router-es6",
     title: "Building Applications with React and Redux in ES6",
-    watchHref: "http://www.pluralsight.com/courses/react-redux-react-router-es6",
+    watchHref:
+      "http://www.pluralsight.com/courses/react-redux-react-router-es6",
     authorId: "cory-house",
     length: "6:13",
     category: "JavaScript"
@@ -55,7 +59,8 @@ const courses = [
   {
     id: "architecture",
     title: "Architecting Applications for the Real World",
-    watchHref: "http://www.pluralsight.com/courses/architecting-applications-dotnet",
+    watchHref:
+      "http://www.pluralsight.com/courses/architecting-applications-dotnet",
     authorId: "cory-house",
     length: "2:52",
     category: "Software Architecture"
@@ -63,7 +68,8 @@ const courses = [
   {
     id: "career-reboot-for-developer-mind",
     title: "Becoming an Outlier: Reprogramming the Developer Mind",
-    watchHref: "http://www.pluralsight.com/courses/career-reboot-for-developer-mind",
+    watchHref:
+      "http://www.pluralsight.com/courses/career-reboot-for-developer-mind",
     authorId: "cory-house",
     length: "2:30",
     category: "Career"
@@ -79,12 +85,12 @@ const courses = [
 ];
 
 function replaceAll(str, find, replace) {
-  return str.replace(new RegExp(find, 'g'), replace);
+  return str.replace(new RegExp(find, "g"), replace);
 }
 
 //This would be performed on the server in a real app. Just stubbing in.
-const generateId = (course) => {
-  return replaceAll(course.title, ' ', '-');
+const generateId = course => {
+  return replaceAll(course.title, " ", "-");
 };
 
 class CourseApi {
@@ -96,7 +102,7 @@ class CourseApi {
 
   static saveCourse(course) {
     // clone to avoid mutating reference passed in.
-    course = {...course};
+    course = { ...course };
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simulate server-side validation
@@ -124,9 +130,11 @@ class CourseApi {
   }
 
   static deleteCourse(courseId) {
-    return new Promise( resolve => {
+    return new Promise(resolve => {
       setTimeout(() => {
-        const indexOfCourseToDelete = courses.findIndex(course => course.courseId == courseId );
+        const indexOfCourseToDelete = courses.findIndex(
+          course => course.courseId == courseId
+        );
         courses.splice(indexOfCourseToDelete, 1);
         resolve();
       }, delay);

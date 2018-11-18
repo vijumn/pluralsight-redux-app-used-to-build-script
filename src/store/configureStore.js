@@ -1,7 +1,7 @@
-import {createStore, applyMiddleware, compose} from 'redux';
-import rootReducer from '../reducers';
-import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
-import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from "redux";
+import rootReducer from "../reducers";
+import reduxImmutableStateInvariant from "redux-immutable-state-invariant";
+import thunk from "redux-thunk";
 
 function configureStoreProd(initialState) {
   return createStore(
@@ -12,7 +12,8 @@ function configureStoreProd(initialState) {
 }
 
 function configureStoreDev(initialState) {
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for Redux dev tools
+  const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for Redux dev tools
 
   const store = createStore(
     rootReducer,
@@ -22,8 +23,8 @@ function configureStoreDev(initialState) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers').default; // eslint-disable-line global-require
+    module.hot.accept("../reducers", () => {
+      const nextRootReducer = require("../reducers").default; // eslint-disable-line global-require
       store.replaceReducer(nextRootReducer);
     });
   }
@@ -31,6 +32,9 @@ function configureStoreDev(initialState) {
   return store;
 }
 
-const configureStore = process.env.NODE_ENV === 'production' ? configureStoreProd : configureStoreDev;
+const configureStore =
+  process.env.NODE_ENV === "production"
+    ? configureStoreProd
+    : configureStoreDev;
 
 export default configureStore;

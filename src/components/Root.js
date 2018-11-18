@@ -1,9 +1,9 @@
-import '@babel/polyfill';
-import PropTypes from 'prop-types';
-import React from 'react';
-import {Route, BrowserRouter as Router} from 'react-router-dom';
-import App from './App';
-import {Provider} from 'react-redux';
+import "@babel/polyfill";
+import PropTypes from "prop-types";
+import React from "react";
+import { Route, BrowserRouter as Router } from "react-router-dom";
+import App from "./App";
+import { Provider } from "react-redux";
 
 export default class Root extends React.Component {
   render() {

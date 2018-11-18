@@ -1,17 +1,17 @@
-import expect from 'expect';
-import * as courseActions from './courseActions';
-import * as types from './actionTypes';
+import expect from "expect";
+import * as courseActions from "./courseActions";
+import * as types from "./actionTypes";
 
-import thunk from 'redux-thunk';
-import nock from 'nock';
-import configureMockStore from 'redux-mock-store';
+import thunk from "redux-thunk";
+import nock from "nock";
+import configureMockStore from "redux-mock-store";
 
 // Test a sync action
-describe('Course Actions', () => {
-  describe('createCourseSuccess', () => {
-    it('should create a CREATE_COURSE_SUCCESS action', () => {
+describe("Course Actions", () => {
+  describe("createCourseSuccess", () => {
+    it("should create a CREATE_COURSE_SUCCESS action", () => {
       //arrange
-      const course = {id: 'clean-code', title: 'Clean Code'};
+      const course = { id: "clean-code", title: "Clean Code" };
       const expectedAction = {
         type: types.CREATE_COURSE_SUCCESS,
         course: course
@@ -30,13 +30,13 @@ describe('Course Actions', () => {
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 
-describe('Async Actions', () => {
+describe("Async Actions", () => {
   afterEach(() => {
     nock.cleanAll();
   });
 
-  describe('Course Actions Thunk', () => {
-    it('should create BEGIN_AJAX_CALL and LOAD_COURSES_SUCCESS when loading courses', (done) => {
+  describe("Course Actions Thunk", () => {
+    it("should create BEGIN_AJAX_CALL and LOAD_COURSES_SUCCESS when loading courses", done => {
       // In a real app, you'd likely make a real HTTP call.
       // To mock out that http call, you can use Nock to intercept all
       // calls to a given address or pattern. This means you can test
@@ -49,7 +49,7 @@ describe('Async Actions', () => {
       //   .get('/courses')
       //   .reply(200, { body: { course: [{ id: 'clean-code', title: 'Clean Code'}] }});
 
-      const store = mockStore({courses: []});
+      const store = mockStore({ courses: [] });
       store.dispatch(courseActions.loadCourses()).then(() => {
         const actions = store.getActions();
         expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
