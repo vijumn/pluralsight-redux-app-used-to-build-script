@@ -27,7 +27,6 @@ class CoursesPage extends React.Component {
   render() {
     return (
       <div>
-        {/* TODO: Shouldn't it be called redirectToCoursesPage? */}
         {this.state.redirectToAddCoursePage && <Redirect to="/course" />}
         <h1>Courses</h1>
         {this.state.displaySavedMessage && (
