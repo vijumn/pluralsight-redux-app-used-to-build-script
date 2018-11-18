@@ -1,4 +1,4 @@
-import CourseApi from "../api/mockCourseApi";
+import * as courseApi from "../api/mockCourseApi";
 import * as types from "./actionTypes";
 import { beginAjaxCall, ajaxCallError } from "./ajaxStatusActions";
 
@@ -20,7 +20,8 @@ export function updateCourseSuccess(course) {
 export function loadCourses() {
   return function(dispatch) {
     dispatch(beginAjaxCall());
-    return CourseApi.getAllCourses()
+    return courseApi
+      .getAllCourses()
       .then(courses => {
         dispatch(loadCoursesSuccess(courses));
       })
@@ -31,10 +32,11 @@ export function loadCourses() {
 }
 
 export function saveCourse(course) {
+  //eslint-disable-next-line no-unused-vars
   return function(dispatch, getState) {
-    //eslint-disable-line no-unused-vars
     dispatch(beginAjaxCall());
-    return CourseApi.saveCourse(course)
+    return courseApi
+      .saveCourse(course)
       .then(savedCourse => {
         course.id
           ? dispatch(updateCourseSuccess(savedCourse))
