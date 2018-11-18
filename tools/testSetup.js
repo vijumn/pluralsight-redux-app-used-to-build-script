@@ -35,7 +35,6 @@ var { JSDOM } = require('jsdom');
 
 var exposedProperties = ['window', 'navigator', 'document'];
 
-const { window } = new JSDOM(`...`);
 const { document } = (new JSDOM(`...`)).window;
 Object.keys(document.defaultView).forEach((property) => {
   if (typeof global[property] === 'undefined' && property != 'localStorage' && property != 'sessionStorage') {
