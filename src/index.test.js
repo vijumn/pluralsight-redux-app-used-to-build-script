@@ -1,1 +1,0 @@
-// Tests for index.js go here.

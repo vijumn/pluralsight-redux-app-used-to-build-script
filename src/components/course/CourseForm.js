@@ -1,15 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import TextInput from '../common/TextInput';
-import SelectInput from '../common/SelectInput';
+import React from "react";
+import PropTypes from "prop-types";
+import TextInput from "../common/TextInput";
+import SelectInput from "../common/SelectInput";
 
-const CourseForm = ({course, allAuthors, onSave, onChange, saving, errors}) => {
+const CourseForm = ({
+  course,
+  allAuthors,
+  onSave,
+  onChange,
+  saving,
+  errors
+}) => {
   return (
     <form>
       <h1>Manage Course</h1>
       {errors.onSave && (
         <div className="alert alert-danger" role="alert">
-          { errors.onSave }
+          {errors.onSave}
         </div>
       )}
       <TextInput
@@ -17,7 +24,8 @@ const CourseForm = ({course, allAuthors, onSave, onChange, saving, errors}) => {
         label="Title"
         value={course.title}
         onChange={onChange}
-        error={errors.title}/>
+        error={errors.title}
+      />
 
       <SelectInput
         name="authorId"
@@ -25,28 +33,34 @@ const CourseForm = ({course, allAuthors, onSave, onChange, saving, errors}) => {
         value={course.authorId}
         defaultOption="Select Author"
         options={allAuthors}
-        onChange={onChange} error={errors.authorId}/>
+        onChange={onChange}
+        error={errors.authorId}
+      />
 
       <TextInput
         name="category"
         label="Category"
         value={course.category}
         onChange={onChange}
-        error={errors.category}/>
+        error={errors.category}
+      />
 
       <TextInput
         name="length"
         label="Length"
         value={course.length}
         onChange={onChange}
-        error={errors.length}/>
+        error={errors.length}
+      />
 
-      <input
+      <button
         type="submit"
         disabled={saving}
-        value={saving ? 'Saving...' : 'Save'}
         className="btn btn-primary"
-        onClick={onSave}/>
+        onClick={onSave}
+      >
+        {saving ? "Saving..." : "Save"}
+      </button>
     </form>
   );
 };
