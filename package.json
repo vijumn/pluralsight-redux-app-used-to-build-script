@@ -126,7 +126,7 @@
   "jest": {
     "setupFiles": [
       "raf/polyfill",
-      "./tools/enzymeTestAdapterSetup.js"
+      "./tools/testSetup.js"
     ]
   }
 }
