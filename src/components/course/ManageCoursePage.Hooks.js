@@ -22,7 +22,7 @@ function ManageCoursePage(props) {
     setSaving(true);
     actions
       .saveCourse(course)
-      // TODO: Note that this uses an alternative style of redirect. See CoursesPage for <Redirect/>
+      // TODO: Note using an alternative style of redirect. See CoursesPage for <Redirect/>
       // More: https://tylermcginnis.com/react-router-programmatically-navigate/
       // The 2nd param passes state so toast shows.
       // Perhaps I should use a React component like react-toast instead of my homemade notification.
