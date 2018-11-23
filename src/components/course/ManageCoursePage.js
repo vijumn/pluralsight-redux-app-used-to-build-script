@@ -13,8 +13,7 @@ export class ManageCoursePage extends React.Component {
     this.state = {
       course: { ...this.props.course },
       errors: {},
-      saving: false,
-      redirect: false
+      saving: false
     };
   }
 
@@ -67,10 +66,6 @@ export class ManageCoursePage extends React.Component {
         this.setState({ saving: false, errors: { onSave: error } });
       });
   };
-
-  redirect() {
-    this.setState({ saving: false, redirect: true });
-  }
 
   render() {
     return (
