@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import * as courseActions from "../../actions/courseActions";
 import CourseList from "./CourseList";
 
@@ -66,10 +66,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-// TODO: Eliminate. withRouter shouldn't be necessary since using Redirect.
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(CoursesPage)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CoursesPage);
