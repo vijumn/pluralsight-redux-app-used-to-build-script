@@ -5,6 +5,8 @@ import path from "path";
 import config from "../webpack.config.dev";
 import open from "open";
 import history from "connect-history-api-fallback";
+import webpackDevMiddleware from "webpack-dev-middleware";
+import webpackHotMiddleware from "webpack-hot-middleware";
 
 const port = 3000;
 const app = express();
@@ -13,13 +15,15 @@ const compiler = webpack(config);
 app.use(history());
 
 app.use(
-  require("webpack-dev-middleware")(compiler, {
-    noInfo: true,
+  webpackDevMiddleware(compiler, {
+    logLevel: "warn",
+    silent: true,
+    stats: "errors-only",
     publicPath: config.output.publicPath
   })
 );
 
-app.use(require("webpack-hot-middleware")(compiler));
+app.use(webpackHotMiddleware(compiler));
 
 app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "../src/index.html"));
