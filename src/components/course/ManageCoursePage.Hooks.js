@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as courseActions from "../../actions/courseActions";
 import CourseForm from "./CourseForm";
-import { authorsFormattedForDropdown } from "../../selectors/selectors";
+import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
 
 function ManageCoursePage(props) {
   const { history, actions, authors } = props;

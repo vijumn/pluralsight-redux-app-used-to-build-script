@@ -23,3 +23,10 @@ export default function courses(state = initialState.courses, action) {
       return state;
   }
 }
+
+// Selectors
+export function getCourseById(courses, id) {
+  const course = courses.find(course => course.id == id);
+  if (course) return course;
+  return null;
+}

@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as courseActions from "../../actions/courseActions";
 import CourseForm from "./CourseForm";
-import { authorsFormattedForDropdown } from "../../selectors/selectors";
+import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
+import { getCourseById } from "../../reducers/courseReducer";
 
 export class ManageCoursePage extends React.Component {
   constructor(props, context) {
@@ -88,12 +89,6 @@ ManageCoursePage.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };
-
-function getCourseById(courses, id) {
-  const course = courses.filter(course => course.id == id);
-  if (course) return course[0]; //since filter returns an array, have to grab the first.
-  return null;
-}
 
 function mapStateToProps(state, ownProps) {
   const courseId = ownProps.match.params.id; // from the path `/course/:id`
