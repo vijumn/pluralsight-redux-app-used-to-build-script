@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CourseListRow from "./CourseListRow";
+import { Link } from "react-router-dom";
 
 const CourseList = ({ courses }) => {
   return (
@@ -16,7 +16,17 @@ const CourseList = ({ courses }) => {
       </thead>
       <tbody>
         {courses.map(course => (
-          <CourseListRow key={course.id} course={course} />
+          <tr key={course.id}>
+            <td>
+              <a href={course.watchHref}>Watch</a>
+            </td>
+            <td>
+              <Link to={"/course/" + course.id}>{course.title}</Link>
+            </td>
+            <td>{course.authorId}</td>
+            <td>{course.category}</td>
+            <td>{course.length}</td>
+          </tr>
         ))}
       </tbody>
     </table>
