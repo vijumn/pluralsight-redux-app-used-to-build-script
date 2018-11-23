@@ -34,12 +34,12 @@ class CoursesPage extends React.Component {
             Course saved.
           </div>
         )}
-        <input
-          type="submit"
-          value="Add Course"
+        <button
           className="btn btn-primary"
           onClick={() => this.setState({ redirectToAddCoursePage: true })}
-        />
+        >
+          Add Course
+        </button>
 
         <CourseList courses={this.props.courses} />
       </div>
