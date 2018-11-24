@@ -1,18 +1,21 @@
 import React from "react";
 import { render } from "react-dom";
-import Root from "./components/Root";
+import { Route, BrowserRouter as Router } from "react-router-dom";
+import App from "./components/App";
+import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
-import { loadCourses } from "./actions/courseActions";
-import { loadAuthors } from "./actions/authorActions";
+import ErrorBoundary from "./components/ErrorBoundary";
 import "./styles/styles.css"; //Webpack can import CSS files too!
 
 const store = configureStore();
 
-// Dispatch actions to load initial state.
-store.dispatch(loadCourses());
-store.dispatch(loadAuthors());
-
 render(
-  <Root store={store} history={history} />,
+  <ErrorBoundary>
+    <Provider store={store}>
+      <Router>
+        <Route path="/" component={App} />
+      </Router>
+    </Provider>
+  </ErrorBoundary>,
   document.getElementById("app")
 );
