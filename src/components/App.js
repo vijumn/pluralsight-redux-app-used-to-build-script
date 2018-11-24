@@ -11,22 +11,18 @@ import { connect } from "react-redux";
 // Lazy load the courses page
 const CoursesPage = React.lazy(() => import("./course/CoursesPage"));
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="container-fluid">
-        <Suspense fallback="Loading...">
-          <Header loading={this.props.loading} />
-          <Route exact path="/" component={HomePage} />
-          <Route path="/courses" component={CoursesPage} />
-          <Route path="/course/:id" component={ManageCoursePage} />
-          <Route path="/course" component={ManageCoursePage} exact />
-          <Route path="/about" component={AboutPage} />
-        </Suspense>
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div className="container-fluid">
+    <Suspense fallback="Loading...">
+      <Header loading={this.props.loading} />
+      <Route exact path="/" component={HomePage} />
+      <Route path="/courses" component={CoursesPage} />
+      <Route path="/course/:id" component={ManageCoursePage} />
+      <Route path="/course" component={ManageCoursePage} exact />
+      <Route path="/about" component={AboutPage} />
+    </Suspense>
+  </div>
+);
 
 App.propTypes = {
   loading: PropTypes.bool.isRequired,
