@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as courseActions from "../../actions/courseActions";
+import { saveCourse } from "../../actions/courseActions";
+import { loadAuthors } from "../../actions/authorActions";
 import CourseForm from "./CourseForm";
 import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
 
 function ManageCoursePage(props) {
-  const { history, actions, authors } = props;
+  const { history, loadAuthors, saveCourse, authors } = props;
   const [course, setCourse] = useState({ ...props.course });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
-  function saveCourse(event) {
+  useEffect(() => {
+    if (authors.length === 0) loadAuthors();
+  }, []);
+
+  function handleSaveCourse(event) {
     event.preventDefault();
 
     if (!courseFormIsValid()) {
@@ -20,8 +24,8 @@ function ManageCoursePage(props) {
     }
 
     setSaving(true);
-    actions
-      .saveCourse(course)
+
+    saveCourse(course)
       // TODO: Note that this uses an alternative style of redirect. See CoursesPage for <Redirect/>
       // More: https://tylermcginnis.com/react-router-programmatically-navigate/
       // The 2nd param passes state so toast shows.
@@ -55,7 +59,7 @@ function ManageCoursePage(props) {
           [event.target.name]: event.target.value
         });
       }}
-      onSave={saveCourse}
+      onSave={handleSaveCourse}
       errors={errors}
       allAuthors={authors}
       saving={saving}
@@ -66,7 +70,8 @@ function ManageCoursePage(props) {
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   authors: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
+  saveCourse: PropTypes.func.isRequired,
+  loadAuthors: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };
@@ -99,11 +104,18 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(courseActions, dispatch)
-  };
-}
+// More explicit:
+// function mapDispatchToProps(dispatch) {
+// return {
+//   saveCourse: dispatch(saveCourse),
+//   loadAuthors: dispatch(loadAuthors)
+// };
+// }
+
+const mapDispatchToProps = {
+  saveCourse,
+  loadAuthors
+};
 
 export default connect(
   mapStateToProps,

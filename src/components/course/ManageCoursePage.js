@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as courseActions from "../../actions/courseActions";
+import { saveCourse } from "../../actions/courseActions";
+import { loadAuthors } from "../../actions/authorActions";
 import CourseForm from "./CourseForm";
 import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
 import { getCourseById } from "../../reducers/courseReducer";
@@ -16,6 +16,10 @@ export class ManageCoursePage extends React.Component {
       errors: {},
       saving: false
     };
+  }
+
+  componentDidMount() {
+    if (this.props.authors.length === 0) this.props.loadAuthors();
   }
 
   // TODO: Eliminate by using a key instead.
@@ -48,7 +52,7 @@ export class ManageCoursePage extends React.Component {
     return formIsValid;
   }
 
-  saveCourse = event => {
+  handleSaveCourse = event => {
     event.preventDefault();
 
     if (!this.courseFormIsValid()) {
@@ -56,7 +60,7 @@ export class ManageCoursePage extends React.Component {
     }
 
     this.setState({ saving: true });
-    this.props.actions
+    this.props
       .saveCourse(this.state.course)
       // TODO: Note that this uses an alternative style of redirect. See CoursesPage for <Redirect/>
       // More: https://tylermcginnis.com/react-router-programmatically-navigate/
@@ -85,7 +89,8 @@ export class ManageCoursePage extends React.Component {
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   authors: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
+  saveCourse: PropTypes.func.isRequired,
+  loadAuthors: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };
@@ -112,11 +117,19 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(courseActions, dispatch)
-  };
-}
+// More explicit:
+// function mapDispatchToProps(dispatch) {
+// return {
+//   saveCourse: dispatch(saveCourse),
+//   loadAuthors: dispatch(loadAuthors)
+// };
+// }
+
+// via https://daveceddia.com/redux-mapdispatchtoprops-object-form/
+const mapDispatchToProps = {
+  saveCourse,
+  loadAuthors
+};
 
 export default connect(
   mapStateToProps,
