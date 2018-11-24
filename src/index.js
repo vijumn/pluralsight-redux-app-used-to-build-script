@@ -5,7 +5,6 @@ import configureStore from "./store/configureStore";
 import { loadCourses } from "./actions/courseActions";
 import { loadAuthors } from "./actions/authorActions";
 import "./styles/styles.css"; //Webpack can import CSS files too!
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 const store = configureStore();
 
