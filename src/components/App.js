@@ -4,17 +4,17 @@ import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
 import Header from "./common/Header";
 import HomePage from "./home/HomePage";
-import ManageCoursePage from "./course/ManageCoursePage"; //eslint-disable-line import/no-named-as-default
+import ManageCoursePage from "./course/ManageCoursePage.Hooks"; //eslint-disable-line import/no-named-as-default
 import AboutPage from "./about/AboutPage";
 import { connect } from "react-redux";
 
 // Lazy load the courses page
 const CoursesPage = React.lazy(() => import("./course/CoursesPage"));
 
-const App = () => (
+const App = ({ loading }) => (
   <div className="container-fluid">
     <Suspense fallback="Loading...">
-      <Header loading={this.props.loading} />
+      <Header loading={loading} />
       <Route exact path="/" component={HomePage} />
       <Route path="/courses" component={CoursesPage} />
       <Route path="/course/:id" component={ManageCoursePage} />
