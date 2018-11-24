@@ -7,7 +7,6 @@ const courses = [
   {
     id: "react-big-picture",
     title: "React: The Big Picture",
-    watchHref: "http://www.pluralsight.com/courses/react-big-picture",
     authorId: "cory-house",
     length: "1:11",
     category: "JavaScript"
@@ -15,8 +14,6 @@ const courses = [
   {
     id: "react-creating-reusable-components",
     title: "Creating Reusable React Components",
-    watchHref:
-      "http://www.pluralsight.com/courses/react-creating-reusable-components",
     authorId: "cory-house",
     length: "1:11",
     category: "JavaScript"
@@ -24,8 +21,6 @@ const courses = [
   {
     id: "javascript-development-environment",
     title: "Building a JavaScript Development Environment",
-    watchHref:
-      "http://www.pluralsight.com/courses//javascript-development-environment",
     authorId: "cory-house",
     length: "5:19",
     category: "JavaScript"
@@ -33,8 +28,6 @@ const courses = [
   {
     id: "react-flux-building-applications",
     title: "Building Applications in React and Flux",
-    watchHref:
-      "http://www.pluralsight.com/courses/react-flux-building-applications",
     authorId: "cory-house",
     length: "6:20",
     category: "JavaScript"
@@ -42,8 +35,6 @@ const courses = [
   {
     id: "react-redux-react-router-es6",
     title: "Building Applications with React and Redux in ES6",
-    watchHref:
-      "http://www.pluralsight.com/courses/react-redux-react-router-es6",
     authorId: "cory-house",
     length: "6:13",
     category: "JavaScript"
@@ -51,7 +42,6 @@ const courses = [
   {
     id: "clean-code",
     title: "Clean Code: Writing Code for Humans",
-    watchHref: "http://www.pluralsight.com/courses/writing-clean-code-humans",
     authorId: "cory-house",
     length: "3:10",
     category: "Software Practices"
@@ -59,8 +49,6 @@ const courses = [
   {
     id: "architecture",
     title: "Architecting Applications for the Real World",
-    watchHref:
-      "http://www.pluralsight.com/courses/architecting-applications-dotnet",
     authorId: "cory-house",
     length: "2:52",
     category: "Software Architecture"
@@ -68,8 +56,6 @@ const courses = [
   {
     id: "career-reboot-for-developer-mind",
     title: "Becoming an Outlier: Reprogramming the Developer Mind",
-    watchHref:
-      "http://www.pluralsight.com/courses/career-reboot-for-developer-mind",
     authorId: "cory-house",
     length: "2:30",
     category: "Career"
@@ -77,7 +63,6 @@ const courses = [
   {
     id: "web-components-shadow-dom",
     title: "Web Component Fundamentals",
-    watchHref: "http://www.pluralsight.com/courses/web-components-shadow-dom",
     authorId: "cory-house",
     length: "5:10",
     category: "HTML5"

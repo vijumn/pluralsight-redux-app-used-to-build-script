@@ -17,7 +17,9 @@ const CourseList = ({ courses }) => (
       {courses.map(course => (
         <tr key={course.id}>
           <td>
-            <a href={course.watchHref}>Watch</a>
+            <a href={`http://www.pluralsight.com/courses/${course.id}`}>
+              Watch
+            </a>
           </td>
           <td>
             <Link to={"/course/" + course.id}>{course.title}</Link>
