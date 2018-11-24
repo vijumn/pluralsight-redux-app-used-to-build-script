@@ -1,28 +1,25 @@
-import webpack from "webpack";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import path from "path";
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
-export default {
+module.exports = {
   mode: "development",
   devtool: "cheap-module-source-map", // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
-  entry: [
-    //"eventsource-polyfill", // necessary for hot reloading with IE
-    "webpack-hot-middleware/client?reload=true",
-    "./src/index"
-  ],
+  entry: ["./src/index"],
   target: "web",
   output: {
     path: path.resolve(__dirname, "dist"), // Note: Physical files are only output by the production build task `npm run build`.
-    publicPath: "/",
+    publicPath: "/", // Necessary so historyApiFallback works
     filename: "bundle.js"
   },
   devServer: {
-    contentBase: "./src"
+    // Options: https://webpack.js.org/configuration/dev-server/
+    // quiet: true, // Disable output
+    // open: true, // auto open browser
+    stats: "minimal", // output minimal stats to command line
+    overlay: true, // overlay errors in browser
+    historyApiFallback: true // load deep links
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({ template: "src/index.html" })
-  ],
+  plugins: [new HtmlWebpackPlugin({ template: "src/index.html" })],
   module: {
     rules: [
       {
