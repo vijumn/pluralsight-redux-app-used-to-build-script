@@ -13,6 +13,7 @@ class CoursesPage extends React.Component {
   };
 
   componentDidMount() {
+    if (this.props.courses.length === 0) this.props.actions.loadCourses();
     const saved = this.props.location.state && this.props.location.state.saved;
     if (saved)
       this.setState({ displaySavedMessage: true }, this.hideAlertAfterDelay());
