@@ -1,4 +1,3 @@
-import "@babel/polyfill";
 import PropTypes from "prop-types";
 import React from "react";
 import { Route, BrowserRouter as Router } from "react-router-dom";
