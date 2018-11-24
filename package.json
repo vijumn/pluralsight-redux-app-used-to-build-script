@@ -48,6 +48,7 @@
     "eslint": "5.9.0",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-react": "7.11.1",
+    "eslint-plugin-react-hooks": "0.0.0",
     "eslint-watch": "4.0.2",
     "eventsource-polyfill": "0.9.6",
     "express": "4.16.4",
@@ -84,7 +85,8 @@
       "plugin:import/warnings"
     ],
     "plugins": [
-      "react"
+      "react",
+      "react-hooks"
     ],
     "settings": {
       "react": {
@@ -103,6 +105,9 @@
       "node": true,
       "jest": true,
       "es6": true
+    },
+    "rules": {
+      "react-hooks/rules-of-hooks": "error"
     }
   },
   "babel": {
