@@ -105,7 +105,7 @@ export function saveCourse(course) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       // Simulate server-side validation
-      const minCourseTitleLength = 1;
+      const minCourseTitleLength = 2;
       if (course.title.length < minCourseTitleLength) {
         reject(`Title must be at least ${minCourseTitleLength} characters.`);
       }

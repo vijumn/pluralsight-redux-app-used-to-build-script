@@ -37,8 +37,8 @@ function ManageCoursePage(props) {
     let formIsValid = true;
     let errors = {};
 
-    if (course.title.length < 5) {
-      errors.title = "Title must be at least 5 characters.";
+    if (course.title.length < 2) {
+      errors.title = "Title must be at least 2 characters.";
       formIsValid = false;
     }
 
