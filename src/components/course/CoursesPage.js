@@ -29,14 +29,14 @@ class CoursesPage extends React.Component {
     return (
       <div>
         {this.state.redirectToAddCoursePage && <Redirect to="/course" />}
-        <h1>Courses</h1>
+        <h2>Courses</h2>
         {this.state.displaySavedMessage && (
           <div className="alert alert-success" role="alert">
             Course saved.
           </div>
         )}
         <button
-          className="btn btn-primary"
+          className="btn btn-primary add-course"
           onClick={() => this.setState({ redirectToAddCoursePage: true })}
         >
           Add Course
