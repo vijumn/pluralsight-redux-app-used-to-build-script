@@ -8,33 +8,18 @@ import CourseList from "./CourseList";
 
 class CoursesPage extends React.Component {
   state = {
-    displaySavedMessage: false,
     redirectToAddCoursePage: false
   };
 
   componentDidMount() {
     if (this.props.courses.length === 0) this.props.actions.loadCourses();
-    const saved = this.props.location.state && this.props.location.state.saved;
-    if (saved)
-      this.setState({ displaySavedMessage: true }, this.hideAlertAfterDelay());
   }
-
-  hideAlertAfterDelay = () => {
-    setTimeout(() => {
-      this.setState({ displaySavedMessage: false });
-    }, 2000);
-  };
 
   render() {
     return (
       <div>
         {this.state.redirectToAddCoursePage && <Redirect to="/course" />}
         <h2>Courses</h2>
-        {this.state.displaySavedMessage && (
-          <div className="alert alert-success" role="alert">
-            Course saved.
-          </div>
-        )}
         <button
           className="btn btn-primary add-course"
           onClick={() => this.setState({ redirectToAddCoursePage: true })}

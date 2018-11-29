@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import { saveCourse, loadCourses } from "../../actions/courseActions";
 import { loadAuthors } from "../../actions/authorActions";
 import CourseForm from "./CourseForm";
@@ -65,9 +66,10 @@ export class ManageCoursePage extends React.Component {
       .saveCourse(this.state.course)
       // TODO: Note that this uses an alternative style of redirect. See CoursesPage for <Redirect/>
       // More: https://tylermcginnis.com/react-router-programmatically-navigate/
-      // The 2nd param passes state so toast shows.
-      // Perhaps I should use a React component like react-toast instead of my homemade notification.
-      .then(() => this.props.history.push("/courses", { saved: true }))
+      .then(() => {
+        toast.success("Course saved.");
+        this.props.history.push("/courses");
+      })
       .catch(error => {
         this.setState({ saving: false, errors: { onSave: error } });
       });
