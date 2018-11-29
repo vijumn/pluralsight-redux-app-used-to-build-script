@@ -53,7 +53,7 @@ export class ManageCoursePage extends React.Component {
     return formIsValid;
   }
 
-  handleSaveCourse = event => {
+  handleSave = event => {
     event.preventDefault();
 
     if (!this.formIsValid()) {
@@ -79,7 +79,7 @@ export class ManageCoursePage extends React.Component {
         <CourseForm
           course={this.state.course}
           onChange={this.handleChange}
-          onSave={this.handleSaveCourse}
+          onSave={this.handleSave}
           errors={this.state.errors}
           allAuthors={this.props.authors}
           saving={this.state.saving}
