@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { saveCourse } from "../../actions/courseActions";
+import { saveCourse, loadCourses } from "../../actions/courseActions";
 import { loadAuthors } from "../../actions/authorActions";
 import CourseForm from "./CourseForm";
 import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
 import { getCourseById } from "../../reducers/courseReducer";
 
 export class ManageCoursePage extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.state = {
       course: { ...this.props.course },
@@ -19,19 +19,20 @@ export class ManageCoursePage extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.courses.length === 0) this.props.loadCourses();
     if (this.props.authors.length === 0) this.props.loadAuthors();
   }
 
   // TODO: Eliminate by using a key instead.
+  // Populate form when an existing course is loaded directly.
   static getDerivedStateFromProps(props, state) {
-    if (props.course.id != state.course.id) {
-      // Necessary to populate form when existing course is loaded directly.
-      return props.course;
+    if (props.course.id !== state.course.id) {
+      return { course: props.course };
     }
     return null;
   }
 
-  updateCourseState = event => {
+  handleChange = event => {
     let course = {
       ...this.state.course,
       [event.target.name]: event.target.value
@@ -39,7 +40,7 @@ export class ManageCoursePage extends React.Component {
     return this.setState({ course });
   };
 
-  courseFormIsValid() {
+  formIsValid() {
     let formIsValid = true;
     let errors = {};
 
@@ -55,7 +56,7 @@ export class ManageCoursePage extends React.Component {
   handleSaveCourse = event => {
     event.preventDefault();
 
-    if (!this.courseFormIsValid()) {
+    if (!this.formIsValid()) {
       return;
     }
 
@@ -74,22 +75,27 @@ export class ManageCoursePage extends React.Component {
 
   render() {
     return (
-      <CourseForm
-        course={this.state.course}
-        onChange={this.updateCourseState}
-        onSave={this.saveCourse}
-        errors={this.state.errors}
-        allAuthors={this.props.authors}
-        saving={this.state.saving}
-      />
+      !this.props.loading && (
+        <CourseForm
+          course={this.state.course}
+          onChange={this.handleChange}
+          onSave={this.handleSaveCourse}
+          errors={this.state.errors}
+          allAuthors={this.props.authors}
+          saving={this.state.saving}
+        />
+      )
     );
   }
 }
 
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
+  courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
   saveCourse: PropTypes.func.isRequired,
+  loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
@@ -112,7 +118,9 @@ function mapStateToProps(state, ownProps) {
   }
 
   return {
-    course: course,
+    course,
+    courses: state.courses,
+    loading: state.ajaxCallsInProgress > 0,
     authors: authorsFormattedForDropdown(state.authors)
   };
 }
@@ -128,7 +136,8 @@ function mapStateToProps(state, ownProps) {
 // via https://daveceddia.com/redux-mapdispatchtoprops-object-form/
 const mapDispatchToProps = {
   saveCourse,
-  loadAuthors
+  loadAuthors,
+  loadCourses
 };
 
 export default connect(
