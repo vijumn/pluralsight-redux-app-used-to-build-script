@@ -7,6 +7,7 @@ import { loadAuthors } from "../../actions/authorActions";
 import CourseForm from "./CourseForm";
 import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
 import { getCourseById } from "../../reducers/courseReducer";
+import Spinner from "../common/Spinner";
 
 export class ManageCoursePage extends React.Component {
   constructor(props) {
@@ -76,17 +77,17 @@ export class ManageCoursePage extends React.Component {
   };
 
   render() {
-    return (
-      !this.props.loading && (
-        <CourseForm
-          course={this.state.course}
-          onChange={this.handleChange}
-          onSave={this.handleSave}
-          errors={this.state.errors}
-          allAuthors={this.props.authors}
-          saving={this.state.saving}
-        />
-      )
+    return this.props.authors.length === 0 ? (
+      <Spinner />
+    ) : (
+      <CourseForm
+        course={this.state.course}
+        onChange={this.handleChange}
+        onSave={this.handleSave}
+        errors={this.state.errors}
+        allAuthors={this.props.authors}
+        saving={this.state.saving}
+      />
     );
   }
 }
@@ -95,7 +96,6 @@ ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
   saveCourse: PropTypes.func.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
@@ -122,7 +122,6 @@ function mapStateToProps(state, ownProps) {
   return {
     course,
     courses: state.courses,
-    loading: state.ajaxCallsInProgress > 0,
     authors: authorsFormattedForDropdown(state.authors)
   };
 }
