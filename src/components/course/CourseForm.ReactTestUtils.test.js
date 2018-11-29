@@ -17,10 +17,10 @@ function getCourseForm(args) {
 }
 
 describe("CourseForm via React Test Utils", () => {
-  it("renders form and h1", () => {
+  it("renders form and header", () => {
     const root = getCourseForm();
     expect(root.findAllByType("form").length).toEqual(1);
-    expect(root.findAllByType("h1").length).toEqual(1);
+    expect(root.findAllByType("h2").length).toEqual(1);
   });
 
   it('save button is labeled "Save" when not saving', () => {

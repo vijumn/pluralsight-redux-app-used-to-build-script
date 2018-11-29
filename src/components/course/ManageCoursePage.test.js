@@ -7,11 +7,11 @@ describe("Manage Course Page", () => {
   it("sets error message upon blur of empty title field", () => {
     const props = {
       authors: [],
-      actions: {
-        saveCourse: () => {
-          return Promise.resolve();
-        }
-      },
+      courses: [],
+      saveCourse: jest.fn(),
+      loadAuthors: jest.fn(),
+      loadCourses: jest.fn(),
+      loading: false,
       course: {
         id: "",
         watchHref: "",

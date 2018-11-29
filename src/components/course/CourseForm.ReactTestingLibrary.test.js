@@ -19,9 +19,9 @@ function renderCourseForm(args) {
 }
 
 describe("CourseForm via React Test Utils", () => {
-  it("should render h1", () => {
+  it("should render Add Course header", () => {
     const { getByText } = renderCourseForm();
-    getByText("Manage Course");
+    getByText("Add Course");
   });
 
   it('should label save button as "Save" when not saving', () => {
