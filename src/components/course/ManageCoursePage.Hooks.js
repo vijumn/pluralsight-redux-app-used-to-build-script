@@ -131,6 +131,7 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
+// See https://daveceddia.com/redux-mapdispatchtoprops-object-form/
 const mapDispatchToProps = {
   saveCourse,
   loadAuthors,

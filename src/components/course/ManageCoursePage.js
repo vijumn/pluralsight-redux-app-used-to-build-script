@@ -126,20 +126,20 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-// More explicit:
+// See https://daveceddia.com/redux-mapdispatchtoprops-object-form/
+const mapDispatchToProps = {
+  saveCourse,
+  loadAuthors,
+  loadCourses
+};
+
+// Or, more explicit:
 // function mapDispatchToProps(dispatch) {
 // return {
 //   saveCourse: dispatch(saveCourse),
 //   loadAuthors: dispatch(loadAuthors)
 // };
 // }
-
-// via https://daveceddia.com/redux-mapdispatchtoprops-object-form/
-const mapDispatchToProps = {
-  saveCourse,
-  loadAuthors,
-  loadCourses
-};
 
 export default connect(
   mapStateToProps,
