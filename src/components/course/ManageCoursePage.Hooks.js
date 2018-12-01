@@ -18,16 +18,21 @@ function ManageCoursePage(props) {
     courses,
     loadCourses
   } = props;
-  const [course, setCourse] = useState({ ...props.course });
+  const [course, setCourse] = useState({
+    ...props.course
+  });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
+  // Note that this replaces both componentDidMount and getDerivedStateFromProps. It only re-runs when props.courses changes.
   useEffect(
     () => {
       if (courses.length === 0) {
         loadCourses();
       } else {
-        setCourse({ ...props.course });
+        setCourse({
+          ...props.course
+        });
       }
       if (authors.length === 0) loadAuthors();
     },
@@ -72,7 +77,9 @@ function ManageCoursePage(props) {
       })
       .catch(error => {
         setSaving(false);
-        setErrors({ onSave: error });
+        setErrors({
+          onSave: error
+        });
       });
   }
 
@@ -92,9 +99,8 @@ function ManageCoursePage(props) {
 
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
-  authors: PropTypes.array.isRequired,
   courses: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
+  authors: PropTypes.array.isRequired,
   saveCourse: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
   loadCourses: PropTypes.func.isRequired,
