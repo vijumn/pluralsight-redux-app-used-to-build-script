@@ -119,9 +119,8 @@ function mapStateToProps(state, ownProps) {
   }
 
   return {
-    course: course,
+    course,
     courses: state.courses,
-    loading: state.ajaxCallsInProgress > 0,
     authors: authorsFormattedForDropdown(state.authors)
   };
 }
