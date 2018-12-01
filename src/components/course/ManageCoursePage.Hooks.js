@@ -102,8 +102,8 @@ ManageCoursePage.propTypes = {
   courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
   saveCourse: PropTypes.func.isRequired,
-  loadAuthors: PropTypes.func.isRequired,
   loadCourses: PropTypes.func.isRequired,
+  loadAuthors: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };
@@ -131,19 +131,19 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-// More explicit:
+const mapDispatchToProps = {
+  saveCourse,
+  loadAuthors,
+  loadCourses
+};
+
+// Or, more explicit:
 // function mapDispatchToProps(dispatch) {
 // return {
 //   saveCourse: dispatch(saveCourse),
 //   loadAuthors: dispatch(loadAuthors)
 // };
 // }
-
-const mapDispatchToProps = {
-  saveCourse,
-  loadAuthors,
-  loadCourses
-};
 
 export default connect(
   mapStateToProps,
