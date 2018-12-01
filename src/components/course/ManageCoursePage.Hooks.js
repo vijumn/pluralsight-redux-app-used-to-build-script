@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import { saveCourse, loadCourses } from "../../actions/courseActions";
 import { loadAuthors } from "../../actions/authorActions";
 import CourseForm from "./CourseForm";
 import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
+import { getCourseById } from "../../reducers/courseReducer";
+import Spinner from "../common/Spinner";
 
 function ManageCoursePage(props) {
   const {
@@ -12,7 +15,6 @@ function ManageCoursePage(props) {
     loadAuthors,
     saveCourse,
     authors,
-    loading,
     courses,
     loadCourses
   } = props;
@@ -64,26 +66,27 @@ function ManageCoursePage(props) {
     saveCourse(course)
       // TODO: Note that this uses an alternative style of redirect. See CoursesPage for <Redirect/>
       // More: https://tylermcginnis.com/react-router-programmatically-navigate/
-      // The 2nd param passes state so toast shows.
-      // Perhaps I should use a React component like react-toast instead of my homemade notification.
-      .then(() => history.push("/courses", { saved: true }))
+      .then(() => {
+        toast.success("Course saved.");
+        history.push("/courses");
+      })
       .catch(error => {
         setSaving(false);
         setErrors({ onSave: error });
       });
   }
 
-  return (
-    !loading && (
-      <CourseForm
-        course={course}
-        onChange={handleChange}
-        onSave={handleSave}
-        errors={errors}
-        allAuthors={authors}
-        saving={saving}
-      />
-    )
+  return authors.length === 0 ? (
+    <Spinner />
+  ) : (
+    <CourseForm
+      course={course}
+      onChange={handleChange}
+      onSave={handleSave}
+      errors={errors}
+      allAuthors={authors}
+      saving={saving}
+    />
   );
 }
 
@@ -94,15 +97,10 @@ ManageCoursePage.propTypes = {
   loading: PropTypes.bool.isRequired,
   saveCourse: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
+  loadCourses: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };
-
-function getCourseById(courses, id) {
-  const course = courses.filter(course => course.id == id);
-  if (course) return course[0]; //since filter returns an array, have to grab the first.
-  return null;
-}
 
 function mapStateToProps(state, ownProps) {
   const courseId = ownProps.match.params.id; // from the path `/course/:id`
