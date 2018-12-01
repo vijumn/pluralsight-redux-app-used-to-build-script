@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
@@ -9,87 +9,92 @@ import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
 import { getCourseById } from "../../reducers/courseReducer";
 import Spinner from "../common/Spinner";
 
-export class ManageCoursePage extends React.Component {
-  constructor(props) {
-    super(props);
+function ManageCoursePage(props) {
+  const {
+    history,
+    loadAuthors,
+    saveCourse,
+    authors,
+    courses,
+    loadCourses
+  } = props;
+  const [course, setCourse] = useState({
+    ...props.course
+  });
+  const [errors, setErrors] = useState({});
+  const [saving, setSaving] = useState(false);
 
-    this.state = {
-      course: { ...this.props.course },
-      errors: {},
-      saving: false
-    };
-  }
+  // Note that this replaces both componentDidMount and getDerivedStateFromProps. It only re-runs when props.courses changes.
+  useEffect(
+    () => {
+      if (courses.length === 0) {
+        loadCourses();
+      } else {
+        setCourse({
+          ...props.course
+        });
+      }
+      if (authors.length === 0) loadAuthors();
+    },
+    [props.courses]
+  );
 
-  componentDidMount() {
-    if (this.props.courses.length === 0) this.props.loadCourses();
-    if (this.props.authors.length === 0) this.props.loadAuthors();
-  }
-
-  // TODO: Eliminate by using a key instead.
-  // Populate form when an existing course is loaded directly.
-  static getDerivedStateFromProps(props, state) {
-    if (props.course.id !== state.course.id) {
-      return { course: props.course };
-    }
-    return null;
-  }
-
-  handleChange = event => {
-    let course = {
-      ...this.state.course,
+  function handleChange(event) {
+    setCourse({
+      ...course,
       [event.target.name]: event.target.value
-    };
-    return this.setState({ course });
-  };
+    });
+  }
 
-  formIsValid() {
+  function formIsValid() {
     let formIsValid = true;
     let errors = {};
 
-    if (this.state.course.title.length < 2) {
+    if (course.title.length < 2) {
       errors.title = "Title must be at least 2 characters.";
       formIsValid = false;
     }
 
-    this.setState({ errors: errors });
+    setErrors(errors);
     return formIsValid;
   }
 
-  handleSave = event => {
+  function handleSave(event) {
     event.preventDefault();
 
-    if (!this.formIsValid()) {
+    if (!formIsValid()) {
       return;
     }
 
-    this.setState({ saving: true });
-    this.props
-      .saveCourse(this.state.course)
+    setSaving(true);
+
+    saveCourse(course)
       // TODO: Note that this uses an alternative style of redirect. See CoursesPage for <Redirect/>
       // More: https://tylermcginnis.com/react-router-programmatically-navigate/
       .then(() => {
         toast.success("Course saved.");
-        this.props.history.push("/courses");
+        history.push("/courses");
       })
       .catch(error => {
-        this.setState({ saving: false, errors: { onSave: error } });
+        setSaving(false);
+        setErrors({
+          onSave: error
+        });
       });
-  };
-
-  render() {
-    return this.props.authors.length === 0 ? (
-      <Spinner />
-    ) : (
-      <CourseForm
-        course={this.state.course}
-        onChange={this.handleChange}
-        onSave={this.handleSave}
-        errors={this.state.errors}
-        allAuthors={this.props.authors}
-        saving={this.state.saving}
-      />
-    );
   }
+
+  return authors.length === 0 ? (
+    <Spinner />
+  ) : (
+    <CourseForm
+      course={course}
+      onChange={handleChange}
+      onSave={handleSave}
+      errors={errors}
+      allAuthors={authors}
+      saving={saving}
+    />
+  );
 }
 
 ManageCoursePage.propTypes = {
