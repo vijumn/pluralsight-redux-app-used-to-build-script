@@ -6,24 +6,17 @@ import { Redirect } from "react-router-dom";
 import * as courseActions from "../../actions/courseActions";
 import CourseList from "./CourseList";
 
-function CoursesPage({ courses, location }) {
-  const [displaySavedMessage, setDisplaySavedMessage] = useState(false);
+function CoursesPage({ courses, actions }) {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
 
   useEffect(() => {
-    const saved = location.state && location.state.saved;
-    if (saved) setDisplaySavedMessage(true);
-  });
+    if (courses.length === 0) actions.loadCourses();
+  }, []);
 
   return (
     <div>
       {redirectToAddCoursePage && <Redirect to="/course" />}
       <h2>Courses</h2>
-      {displaySavedMessage && (
-        <div className="alert alert-success" role="alert">
-          Course saved.
-        </div>
-      )}
 
       <button
         className="btn btn-primary add-course"
