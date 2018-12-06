@@ -4,19 +4,20 @@ import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
 import Header from "./common/Header";
 import HomePage from "./home/HomePage";
-import ManageCoursePage from "./course/ManageCoursePage"; //eslint-disable-line import/no-named-as-default
+import ManageCoursePage from "./course/ManageCoursePage.Hooks"; //eslint-disable-line import/no-named-as-default
 import AboutPage from "./about/AboutPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from "./common/Spinner";
 import { connect } from "react-redux";
 
-// Lazy load the courses page
-const CoursesPage = React.lazy(() => import("./course/CoursesPage"));
+// Lazy load the courses page. Just an example. Could do the same for others.
+const CoursesPage = React.lazy(() => import("./course/CoursesPage.Hooks"));
 
-const App = ({ loading }) => (
+const App = ({ loading, courses }) => (
   <div className="container-fluid">
-    <Header loading={loading} />
+    {/* Note: Could choose to connect the header. But a good reminder that you should NOT connect all components. Pass props when components are close (yes, this app using Redux at all is overkill) */}
+    <Header loading={loading} numCourses={courses.length} />
     <Suspense fallback={<Spinner />}>
       <Route exact path="/" component={HomePage} />
       <Route path="/courses" component={CoursesPage} />
@@ -29,6 +30,7 @@ const App = ({ loading }) => (
 );
 
 App.propTypes = {
+  courses: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired
 };
@@ -36,6 +38,7 @@ App.propTypes = {
 function mapStateToProps(state) {
   // eslint-disable-line no-unused-vars
   return {
+    courses: state.courses,
     loading: state.ajaxCallsInProgress > 0
   };
 }
