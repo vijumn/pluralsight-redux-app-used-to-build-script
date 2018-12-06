@@ -31,8 +31,7 @@ const App = ({ loading, courses }) => (
 
 App.propTypes = {
   courses: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
-  match: PropTypes.object.isRequired
+  loading: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
