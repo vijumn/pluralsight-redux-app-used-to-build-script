@@ -16,7 +16,8 @@ const CoursesPage = React.lazy(() => import("./course/CoursesPage.Hooks"));
 
 const App = ({ loading, courses }) => (
   <div className="container-fluid">
-    {/* Note: Could choose to connect the header. But a good reminder that you should NOT connect all components. Pass props when components are close (yes, this app using Redux at all is overkill) */}
+    {/* Note: Could choose to connect the header. But a good reminder that you should NOT connect all components.
+    Pass props when components are close (yes, this app using Redux at all is overkill) */}
     <Header loading={loading} numCourses={courses.length} />
     <Suspense fallback={<Spinner />}>
       <Route exact path="/" component={HomePage} />
