@@ -8,6 +8,7 @@ import CourseForm from "./CourseForm";
 import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
 import { getCourseById } from "../../reducers/courseReducer";
 import Spinner from "../common/Spinner";
+import { coursePropType } from "../propTypes";
 
 function ManageCoursePage(props) {
   const {
@@ -98,8 +99,8 @@ function ManageCoursePage(props) {
 }
 
 ManageCoursePage.propTypes = {
-  course: PropTypes.object.isRequired,
-  courses: PropTypes.array.isRequired,
+  course: coursePropType.isRequired,
+  courses: PropTypes.arrayOf(coursePropType).isRequired,
   authors: PropTypes.array.isRequired,
   saveCourse: PropTypes.func.isRequired,
   loadCourses: PropTypes.func.isRequired,

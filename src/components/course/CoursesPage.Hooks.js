@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import * as courseActions from "../../actions/courseActions";
 import CourseList from "./CourseList";
 import Spinner from "../common/Spinner";
+import { coursePropType } from "../propTypes";
 
 function CoursesPage({ courses, actions, loading }) {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
@@ -39,7 +40,7 @@ function CoursesPage({ courses, actions, loading }) {
 
 CoursesPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  courses: PropTypes.array.isRequired,
+  courses: PropTypes.arrayOf(coursePropType).isRequired,
   history: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired

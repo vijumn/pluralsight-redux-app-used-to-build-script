@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as courseActions from "../../actions/courseActions";
 import CourseList from "./CourseList";
+import { coursePropType } from "../propTypes";
 import Spinner from "../common/Spinner";
 
 class CoursesPage extends React.Component {
@@ -42,7 +43,7 @@ class CoursesPage extends React.Component {
 
 CoursesPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  courses: PropTypes.array.isRequired,
+  courses: PropTypes.arrayOf(coursePropType).isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired

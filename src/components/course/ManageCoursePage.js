@@ -8,6 +8,7 @@ import CourseForm from "./CourseForm";
 import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
 import { getCourseById } from "../../reducers/courseReducer";
 import Spinner from "../common/Spinner";
+import { coursePropType } from "../propTypes";
 
 export class ManageCoursePage extends React.Component {
   constructor(props) {
@@ -93,8 +94,8 @@ export class ManageCoursePage extends React.Component {
 }
 
 ManageCoursePage.propTypes = {
-  course: PropTypes.object.isRequired,
-  courses: PropTypes.array.isRequired,
+  course: coursePropType.isRequired,
+  courses: PropTypes.arrayOf(coursePropType).isRequired,
   authors: PropTypes.array.isRequired,
   saveCourse: PropTypes.func.isRequired,
   loadCourses: PropTypes.func.isRequired,
