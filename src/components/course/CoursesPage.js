@@ -18,7 +18,7 @@ class CoursesPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         {this.state.redirectToAddCoursePage && <Redirect to="/course" />}
         {this.props.loading ? (
           <Spinner />
@@ -35,7 +35,7 @@ class CoursesPage extends React.Component {
             <CourseList courses={this.props.courses} />
           </>
         )}
-      </div>
+      </>
     );
   }
 }
