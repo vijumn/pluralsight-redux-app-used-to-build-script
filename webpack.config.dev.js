@@ -29,13 +29,7 @@ module.exports = {
       },
       {
         test: /(\.css)$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: { sourcemap: true }
-          }
-        ]
+        use: ["style-loader", "css-loader"]
       }
     ]
   }
