@@ -9,6 +9,13 @@ export const newCourse = {
 
 export const courses = [
   {
+    id: "react-auth0-authentication-security",
+    title: "Securing React Apps with Auth0",
+    authorId: "cory-house",
+    length: "3:18",
+    category: "JavaScript"
+  },
+  {
     id: "react-big-picture",
     title: "React: The Big Picture",
     authorId: "cory-house",
