@@ -7,3 +7,9 @@ export const coursePropType = shape({
   length: string,
   category: string
 });
+
+export const authorPropType = shape({
+  id: string,
+  firstName: string,
+  lastName: string
+});
