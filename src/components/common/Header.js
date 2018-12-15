@@ -11,7 +11,7 @@ const Header = ({ numCourses }) => {
       </NavLink>
       {" | "}
       <NavLink to="/courses" activeStyle={activeStyle}>
-        Courses {numCourses && `(${numCourses})`}
+        Courses {numCourses > 0 && `(${numCourses})`}
       </NavLink>
       {" | "}
       <NavLink to="/about" activeStyle={activeStyle}>
@@ -22,7 +22,7 @@ const Header = ({ numCourses }) => {
 };
 
 Header.propTypes = {
-  numCourses: PropTypes.number
+  numCourses: PropTypes.number.isRequired
 };
 
 export default Header;

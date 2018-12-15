@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from "./common/Spinner";
 import { connect } from "react-redux";
+import { coursePropType } from "./propTypes";
 
 // Lazy load the courses page. Just an example. Could do the same for others.
 const CoursesPage = React.lazy(() => import("./course/CoursesPage.Hooks"));
@@ -31,7 +32,7 @@ const App = ({ loading, courses }) => (
 );
 
 App.propTypes = {
-  courses: PropTypes.array.isRequired,
+  courses: PropTypes.arrayOf(coursePropType).isRequired,
   loading: PropTypes.bool.isRequired
 };
 

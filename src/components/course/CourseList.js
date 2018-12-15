@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { coursePropType } from "../propTypes";
 
 const CourseList = ({ courses }) => (
   <table className="table">
@@ -37,7 +38,7 @@ const CourseList = ({ courses }) => (
 );
 
 CourseList.propTypes = {
-  courses: PropTypes.array.isRequired
+  courses: PropTypes.arrayOf(coursePropType).isRequired
 };
 
 export default CourseList;
