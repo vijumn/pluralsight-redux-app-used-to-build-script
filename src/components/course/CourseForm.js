@@ -2,15 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import TextInput from "../common/TextInput";
 import SelectInput from "../common/SelectInput";
+import { authorPropType, coursePropType } from "../propTypes";
 
-const CourseForm = ({
-  course,
-  allAuthors,
-  onSave,
-  onChange,
-  saving,
-  errors
-}) => {
+const CourseForm = ({ course, authors, onSave, onChange, saving, errors }) => {
   return (
     <form>
       <h2>{course.id ? "Edit" : "Add"} Course</h2>
@@ -32,7 +26,10 @@ const CourseForm = ({
         label="Author"
         value={course.authorId}
         defaultOption="Select Author"
-        options={allAuthors}
+        options={authors.map(author => ({
+          value: author.id,
+          text: author.firstName + " " + author.lastName
+        }))}
         onChange={onChange}
         error={errors.authorId}
       />
@@ -66,8 +63,8 @@ const CourseForm = ({
 };
 
 CourseForm.propTypes = {
-  course: PropTypes.object.isRequired,
-  allAuthors: PropTypes.array.isRequired,
+  course: coursePropType.isRequired,
+  authors: PropTypes.arrayOf(authorPropType).isRequired,
   onSave: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   saving: PropTypes.bool,

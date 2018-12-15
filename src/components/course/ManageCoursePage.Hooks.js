@@ -5,10 +5,9 @@ import { toast } from "react-toastify";
 import { saveCourse, loadCourses } from "../../actions/courseActions";
 import { loadAuthors } from "../../actions/authorActions";
 import CourseForm from "./CourseForm";
-import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
 import { getCourseById } from "../../reducers/courseReducer";
 import Spinner from "../common/Spinner";
-import { coursePropType } from "../propTypes";
+import { coursePropType, authorPropType } from "../propTypes";
 
 function ManageCoursePage(props) {
   const {
@@ -92,7 +91,7 @@ function ManageCoursePage(props) {
       onChange={handleChange}
       onSave={handleSave}
       errors={errors}
-      allAuthors={authors}
+      authors={authors}
       saving={saving}
     />
   );
@@ -101,7 +100,7 @@ function ManageCoursePage(props) {
 ManageCoursePage.propTypes = {
   course: coursePropType.isRequired,
   courses: PropTypes.arrayOf(coursePropType).isRequired,
-  authors: PropTypes.array.isRequired,
+  authors: PropTypes.arrayOf(authorPropType).isRequired,
   saveCourse: PropTypes.func.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
@@ -128,7 +127,7 @@ function mapStateToProps(state, ownProps) {
   return {
     course,
     courses: state.courses,
-    authors: authorsFormattedForDropdown(state.authors)
+    authors: state.authors
   };
 }
 

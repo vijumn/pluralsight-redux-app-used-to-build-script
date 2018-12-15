@@ -2,15 +2,12 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { mount } from "enzyme";
 import { ManageCoursePage } from "./ManageCoursePage";
-import { authors, newCourse } from "../../../tools/mockData";
+import { authors, newCourse, courses } from "../../../tools/mockData";
 
 function render(args) {
   const defaultProps = {
-    authors: authors.map(author => ({
-      value: author.id,
-      text: `${author.firstName} ${author.lastName}`
-    })),
-    courses: [],
+    authors,
+    courses,
     saveCourse: jest.fn(),
     loadAuthors: jest.fn(),
     loadCourses: jest.fn(),

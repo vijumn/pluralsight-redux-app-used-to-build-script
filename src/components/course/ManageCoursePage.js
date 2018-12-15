@@ -5,10 +5,9 @@ import { toast } from "react-toastify";
 import { saveCourse, loadCourses } from "../../actions/courseActions";
 import { loadAuthors } from "../../actions/authorActions";
 import CourseForm from "./CourseForm";
-import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
 import { getCourseById } from "../../reducers/courseReducer";
 import Spinner from "../common/Spinner";
-import { coursePropType } from "../propTypes";
+import { coursePropType, authorPropType } from "../propTypes";
 import { newCourse } from "../../../tools/mockData";
 
 export class ManageCoursePage extends React.Component {
@@ -87,7 +86,7 @@ export class ManageCoursePage extends React.Component {
         onChange={this.handleChange}
         onSave={this.handleSave}
         errors={this.state.errors}
-        allAuthors={this.props.authors}
+        authors={this.props.authors}
         saving={this.state.saving}
       />
     );
@@ -97,7 +96,7 @@ export class ManageCoursePage extends React.Component {
 ManageCoursePage.propTypes = {
   course: coursePropType.isRequired,
   courses: PropTypes.arrayOf(coursePropType).isRequired,
-  authors: PropTypes.array.isRequired,
+  authors: PropTypes.arrayOf(authorPropType).isRequired,
   saveCourse: PropTypes.func.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
@@ -115,7 +114,7 @@ function mapStateToProps(state, ownProps) {
   return {
     course,
     courses: state.courses,
-    authors: authorsFormattedForDropdown(state.authors)
+    authors: state.authors
   };
 }
 
