@@ -7,6 +7,7 @@ import * as courseActions from "../../actions/courseActions";
 import CourseList from "./CourseList";
 import Spinner from "../common/Spinner";
 import { coursePropType } from "../propTypes";
+import { getCoursesSorted } from "../../reducers/courseReducer";
 
 function CoursesPage({ courses, actions, loading }) {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
@@ -47,7 +48,10 @@ CoursesPage.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return { courses: state.courses, loading: state.ajaxCallsInProgress > 0 };
+  return {
+    courses: getCoursesSorted(state.courses),
+    loading: state.ajaxCallsInProgress > 0
+  };
 }
 
 function mapDispatchToProps(dispatch) {

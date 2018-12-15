@@ -7,6 +7,7 @@ import * as courseActions from "../../actions/courseActions";
 import CourseList from "./CourseList";
 import { coursePropType } from "../propTypes";
 import Spinner from "../common/Spinner";
+import { getCoursesSorted } from "../../reducers/courseReducer";
 
 class CoursesPage extends React.Component {
   state = {
@@ -51,7 +52,7 @@ CoursesPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    courses: state.courses,
+    courses: getCoursesSorted(state.courses),
     loading: state.ajaxCallsInProgress > 0
   };
 }
