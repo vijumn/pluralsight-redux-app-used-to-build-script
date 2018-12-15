@@ -1,25 +1,9 @@
 import delay from "./delay";
+import { authors } from "../../tools/mockData";
 
 // This file mocks a web API by working with the hard-coded data below.
 // It uses setTimeout to simulate the delay of an AJAX call.
 // All calls return promises.
-const authors = [
-  {
-    id: "cory-house",
-    firstName: "Cory",
-    lastName: "House"
-  },
-  {
-    id: "scott-allen",
-    firstName: "Scott",
-    lastName: "Allen"
-  },
-  {
-    id: "dan-wahlin",
-    firstName: "Dan",
-    lastName: "Wahlin"
-  }
-];
 
 //This would be performed on the server in a real app. Just stubbing in.
 function generateId(author) {
