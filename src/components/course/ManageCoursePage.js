@@ -9,6 +9,7 @@ import { authorsFormattedForDropdown } from "../../reducers/authorReducer";
 import { getCourseById } from "../../reducers/courseReducer";
 import Spinner from "../common/Spinner";
 import { coursePropType } from "../propTypes";
+import { newCourse } from "../../../tools/mockData";
 
 export class ManageCoursePage extends React.Component {
   constructor(props) {
@@ -106,19 +107,10 @@ ManageCoursePage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   const courseId = ownProps.match.params.id; // from the path `/course/:id`
-
-  let course = {
-    id: "",
-    watchHref: "",
-    title: "",
-    authorId: "",
-    length: "",
-    category: ""
-  };
-
-  if (courseId && state.courses.length > 0) {
-    course = getCourseById(state.courses, courseId);
-  }
+  const course =
+    courseId && state.courses.length > 0
+      ? getCourseById(state.courses, courseId)
+      : newCourse;
 
   return {
     course,

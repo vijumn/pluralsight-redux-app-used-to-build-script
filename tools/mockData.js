@@ -1,3 +1,12 @@
+export const newCourse = {
+  id: "",
+  watchHref: "",
+  title: "",
+  authorId: "",
+  length: "",
+  category: ""
+};
+
 export const courses = [
   {
     id: "react-big-picture",
