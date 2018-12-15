@@ -10,13 +10,3 @@ export default function authors(state = initialState.authors, action) {
       return state;
   }
 }
-
-// Selectors
-export function authorsFormattedForDropdown(authors) {
-  return authors.map(author => {
-    return {
-      value: author.id,
-      text: author.firstName + " " + author.lastName
-    };
-  });
-}
