@@ -1,5 +1,6 @@
 import * as types from "../actions/actionTypes";
 import initialState from "./initialState";
+import { createSelector } from "reselect";
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
 // State is considered immutable. Instead,
@@ -24,9 +25,34 @@ export default function courses(state = initialState.courses, action) {
   }
 }
 
-// Selectors
+// Plain input selectors. Not memoized since these don't transform the data they select.
+// These merely select a relevant piece of state from this reducer.
+const getAllCoursesSelector = state => state;
+// const getCategorySelector = state => state.selectedCategory;
+
 export function getCourseById(courses, id) {
-  const course = courses.find(course => course.id == id);
-  if (course) return course;
-  return null;
+  return courses.find(course => course.id == id) || null;
 }
+
+// Memoized selectors
+// Pass an array of input selectors as first arg.
+export const getCoursesSorted = createSelector(
+  getAllCoursesSelector,
+  courses => {
+    // Since sort is an in place algorithm, cloning the array before sorting.
+    // debugger;
+    // Via https://stackoverflow.com/a/9645447/26180
+    return [...courses].sort((a, b) =>
+      a.title.localeCompare(b.title, "en", {
+        sensitivity: "base"
+      })
+    );
+  }
+);
+
+// export const getCoursesByCategory = createSelector(
+//   [getCoursesSorted, getCategorySelector],
+//   (courses, category) => {
+//     return courses.filter(course => course.category === category);
+//   }
+// );
