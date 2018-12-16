@@ -23,15 +23,7 @@ const App = ({ loading, courses }) => (
     <Suspense fallback={<Spinner />}>
       <Route exact path="/" component={HomePage} />
       <Route path="/courses" component={CoursesPage} />
-      {/* Setting key to courses.length so ManageCoursePage remounts when the course list populates.
-      This eliminates the need for getDerivedStateFromProps when loading the page directly.
-      Also, we'd logically pass courses down on props here, but connecting child for practice. */}
-      <Route
-        path="/course/:id"
-        render={routerProps => (
-          <ManageCoursePage {...routerProps} key={courses.length} />
-        )}
-      />
+      <Route path="/course/:id" component={ManageCoursePage} />
       <Route path="/course" component={ManageCoursePage} exact />
       <Route path="/about" component={AboutPage} />
     </Suspense>
