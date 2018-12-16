@@ -8,13 +8,22 @@ import CourseList from "./CourseList";
 import Spinner from "../common/Spinner";
 import { coursePropType } from "../propTypes";
 import { getCoursesSorted } from "../../reducers/courseReducer";
+import { toast } from "react-toastify";
 
-function CoursesPage({ courses, actions, loading }) {
+function CoursesPage({ actions, loading, courses }) {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
 
   useEffect(() => {
     if (courses.length === 0) actions.loadCourses();
   }, []);
+
+  function handleDeleteCourse(course) {
+    // Since optimistically deleting, show success message immediately.
+    toast.success("Course deleted");
+    actions.deleteCourse(course, response => {
+      if (response.error) toast.error(response);
+    });
+  }
 
   return (
     <>
@@ -32,7 +41,7 @@ function CoursesPage({ courses, actions, loading }) {
             Add Course
           </button>
 
-          <CourseList courses={courses} />
+          <CourseList courses={courses} onDeleteClick={handleDeleteCourse} />
         </>
       )}
     </>
@@ -42,9 +51,7 @@ function CoursesPage({ courses, actions, loading }) {
 CoursesPage.propTypes = {
   actions: PropTypes.object.isRequired,
   courses: PropTypes.arrayOf(coursePropType).isRequired,
-  history: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired,
-  location: PropTypes.object.isRequired
+  loading: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {

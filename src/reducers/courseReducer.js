@@ -1,7 +1,7 @@
 import * as types from "../actions/actionTypes";
 import initialState from "./initialState";
 import { createSelector } from "reselect";
-import { produce } from "immer";
+// import { produce } from "immer";
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
 // State is considered immutable. Instead,
@@ -20,6 +20,9 @@ export default function courses(state = initialState.courses, action) {
       return state.map(course =>
         course.id === action.course.id ? action.course : course
       );
+
+    case types.DELETE_COURSE_SUCCESS:
+      return state.filter(course => course.id !== action.course.id);
 
     // Immer examples below
     // case types.CREATE_COURSE_SUCCESS:

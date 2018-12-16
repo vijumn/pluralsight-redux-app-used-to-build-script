@@ -8,6 +8,7 @@ import CourseList from "./CourseList";
 import { coursePropType } from "../propTypes";
 import Spinner from "../common/Spinner";
 import { getCoursesSorted } from "../../reducers/courseReducer";
+import { toast } from "react-toastify";
 
 class CoursesPage extends React.Component {
   state = {
@@ -17,6 +18,14 @@ class CoursesPage extends React.Component {
   componentDidMount() {
     if (this.props.courses.length === 0) this.props.actions.loadCourses();
   }
+
+  handleDeleteCourse = course => {
+    // Since optimistically deleting, show success message immediately.
+    toast.success("Course deleted");
+    this.props.actions.deleteCourse(course, response => {
+      if (response.error) toast.error(response);
+    });
+  };
 
   render() {
     return (
@@ -34,7 +43,10 @@ class CoursesPage extends React.Component {
               Add Course
             </button>
 
-            <CourseList courses={this.props.courses} />
+            <CourseList
+              courses={this.props.courses}
+              onDeleteClick={this.handleDeleteCourse}
+            />
           </>
         )}
       </>
@@ -45,8 +57,6 @@ class CoursesPage extends React.Component {
 CoursesPage.propTypes = {
   actions: PropTypes.object.isRequired,
   courses: PropTypes.arrayOf(coursePropType).isRequired,
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired
 };
 
