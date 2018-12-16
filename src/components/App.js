@@ -1,11 +1,12 @@
 // This component handles the App template used on every page.
 import React, { Suspense } from "react";
 import PropTypes from "prop-types";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Header from "./common/Header";
 import HomePage from "./home/HomePage";
 import ManageCoursePage from "./course/ManageCoursePage"; //eslint-disable-line import/no-named-as-default
 import AboutPage from "./about/AboutPage";
+import NotFoundPage from "./NotFoundPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from "./common/Spinner";
@@ -21,11 +22,14 @@ const App = ({ loading, courses }) => (
     Pass props when components are close (yes, this app using Redux at all is overkill) */}
     <Header loading={loading} numCourses={courses.length} />
     <Suspense fallback={<Spinner />}>
-      <Route exact path="/" component={HomePage} />
-      <Route path="/courses" component={CoursesPage} />
-      <Route path="/course/:id" component={ManageCoursePage} />
-      <Route path="/course" component={ManageCoursePage} exact />
-      <Route path="/about" component={AboutPage} />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/courses" component={CoursesPage} />
+        <Route path="/course/:id" component={ManageCoursePage} />
+        <Route path="/course" component={ManageCoursePage} />
+        <Route path="/about" component={AboutPage} />
+        <Route render={NotFoundPage} />
+      </Switch>
     </Suspense>
     <ToastContainer autoClose={3000} hideProgressBar />
   </div>
