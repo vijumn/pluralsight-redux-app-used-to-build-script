@@ -9,7 +9,7 @@ function replaceAll(str, find, replace) {
   return str.replace(new RegExp(find, "g"), replace);
 }
 
-//This would be performed on the server in a real app. Just stubbing in.
+// This would be performed on the server in a real app. Just stubbing in.
 function generateId(course) {
   return replaceAll(course.title, " ", "-");
 }
@@ -20,9 +20,9 @@ export function getAllCourses() {
   });
 }
 
-export function saveCourse(course) {
-  // clone to avoid mutating reference passed in.
-  course = { ...course };
+export function saveCourse(unsavedCourse) {
+  // Clone to avoid mutating the reference passed in.
+  const course = { ...unsavedCourse };
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       // Simulate server-side validation
@@ -35,15 +35,12 @@ export function saveCourse(course) {
         const existingCourseIndex = courses.findIndex(a => a.id == course.id);
         courses.splice(existingCourseIndex, 1, course);
       } else {
-        //Just simulating creation here.
-        //The server would generate ids and watchHref's for new courses in a real app.
-        //Cloning so copy returned is passed by value rather than by reference.
+        // Simulating creation here.
+        // The server would generate course id in a real app.
         course.id = generateId(course);
-        course.watchHref = `http://www.pluralsight.com/courses/${course.id}`;
         courses.push(course);
       }
 
-      // Just return here, since cloning at the beginning of the function instead.
       resolve(course);
     }, delay);
   });

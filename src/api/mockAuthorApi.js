@@ -5,7 +5,7 @@ import { authors } from "../../tools/mockData";
 // It uses setTimeout to simulate the delay of an AJAX call.
 // All calls return promises.
 
-//This would be performed on the server in a real app. Just stubbing in.
+// This would be performed on the server in a real app. Just stubbing in.
 function generateId(author) {
   return author.firstName.toLowerCase() + "-" + author.lastName.toLowerCase();
 }
@@ -14,9 +14,9 @@ export function getAllAuthors() {
   return new Promise(resolve => setTimeout(() => resolve([...authors]), delay));
 }
 
-export function saveAuthor(author) {
+export function saveAuthor(unsavedAuthor) {
   // clone to avoid mutating reference passed in.
-  author = { ...author };
+  const author = { ...unsavedAuthor };
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       // Simulate server-side validation
@@ -31,14 +31,12 @@ export function saveAuthor(author) {
         const existingAuthorIndex = authors.findIndex(a => a.id == author.id);
         authors.splice(existingAuthorIndex, 1, author);
       } else {
-        //Just simulating creation here.
-        //The server would generate ids for new authors in a real app.
-        //Cloning so copy returned is passed by value rather than by reference.
+        // Simulating creation here.
+        // The server would generate author ids in a real app.
         author.id = generateId(author);
         authors.push(author);
       }
 
-      // Just return here, since cloning at the beginning of the function instead.
       resolve(author);
     }, delay);
   });
