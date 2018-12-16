@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
 import Header from "./common/Header";
 import HomePage from "./home/HomePage";
-import ManageCoursePage from "./course/ManageCoursePage.Hooks"; //eslint-disable-line import/no-named-as-default
+import ManageCoursePage from "./course/ManageCoursePage"; //eslint-disable-line import/no-named-as-default
 import AboutPage from "./about/AboutPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,7 +23,15 @@ const App = ({ loading, courses }) => (
     <Suspense fallback={<Spinner />}>
       <Route exact path="/" component={HomePage} />
       <Route path="/courses" component={CoursesPage} />
-      <Route path="/course/:id" component={ManageCoursePage} />
+      {/* Setting key to courses.length so ManageCoursePage remounts when the course list populates.
+      This eliminates the need for getDerivedStateFromProps when loading the page directly.
+      Also, we'd logically pass courses down on props here, but connecting child for practice. */}
+      <Route
+        path="/course/:id"
+        render={routerProps => (
+          <ManageCoursePage {...routerProps} key={courses.length} />
+        )}
+      />
       <Route path="/course" component={ManageCoursePage} exact />
       <Route path="/about" component={AboutPage} />
     </Suspense>
