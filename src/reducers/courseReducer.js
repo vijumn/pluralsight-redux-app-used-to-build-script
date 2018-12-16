@@ -1,6 +1,7 @@
 import * as types from "../actions/actionTypes";
 import initialState from "./initialState";
 import { createSelector } from "reselect";
+import { produce } from "immer";
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
 // State is considered immutable. Instead,
@@ -12,13 +13,27 @@ export default function courses(state = initialState.courses, action) {
     case types.LOAD_COURSES_SUCCESS:
       return action.courses;
 
+    // case types.CREATE_COURSE_SUCCESS:
+    //   return [...state, { ...action.course }];
+
+    // case types.UPDATE_COURSE_SUCCESS:
+    //   return state.map(course =>
+    //     course.id === action.course.id ? action.course : course
+    //   );
+
+    // Immer examples below
     case types.CREATE_COURSE_SUCCESS:
-      return [...state, { ...action.course }];
+      return produce(state, draft => {
+        draft.push(action.course);
+      });
 
     case types.UPDATE_COURSE_SUCCESS:
-      return state.map(course =>
-        course.id === action.course.id ? action.course : course
-      );
+      return produce(state, draft => {
+        const courseIndex = draft.findIndex(
+          course => course.id === action.course.id
+        );
+        draft[courseIndex] = action.course;
+      });
 
     default:
       return state;
