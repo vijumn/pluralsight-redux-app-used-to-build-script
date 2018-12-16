@@ -12,28 +12,14 @@ import { newCourse } from "../../../tools/mockData";
 import { produce } from "immer";
 
 export class ManageCoursePage extends React.Component {
-  constructor(props) {
-    super(props);
+  state = { course: { ...this.props.course }, errors: {}, saving: false };
 
-    this.state = {
-      course: { ...this.props.course },
-      errors: {},
-      saving: false
-    };
-  }
-
+  // The key declared in App.js for this route means React will create a new component
+  // instance when the list of courses passed in on props is populated, and thus,
+  // the state initialization above will run again against the (now populated) course array.
   componentDidMount() {
     if (this.props.courses.length === 0) this.props.loadCourses();
     if (this.props.authors.length === 0) this.props.loadAuthors();
-  }
-
-  // TODO: Eliminate by using a key instead.
-  // Populate form when an existing course is loaded directly.
-  static getDerivedStateFromProps(props, state) {
-    if (props.course.id !== state.course.id) {
-      return { course: props.course };
-    }
-    return null;
   }
 
   handleChange = event => {
@@ -59,7 +45,7 @@ export class ManageCoursePage extends React.Component {
     // Or, with immer. Pass produce to setState and mutate the draft.
     this.setState(
       produce(draft => {
-        draft[name] = value;
+        draft.course[name] = value;
       })
     );
   };
@@ -87,14 +73,17 @@ export class ManageCoursePage extends React.Component {
     this.setState({ saving: true });
     this.props
       .saveCourse(this.state.course)
-      // TODO: Note that this uses an alternative style of redirect. See CoursesPage for <Redirect/>
+      // Note that this uses an alternative style of redirect. See CoursesPage for <Redirect/>
       // More: https://tylermcginnis.com/react-router-programmatically-navigate/
       .then(() => {
         toast.success("Course saved.");
         this.props.history.push("/courses");
       })
       .catch(error => {
-        this.setState({ saving: false, errors: { onSave: error } });
+        this.setState({
+          saving: false,
+          errors: { onSave: error }
+        });
       });
   };
 

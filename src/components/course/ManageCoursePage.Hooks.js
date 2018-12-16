@@ -26,20 +26,14 @@ function ManageCoursePage(props) {
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
-  // Note that this replaces both componentDidMount and getDerivedStateFromProps. It only re-runs when props.courses changes.
-  useEffect(
-    () => {
-      if (courses.length === 0) {
-        loadCourses();
-      } else {
-        setCourse({
-          ...props.course
-        });
-      }
-      if (authors.length === 0) loadAuthors();
-    },
-    [props.courses]
-  );
+  // This effect replaces componentDidMount. It only runs on mount.
+  // The key declared in App.js for this route means React will create a new component
+  // instance when the list of courses passed in on props is populated, and thus,
+  // the useState initialization above will run again against the (now populated) course array.
+  useEffect(() => {
+    if (courses.length === 0) loadCourses();
+    if (authors.length === 0) loadAuthors();
+  }, []);
 
   function handleChange(event) {
     // Destructure for two reasons:
@@ -87,7 +81,7 @@ function ManageCoursePage(props) {
     setSaving(true);
 
     saveCourse(course)
-      // TODO: Note that this uses an alternative style of redirect. See CoursesPage for <Redirect/>
+      // This uses an alternative style of redirect. See CoursesPage for <Redirect/>
       // More: https://tylermcginnis.com/react-router-programmatically-navigate/
       .then(() => {
         toast.success("Course saved.");
