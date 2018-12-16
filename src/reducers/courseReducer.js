@@ -13,27 +13,27 @@ export default function courses(state = initialState.courses, action) {
     case types.LOAD_COURSES_SUCCESS:
       return action.courses;
 
-    // case types.CREATE_COURSE_SUCCESS:
-    //   return [...state, { ...action.course }];
-
-    // case types.UPDATE_COURSE_SUCCESS:
-    //   return state.map(course =>
-    //     course.id === action.course.id ? action.course : course
-    //   );
-
-    // Immer examples below
     case types.CREATE_COURSE_SUCCESS:
-      return produce(state, draft => {
-        draft.push(action.course);
-      });
+      return [...state, { ...action.course }];
 
     case types.UPDATE_COURSE_SUCCESS:
-      return produce(state, draft => {
-        const courseIndex = draft.findIndex(
-          course => course.id === action.course.id
-        );
-        draft[courseIndex] = action.course;
-      });
+      return state.map(course =>
+        course.id === action.course.id ? action.course : course
+      );
+
+    // Immer examples below
+    // case types.CREATE_COURSE_SUCCESS:
+    //   return produce(state, draft => {
+    //     draft.push(action.course);
+    //   });
+
+    // case types.UPDATE_COURSE_SUCCESS:
+    //   return produce(state, draft => {
+    //     const courseIndex = draft.findIndex(
+    //       course => course.id === action.course.id
+    //     );
+    //     draft[courseIndex] = action.course;
+    //   });
 
     default:
       return state;
