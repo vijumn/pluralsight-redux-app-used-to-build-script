@@ -9,7 +9,9 @@ describe("Header", () => {
   // React component tag
   it("contains 3 NavLinks via shallow", () => {
     // arrange
-    const numLinks = shallow(<Header loading={false} />).find("NavLink").length;
+    const numLinks = shallow(<Header loading={false} numCourses={0} />).find(
+      "NavLink"
+    ).length;
 
     // assert
     expect(numLinks).toEqual(3);
@@ -21,7 +23,7 @@ describe("Header", () => {
     // arrange
     const numAnchors = mount(
       <MemoryRouter>
-        <Header loading={false} />
+        <Header loading={false} numCourses={0} />
       </MemoryRouter>
     ).find("a").length;
 
@@ -30,9 +32,9 @@ describe("Header", () => {
   });
 
   it("contains no links with active class by default", () => {
-    const linksWithActiveClass = shallow(<Header loading={false} />).find(
-      ".active"
-    );
+    const linksWithActiveClass = shallow(
+      <Header loading={false} numCourses={0} />
+    ).find(".active");
     expect(linksWithActiveClass.length).toEqual(0);
   });
 });
