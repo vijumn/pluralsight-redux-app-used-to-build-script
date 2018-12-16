@@ -5,7 +5,7 @@ import CourseForm from "./CourseForm";
 
 function render(args) {
   const defaultProps = {
-    allAuthors: [],
+    authors: [],
     course: {},
     saving: false,
     errors: {},

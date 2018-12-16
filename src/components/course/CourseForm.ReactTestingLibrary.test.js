@@ -6,7 +6,7 @@ afterEach(cleanup);
 
 function renderCourseForm(args) {
   let defaultProps = {
-    allAuthors: [],
+    authors: [],
     course: {},
     saving: false,
     errors: {},
