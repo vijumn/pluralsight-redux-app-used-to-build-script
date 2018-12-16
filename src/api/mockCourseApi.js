@@ -46,14 +46,14 @@ export function saveCourse(unsavedCourse) {
   });
 }
 
-export function deleteCourse(courseId) {
+export function deleteCourse(course) {
   return new Promise(resolve => {
     setTimeout(() => {
       const indexOfCourseToDelete = courses.findIndex(
-        course => course.courseId == courseId
+        course => course.courseId == course.id
       );
       courses.splice(indexOfCourseToDelete, 1);
-      resolve();
+      resolve(course);
     }, delay);
   });
 }
