@@ -1,5 +1,4 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import { mount } from "enzyme";
 import { ManageCoursePage } from "./ManageCoursePage";
 import { authors, newCourse, courses } from "../../../tools/mockData";
@@ -8,6 +7,7 @@ function render(args) {
   const defaultProps = {
     authors,
     courses,
+    history: {}, // passed from React Router in real app, so just stubbing in for test. Could also choose to use MemoryRouter as shown in Header.test.js, or even wrap with React Router, depending on whether I need to test React Router related behavior.
     saveCourse: jest.fn(),
     loadAuthors: jest.fn(),
     loadCourses: jest.fn(),
@@ -17,13 +17,7 @@ function render(args) {
 
   const props = { ...defaultProps, ...args };
 
-  return mount(
-    <Router>
-      <Route
-        render={routerProps => <ManageCoursePage {...routerProps} {...props} />}
-      />
-    </Router>
-  );
+  return mount(<ManageCoursePage {...props} />);
 }
 
 describe("Manage Course Page", () => {
