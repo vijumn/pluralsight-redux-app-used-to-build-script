@@ -42,14 +42,14 @@ export function saveAuthor(unsavedAuthor) {
   });
 }
 
-export function deleteAuthor(authorId) {
+export function deleteAuthor(author) {
   return new Promise(resolve => {
     setTimeout(() => {
       const indexOfAuthorToDelete = authors.findIndex(
-        author => author.id == authorId
+        author => author.id == author.id
       );
       authors.splice(indexOfAuthorToDelete, 1);
-      resolve();
+      resolve(author);
     }, delay);
   });
 }
