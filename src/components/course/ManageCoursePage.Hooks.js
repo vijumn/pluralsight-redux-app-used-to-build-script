@@ -9,6 +9,7 @@ import { getCourseById, getCoursesSorted } from "../../reducers/courseReducer";
 import Spinner from "../common/Spinner";
 import { coursePropType, authorPropType } from "../propTypes";
 import { newCourse } from "../../../tools/mockData";
+import { produce } from "immer";
 
 function ManageCoursePage(props) {
   const {
@@ -41,10 +42,26 @@ function ManageCoursePage(props) {
   );
 
   function handleChange(event) {
-    setCourse({
-      ...course,
-      [event.target.name]: event.target.value
-    });
+    // Destructure for two reasons:
+    // 1. To shorten calls below
+    // 2. To store the value of event. If we don't, it won't be available in the calls to functional setState below:
+    // This synthetic event is reused for performance reasons. If you're seeing this, you're accessing the property `target` on a released/nullified synthetic event.
+    // Why? Because the synthetic event is no longer defined within the async function.
+    // Two fixes:
+    // 1. Call event.persist(). This which will remove the synthetic event from the pool and allow references to the event to be retained by user code.
+    // 2. Create a reference to the event so we retain a local reference. I prefer this approach since destructuring has other benefits such as shortening the calls below.
+
+    const { name, value } = event.target;
+    // Using functional setState since setting state based on existing state.
+
+    // setCourse(prevCourse => ({ ...prevCourse, [name]: value }));
+
+    // Or, with immer. Pass produce to setState and mutate the draft.
+    setCourse(
+      produce(draft => {
+        draft[name] = value;
+      })
+    );
   }
 
   function formIsValid() {
