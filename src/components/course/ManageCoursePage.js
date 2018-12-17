@@ -42,6 +42,7 @@ export class ManageCoursePage extends React.Component {
     const { name, value } = event.target;
 
     // Using functional setState since setting state based on existing state.
+    // Using computed property syntax (added in ES6) below (square braces).
     // this.setState(prevState => {
     //   const course = {
     //     ...prevState.course,

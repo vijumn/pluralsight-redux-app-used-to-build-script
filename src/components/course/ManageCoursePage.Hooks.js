@@ -53,7 +53,7 @@ function ManageCoursePage(props) {
 
     const { name, value } = event.target;
     // Using functional setState since setting state based on existing state.
-
+    // Using computed property syntax (added in ES6) below (square braces).
     // setCourse(prevCourse => ({ ...prevCourse, [name]: value }));
 
     // Or, with immer. Pass produce to setState and mutate the draft.
