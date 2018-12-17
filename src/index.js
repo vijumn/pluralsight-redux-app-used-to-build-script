@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
 import ErrorBoundary from "./components/ErrorBoundary";
 import "./styles/styles.css"; //Webpack can import CSS files too!
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const store = configureStore();
 
