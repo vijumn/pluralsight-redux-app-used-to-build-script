@@ -47,12 +47,16 @@ export function saveCourse(unsavedCourse) {
 }
 
 export function deleteCourse(course) {
-  return new Promise(resolve => {
+  // eslint-disable-next-line
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       const indexOfCourseToDelete = courses.findIndex(
         course => course.courseId == course.id
       );
       courses.splice(indexOfCourseToDelete, 1);
+      // reject(
+      //   `Sorry, the delete for "${course.title}" failed. Reload and try again.`
+      // );
       resolve(course);
     }, delay);
   });

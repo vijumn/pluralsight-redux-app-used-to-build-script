@@ -5,8 +5,8 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as courseActions from "../../actions/courseActions";
 import CourseList from "./CourseList";
-import Spinner from "../common/Spinner";
 import { coursePropType } from "../propTypes";
+import Spinner from "../common/Spinner";
 import { getCoursesSorted } from "../../reducers/courseReducer";
 import { toast } from "react-toastify";
 
@@ -18,10 +18,12 @@ function CoursesPage({ actions, loading, courses }) {
   }, []);
 
   function handleDeleteCourse(course) {
-    // Since optimistically deleting, show success message immediately.
+    // Since optimistically deleting, can consider showing success message immediately.
+    // There's a tradeoff here though. If the delete ultimately fails, then the user will see a subsequent error message a moment later.
     toast.success("Course deleted");
     actions.deleteCourse(course, response => {
-      if (response.error) toast.error(response);
+      if (response.error) return toast.error(response.error);
+      // toast.success("Course deleted");
     });
   }
 

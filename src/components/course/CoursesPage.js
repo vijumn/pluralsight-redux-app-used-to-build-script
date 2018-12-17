@@ -20,10 +20,12 @@ class CoursesPage extends React.Component {
   }
 
   handleDeleteCourse = course => {
-    // Since optimistically deleting, show success message immediately.
+    // Since optimistically deleting, can consider showing success message immediately.
+    // There's a tradeoff here though. If the delete ultimately fails, then the user will see a subsequent error message a moment later.
     toast.success("Course deleted");
     this.props.actions.deleteCourse(course, response => {
-      if (response.error) toast.error(response);
+      if (response.error) return toast.error(response.error);
+      // toast.success("Course deleted");
     });
   };
 
