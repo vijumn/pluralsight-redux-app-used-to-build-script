@@ -14,8 +14,8 @@ export function updateCourseSuccess(course) {
   return { type: types.UPDATE_COURSE_SUCCESS, course };
 }
 
-export function deleteCourseSuccess(course) {
-  return { type: types.DELETE_COURSE_SUCCESS, course };
+export function deleteCourseOptimistic(course) {
+  return { type: types.DELETE_COURSE_OPTIMISTIC, course };
 }
 
 // Functions below handle asynchronous calls.
@@ -55,8 +55,8 @@ export function saveCourse(course) {
 
 export function deleteCourse(course, callback) {
   return function(dispatch) {
-    // Doing optimistic delete, so deliberately not dispatching begin/end Ajax call actions.
-    dispatch(deleteCourseSuccess(course));
+    // Doing optimistic delete, so not dispatching begin/end Ajax call actions since we don't want to show loading status for this.
+    dispatch(deleteCourseOptimistic(course));
     return courseApi.deleteCourse(course).catch(error => {
       callback({ error: error });
     });

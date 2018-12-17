@@ -21,7 +21,7 @@ export default function courses(state = initialState.courses, action) {
         course.id === action.course.id ? action.course : course
       );
 
-    case types.DELETE_COURSE_SUCCESS:
+    case types.DELETE_COURSE_OPTIMISTIC:
       return state.filter(course => course.id !== action.course.id);
 
     // Immer examples below
@@ -38,7 +38,7 @@ export default function courses(state = initialState.courses, action) {
     //     draft[courseIndex] = action.course;
     //   });
 
-    // case types.DELETE_COURSE_SUCCESS:
+    // case types.DELETE_COURSE_OPTIMISTIC:
     //   return produce(state, draft =>
     //     draft.filter(course => course.id !== action.course.id)
     //   );
