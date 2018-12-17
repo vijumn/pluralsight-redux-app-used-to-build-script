@@ -38,6 +38,11 @@ export default function courses(state = initialState.courses, action) {
     //     draft[courseIndex] = action.course;
     //   });
 
+    // case types.DELETE_COURSE_SUCCESS:
+    //   return produce(state, draft =>
+    //     draft.filter(course => course.id !== action.course.id)
+    //   );
+
     default:
       return state;
   }
