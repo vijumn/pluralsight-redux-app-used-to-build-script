@@ -29,6 +29,7 @@ function ManageCoursePage(props) {
   // This effect replaces both componentDidMount and getDerivedStateFromProps.
   useEffect(
     () => {
+      if (authors.length === 0) loadAuthors();
       if (courses.length === 0) {
         loadCourses();
       } else {
@@ -36,7 +37,6 @@ function ManageCoursePage(props) {
           ...props.course
         });
       }
-      if (authors.length === 0) loadAuthors();
     },
     [props.courses]
   );
