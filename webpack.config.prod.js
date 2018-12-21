@@ -18,9 +18,9 @@ const GLOBALS = {
 
 module.exports = {
   mode: "production",
-  devtool: "source-map", // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
-  entry: "./src/index",
   target: "web",
+  devtool: "source-map", // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
+  // entry: "./src/index", // Can omit, since default.
   output: {
     path: path.resolve(path.join(__dirname, "dist")), // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: "/",
