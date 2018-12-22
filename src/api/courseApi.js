@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3000/courses/";
+const baseUrl = process.env.API_URL + "/courses/";
 
 export function getCourses() {
   return fetch(baseUrl).then(response => {
