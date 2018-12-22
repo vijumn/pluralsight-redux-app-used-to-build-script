@@ -36,8 +36,8 @@ describe("Async Actions", () => {
 
   describe("Course Actions Thunk", () => {
     it("should create BEGIN_AJAX_CALL and LOAD_COURSES_SUCCESS when loading courses", () => {
-      fetchMock.getOnce("http://localhost:3000/courses", {
-        body: { courses },
+      fetchMock.mock("*", {
+        body: courses,
         headers: { "content-type": "application/json" }
       });
 
