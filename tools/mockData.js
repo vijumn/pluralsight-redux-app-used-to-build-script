@@ -1,99 +1,93 @@
-export const newCourse = {
-  id: "",
-  watchHref: "",
+const newCourse = {
+  id: null,
   title: "",
-  authorId: "",
-  length: "",
+  authorId: null,
   category: ""
 };
 
-export const courses = [
+const courses = [
   {
-    id: "react-auth0-authentication-security",
+    id: 1,
     title: "Securing React Apps with Auth0",
-    authorId: "cory-house",
-    length: "3:18",
+    authorId: 1,
     category: "JavaScript"
   },
   {
-    id: "react-big-picture",
+    id: 2,
     title: "React: The Big Picture",
-    authorId: "cory-house",
-    length: "1:11",
+    authorId: 1,
     category: "JavaScript"
   },
   {
-    id: "react-creating-reusable-components",
+    id: 3,
     title: "Creating Reusable React Components",
-    authorId: "cory-house",
-    length: "1:11",
+    authorId: 1,
     category: "JavaScript"
   },
   {
-    id: "javascript-development-environment",
+    id: 4,
     title: "Building a JavaScript Development Environment",
-    authorId: "cory-house",
-    length: "5:19",
+    authorId: 1,
     category: "JavaScript"
   },
   {
-    id: "react-flux-building-applications",
+    id: 5,
     title: "Building Applications in React and Flux",
-    authorId: "cory-house",
-    length: "6:20",
+    authorId: 1,
     category: "JavaScript"
   },
   {
-    id: "react-redux-react-router-es6",
+    id: 6,
     title: "Building Applications with React and Redux in ES6",
-    authorId: "cory-house",
-    length: "6:13",
+    authorId: 1,
     category: "JavaScript"
   },
   {
-    id: "clean-code",
+    id: 7,
     title: "Clean Code: Writing Code for Humans",
-    authorId: "cory-house",
-    length: "3:10",
+    authorId: 1,
     category: "Software Practices"
   },
   {
-    id: "architecture",
+    id: 8,
     title: "Architecting Applications for the Real World",
-    authorId: "cory-house",
-    length: "2:52",
+    authorId: 1,
     category: "Software Architecture"
   },
   {
-    id: "career-reboot-for-developer-mind",
+    id: 9,
     title: "Becoming an Outlier: Reprogramming the Developer Mind",
-    authorId: "cory-house",
-    length: "2:30",
+    authorId: 1,
     category: "Career"
   },
   {
-    id: "web-components-shadow-dom",
+    id: 10,
     title: "Web Component Fundamentals",
-    authorId: "cory-house",
-    length: "5:10",
+    authorId: 1,
     category: "HTML5"
   }
 ];
 
-export const authors = [
+const authors = [
   {
-    id: "cory-house",
+    id: 1,
     firstName: "Cory",
     lastName: "House"
   },
   {
-    id: "scott-allen",
+    id: 2,
     firstName: "Scott",
     lastName: "Allen"
   },
   {
-    id: "dan-wahlin",
+    id: 3,
     firstName: "Dan",
     lastName: "Wahlin"
   }
 ];
+
+module.exports = {
+  newCourse,
+  courses,
+  authors
+};
