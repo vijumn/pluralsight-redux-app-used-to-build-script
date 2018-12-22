@@ -6,7 +6,7 @@
     "start": "run-p start:dev start:api lint:watch",
     "start:dev": "webpack-dev-server --config webpack.config.dev.js",
     "prestart:api": "node tools/resetMockDb.js",
-    "start:api": "json-server https://gist.githubusercontent.com/coryhouse/8e7e3abd5f513f218e808fc2b53c6cd8/raw/49a6430075af1f2fdbee5254cf95f22811e7e29b/mockdata.json --delay 1000",
+    "start:api": "json-server --watch tools/db.json --delay 0",
     "lint": "esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
     "test": "jest",
