@@ -27,6 +27,11 @@ class CoursesPage extends React.Component {
     this.props.dispatch(deleteCourse(course, this.handleDeleteResponse));
   };
 
+  handleDeleteResponse(response) {
+    if (response.error) return toast.error(response.error);
+    // toast.success("Course deleted");
+  }
+
   render() {
     return (
       <>
