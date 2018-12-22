@@ -10,7 +10,7 @@ export function getCourses() {
 export function saveCourse(course) {
   return fetch(baseUrl + (course.id || ""), {
     method: course.id ? "PUT" : "POST", // POST is for create, so if an id already exists, PUT to signify update.
-    headers: { "Content-Type": "application/json" },
+    headers: { "content-type": "application/json" },
     body: JSON.stringify(course)
   }).then(response => {
     if (response.ok) return response.json();
