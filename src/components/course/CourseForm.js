@@ -28,7 +28,7 @@ const CourseForm = ({ course, authors, onSave, onChange, saving, errors }) => {
         defaultOption="Select Author"
         options={authors.map(author => ({
           value: author.id,
-          text: author.firstName + " " + author.lastName
+          text: author.name
         }))}
         onChange={onChange}
         error={errors.author}
