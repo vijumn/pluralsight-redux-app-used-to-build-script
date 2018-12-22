@@ -54,12 +54,12 @@ function ManageCoursePage(props) {
     const { name, value } = event.target;
     // Using functional setState since setting state based on existing state.
     // Using computed property syntax (added in ES6) below (square braces).
-    // setCourse(prevCourse => ({ ...prevCourse, [name]: value }));
+    // setCourse(prevCourse => ({ ...prevCourse, [name]: value: name === "authorId" ? parseInt(value, 10) : value }));
 
     // Or, with immer. Pass produce to setState and mutate the draft.
     setCourse(
       produce(draft => {
-        draft[name] = value;
+        draft[name] = name === "authorId" ? parseInt(value, 10) : value;
       })
     );
   }
@@ -70,6 +70,11 @@ function ManageCoursePage(props) {
 
     if (course.title.length < 2) {
       errors.title = "Title must be at least 2 characters.";
+      formIsValid = false;
+    }
+
+    if (!this.state.course.authorId) {
+      errors.author = "Author is required.";
       formIsValid = false;
     }
 

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { saveCourse, loadCourses } from "../../actions/courseActions";
 import { loadAuthors } from "../../actions/authorActions";
 import CourseForm from "./CourseForm";
-import { getCourseById } from "../../reducers/courseReducer";
+import { getCourseById, getCoursesSorted } from "../../reducers/courseReducer";
 import Spinner from "../common/Spinner";
 import { coursePropType, authorPropType } from "../propTypes";
 import { newCourse } from "../../../tools/mockData";
@@ -46,7 +46,7 @@ export class ManageCoursePage extends React.Component {
     // this.setState(prevState => {
     //   const course = {
     //     ...prevState.course,
-    //     [name]: value
+    //     [name]: name === "authorId" ? parseInt(value, 10) : value
     //   };
     //   return { course };
     // });
@@ -54,7 +54,8 @@ export class ManageCoursePage extends React.Component {
     // Or, with immer. Pass produce to setState and mutate the draft.
     this.setState(
       produce(draft => {
-        draft.course[name] = value;
+        // Numeric values are converted to strings when set as values, so must parse string back into an int when setting.
+        draft.course[name] = name === "authorId" ? parseInt(value, 10) : value;
       })
     );
   };
@@ -65,6 +66,11 @@ export class ManageCoursePage extends React.Component {
 
     if (this.state.course.title.length < 2) {
       errors.title = "Title must be at least 2 characters.";
+      formIsValid = false;
+    }
+
+    if (!this.state.course.authorId) {
+      errors.author = "Author is required.";
       formIsValid = false;
     }
 
@@ -132,7 +138,7 @@ function mapStateToProps(state, ownProps) {
 
   return {
     course,
-    courses: state.courses,
+    courses: getCoursesSorted(state.courses),
     authors: state.authors
   };
 }
