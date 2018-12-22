@@ -74,6 +74,7 @@ const authors = [
   { id: 3, name: "Dan Wahlin" }
 ];
 
+// Using CommonJS style export so we can consume via Node (without using Babel-node)
 module.exports = {
   newCourse,
   courses,
