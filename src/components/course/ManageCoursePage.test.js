@@ -21,7 +21,7 @@ function render(args) {
 }
 
 describe("Manage Course Page", () => {
-  it("sets error message upon blur of an empty title field", () => {
+  it("sets error when attempting to save an empty title field", () => {
     const wrapper = render();
     const saveButton = wrapper.find("button");
     // uncomment to debug
@@ -29,6 +29,6 @@ describe("Manage Course Page", () => {
     expect(saveButton.prop("type")).toBe("submit"); //assure we found the submit.
     saveButton.simulate("click");
     const errors = wrapper.find(".alert");
-    expect(errors.text()).toBe("Title must be at least 2 characters.");
+    expect(errors.text()).toBe("Title must be 2+ characters.");
   });
 });
