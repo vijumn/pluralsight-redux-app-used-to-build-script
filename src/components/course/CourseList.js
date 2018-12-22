@@ -11,27 +11,11 @@ const CourseList = ({ courses, onDeleteClick }) => (
         <th>Title</th>
         <th>Author</th>
         <th>Category</th>
-        <th>Length</th>
-        <th />
       </tr>
     </thead>
     <tbody>
       {courses.map(course => (
         <tr key={course.id}>
-          <td>
-            <a
-              href={`http://www.pluralsight.com/courses/${course.id}`}
-              className="btn btn-light btn-sm"
-            >
-              Watch
-            </a>
-          </td>
-          <td>
-            <Link to={"/course/" + course.id}>{course.title}</Link>
-          </td>
-          <td>{course.authorId}</td>
-          <td>{course.category}</td>
-          <td>{course.length}</td>
           <td>
             <button
               className="btn btn-outline-danger"
@@ -40,6 +24,11 @@ const CourseList = ({ courses, onDeleteClick }) => (
               Delete
             </button>
           </td>
+          <td>
+            <Link to={"/course/" + course.id}>{course.title}</Link>
+          </td>
+          <td>{course.authorId}</td>
+          <td>{course.category}</td>
         </tr>
       ))}
     </tbody>
