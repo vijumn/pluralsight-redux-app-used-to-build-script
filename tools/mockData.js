@@ -69,21 +69,9 @@ const courses = [
 ];
 
 const authors = [
-  {
-    id: 1,
-    firstName: "Cory",
-    lastName: "House"
-  },
-  {
-    id: 2,
-    firstName: "Scott",
-    lastName: "Allen"
-  },
-  {
-    id: 3,
-    firstName: "Dan",
-    lastName: "Wahlin"
-  }
+  { id: 1, name: "Cory House" },
+  { id: 2, name: "Scott Allen" },
+  { id: 3, name: "Dan Wahlin" }
 ];
 
 module.exports = {
