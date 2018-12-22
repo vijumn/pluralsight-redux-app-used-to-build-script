@@ -1,4 +1,4 @@
-import * as courseApi from "../api/mockCourseApi";
+import * as courseApi from "../api/courseApi";
 import * as types from "./actionTypes";
 import { beginAjaxCall, ajaxCallError } from "./ajaxStatusActions";
 
@@ -25,7 +25,7 @@ export function loadCourses() {
   return function(dispatch) {
     dispatch(beginAjaxCall());
     return courseApi
-      .getAllCourses()
+      .getCourses()
       .then(courses => {
         dispatch(loadCoursesSuccess(courses));
       })
@@ -57,7 +57,7 @@ export function deleteCourse(course, callback) {
   return function(dispatch) {
     // Doing optimistic delete, so not dispatching begin/end Ajax call actions since we don't want to show loading status for this.
     dispatch(deleteCourseOptimistic(course));
-    return courseApi.deleteCourse(course).catch(error => {
+    return courseApi.deleteCourse(course.id).catch(error => {
       callback({ error: error });
     });
   };

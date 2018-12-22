@@ -36,16 +36,8 @@ describe("Async Actions", () => {
 
   describe("Course Actions Thunk", () => {
     it("should create BEGIN_AJAX_CALL and LOAD_COURSES_SUCCESS when loading courses", () => {
-      // In a real app, you'd make a real HTTP call.
-      // To mock out that HTTP call, you can use Nock to intercept all
-      // calls to a given address or pattern. This means you can test
-      // without making actual HTTP calls, and specify the data
-      // your mock API should return. Since we're already hitting a mock
-      // API, there's no need to call nock in this test.
-
-      // Here's an example call to fetch-mock.
-      fetchMock.getOnce("/courses", {
-        body: { courses },
+      fetchMock.mock("*", {
+        body: courses,
         headers: { "content-type": "application/json" }
       });
 

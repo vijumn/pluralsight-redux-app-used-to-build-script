@@ -24,14 +24,14 @@ const CourseForm = ({ course, authors, onSave, onChange, saving, errors }) => {
       <SelectInput
         name="authorId"
         label="Author"
-        value={course.authorId}
+        value={course.authorId || ""}
         defaultOption="Select Author"
         options={authors.map(author => ({
           value: author.id,
-          text: author.firstName + " " + author.lastName
+          text: author.name
         }))}
         onChange={onChange}
-        error={errors.authorId}
+        error={errors.author}
       />
 
       <TextInput
@@ -40,14 +40,6 @@ const CourseForm = ({ course, authors, onSave, onChange, saving, errors }) => {
         value={course.category}
         onChange={onChange}
         error={errors.category}
-      />
-
-      <TextInput
-        name="length"
-        label="Length"
-        value={course.length}
-        onChange={onChange}
-        error={errors.length}
       />
 
       <button

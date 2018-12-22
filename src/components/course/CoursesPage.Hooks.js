@@ -1,30 +1,33 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as courseActions from "../../actions/courseActions";
+import * as authorActions from "../../actions/authorActions";
 import CourseList from "./CourseList";
-import { coursePropType } from "../propTypes";
+import { coursePropType, authorPropType } from "../propTypes";
 import Spinner from "../common/Spinner";
 import { getCoursesSorted } from "../../reducers/courseReducer";
 import { toast } from "react-toastify";
 
-function CoursesPage({ actions, loading, courses }) {
+function CoursesPage({ dispatch, loading, courses, authors }) {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
 
   useEffect(() => {
-    if (courses.length === 0) actions.loadCourses();
+    if (courses.length === 0) dispatch(courseActions.loadCourses());
+    if (authors.length === 0) dispatch(authorActions.loadAuthors());
   }, []);
 
   function handleDeleteCourse(course) {
     // Since optimistically deleting, can consider showing success message immediately.
     // There's a tradeoff here though. If the delete ultimately fails, then the user will see a subsequent error message a moment later.
     toast.success("Course deleted");
-    actions.deleteCourse(course, response => {
-      if (response.error) return toast.error(response.error);
-      // toast.success("Course deleted");
-    });
+    dispatch(courseActions.deleteCourse(course, handleDeleteResponse));
+  }
+
+  function handleDeleteResponse(response) {
+    if (response.error) return toast.error(response.error);
+    // toast.success("Course deleted");
   }
 
   return (
@@ -43,7 +46,11 @@ function CoursesPage({ actions, loading, courses }) {
             Add Course
           </button>
 
-          <CourseList courses={courses} onDeleteClick={handleDeleteCourse} />
+          <CourseList
+            courses={courses}
+            authors={authors}
+            onDeleteClick={handleDeleteCourse}
+          />
         </>
       )}
     </>
@@ -51,25 +58,18 @@ function CoursesPage({ actions, loading, courses }) {
 }
 
 CoursesPage.propTypes = {
-  actions: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
   courses: PropTypes.arrayOf(coursePropType).isRequired,
+  authors: PropTypes.arrayOf(authorPropType).isRequired,
   loading: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
   return {
+    authors: state.authors,
     courses: getCoursesSorted(state.courses),
     loading: state.ajaxCallsInProgress > 0
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(courseActions, dispatch)
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CoursesPage);
+export default connect(mapStateToProps)(CoursesPage);

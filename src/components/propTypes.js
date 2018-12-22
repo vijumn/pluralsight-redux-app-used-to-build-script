@@ -1,15 +1,14 @@
-import { string, shape } from "prop-types";
+import { string, number, shape } from "prop-types";
 
 export const coursePropType = shape({
-  id: string,
+  id: number,
   title: string,
-  authorId: string,
-  length: string,
+  authorId: number,
   category: string
 });
 
 export const authorPropType = shape({
-  id: string,
+  id: number,
   firstName: string,
   lastName: string
 });
