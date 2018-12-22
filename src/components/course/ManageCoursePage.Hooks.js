@@ -65,29 +65,18 @@ function ManageCoursePage(props) {
   }
 
   function formIsValid() {
-    let formIsValid = true;
     let errors = {};
-
-    if (course.title.length < 2) {
-      errors.title = "Title must be at least 2 characters.";
-      formIsValid = false;
-    }
-
-    if (!this.state.course.authorId) {
-      errors.author = "Author is required.";
-      formIsValid = false;
-    }
-
+    if (course.title.length < 2) errors.title = "Title must be 2+ characters.";
+    if (!course.authorId) errors.author = "Author is required.";
     setErrors(errors);
-    return formIsValid;
+    // Form is valid if the errors object still has no properties
+    return Object.keys(errors).length === 0;
   }
 
   function handleSave(event) {
     event.preventDefault();
 
-    if (!formIsValid()) {
-      return;
-    }
+    if (!formIsValid()) return;
 
     setSaving(true);
 

@@ -61,29 +61,20 @@ export class ManageCoursePage extends React.Component {
   };
 
   formIsValid() {
-    let formIsValid = true;
     let errors = {};
+    const { course } = this.state;
 
-    if (this.state.course.title.length < 2) {
-      errors.title = "Title must be at least 2 characters.";
-      formIsValid = false;
-    }
+    if (course.title.length < 2) errors.title = "Title must be 2+ characters.";
+    if (!course.authorId) errors.author = "Author is required.";
 
-    if (!this.state.course.authorId) {
-      errors.author = "Author is required.";
-      formIsValid = false;
-    }
-
-    this.setState({ errors: errors });
-    return formIsValid;
+    this.setState({ errors });
+    return Object.keys(errors).length === 0;
   }
 
   handleSave = event => {
     event.preventDefault();
 
-    if (!this.formIsValid()) {
-      return;
-    }
+    if (!this.formIsValid()) return;
 
     this.setState({ saving: true });
     this.props
