@@ -54,7 +54,7 @@ const getAllCoursesSelector = state => state;
 // const getCategorySelector = state => state.selectedCategory;
 
 export function getCourseById(courses, id) {
-  return courses.find(course => course.id == id) || null;
+  return courses.find(course => course.id === parseInt(id, 10)) || null;
 }
 
 // Memoized selectors
