@@ -1,28 +1,18 @@
+import { handleResponse } from "./apiUtils";
 const baseUrl = process.env.API_URL + "/courses/";
 
 export function getCourses() {
-  return fetch(baseUrl).then(response => {
-    if (response.ok) return response.json();
-    throw new Error("Network response was not ok.");
-  });
+  return fetch(baseUrl).then(handleResponse);
 }
 
 export function saveCourse(course) {
   return fetch(baseUrl + (course.id || ""), {
-    method: course.id ? "PUT" : "POST", // POST is for create, so if an id already exists, PUT to signify update.
+    method: course.id ? "PUT" : "POST", // POST for create, PUT to update when id already exists.
     headers: { "content-type": "application/json" },
     body: JSON.stringify(course)
-  }).then(response => {
-    if (response.ok) return response.json();
-    throw new Error("Network response was not ok.");
-  });
+  }).then(handleResponse);
 }
 
 export function deleteCourse(courseId) {
-  return fetch(baseUrl + courseId, {
-    method: "DELETE"
-  }).then(response => {
-    if (response.ok) return response.json();
-    throw new Error("Network response was not ok.");
-  });
+  return fetch(baseUrl + courseId, { method: "DELETE" }).then(handleResponse);
 }
