@@ -1,6 +1,8 @@
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
+// Required by babel-preset-react-app
 process.env.NODE_ENV = "development";
 
 module.exports = {
@@ -19,7 +21,14 @@ module.exports = {
     overlay: true, // overlay errors in browser
     historyApiFallback: true // load deep links
   },
-  plugins: [new HtmlWebpackPlugin({ template: "src/index.html" })],
+  plugins: [
+    // Note that because the plugin does a direct text replacement, the value given to it must include actual quotes inside of the string itself.
+    // Typically, this is done either with alternate quotes, such as '"production"', or by using JSON.stringify('production').
+    new webpack.DefinePlugin({
+      "process.env.API_URL": JSON.stringify("http://localhost:3000")
+    }),
+    new HtmlWebpackPlugin({ template: "src/index.html" })
+  ],
   module: {
     rules: [
       {

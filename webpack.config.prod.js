@@ -6,11 +6,8 @@ const webpackBundleAnalyzer = require("webpack-bundle-analyzer");
 // const glob = require("glob");
 // const PurgecssPlugin = require("purgecss-webpack-plugin");
 
+// Required by babel-preset-react-app
 process.env.NODE_ENV = "production";
-
-const GLOBALS = {
-  "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV) //This global makes sure React is built in prod mode.
-};
 
 // const PATHS = {
 //   src: path.join(__dirname, "src")
@@ -27,7 +24,12 @@ module.exports = {
     filename: "bundle.js"
   },
   plugins: [
-    new webpack.DefinePlugin(GLOBALS),
+    // Note that because the plugin does a direct text replacement, the value given to it must include actual quotes inside of the string itself.
+    // Typically, this is done either with alternate quotes, such as '"production"', or by using JSON.stringify('production').
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV), // This global makes sure React is built in prod mode.
+      "process.env.API_URL": JSON.stringify("http://localhost:3000") // Would set to prod API URL in real app
+    }),
     new webpackBundleAnalyzer.BundleAnalyzerPlugin({ analyzerMode: "static" }), // Display bundle stats
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css"
