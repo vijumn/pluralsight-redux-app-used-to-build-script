@@ -19,7 +19,11 @@ module.exports = {
     // Options: https://webpack.js.org/configuration/dev-server/
     stats: "minimal", // output minimal stats to command line
     overlay: true, // overlay errors in browser
-    historyApiFallback: true // load deep links
+    historyApiFallback: true, // load deep links
+    // Last 3 lines necessary to avoid console errors in Chrome: https://github.com/webpack/webpack-dev-server/issues/851#issuecomment-449550071
+    disableHostCheck: true,
+    headers: { "Access-Control-Allow-Origin": "*" },
+    https: false
   },
   plugins: [
     // Note that because the plugin does a direct text replacement, the value given to it must include actual quotes inside of the string itself.
