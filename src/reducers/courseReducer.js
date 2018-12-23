@@ -63,7 +63,6 @@ export const getCoursesSorted = createSelector(
   getAllCoursesSelector,
   courses => {
     // Since sort is an in place algorithm, cloning the array before sorting.
-    // debugger;
     // Via https://stackoverflow.com/a/9645447/26180
     return [...courses].sort((a, b) =>
       a.title.localeCompare(b.title, "en", {
