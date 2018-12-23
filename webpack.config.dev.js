@@ -34,6 +34,7 @@ module.exports = {
       {
         test: /\.js$/,
         include: path.join(__dirname, "src"),
+        // Processed bottom up, so eslint-loader should be last.
         use: ["babel-loader", "eslint-loader"]
       },
       {
