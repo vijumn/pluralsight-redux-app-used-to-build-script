@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Route, Switch } from "react-router-dom";
 import Header from "./common/Header";
 import HomePage from "./home/HomePage";
-import ManageCoursePage from "./course/ManageCoursePage"; //eslint-disable-line import/no-named-as-default
+import ManageCoursePage from "./course/ManageCoursePage.Hooks"; //eslint-disable-line import/no-named-as-default
 import AboutPage from "./about/AboutPage";
 import NotFoundPage from "./NotFoundPage";
 import { ToastContainer } from "react-toastify";
