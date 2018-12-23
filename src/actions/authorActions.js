@@ -1,6 +1,6 @@
 import * as authorApi from "../api/authorApi";
 import * as types from "./actionTypes";
-import { beginAjaxCall } from "./ajaxStatusActions";
+import { beginAjaxCall, ajaxCallError } from "./ajaxStatusActions";
 
 export function loadAuthorsSuccess(authors) {
   return { type: types.LOAD_AUTHORS_SUCCESS, authors };
@@ -15,7 +15,7 @@ export function loadAuthors() {
         dispatch(loadAuthorsSuccess(authors));
       })
       .catch(error => {
-        throw error;
+        dispatch(ajaxCallError(error));
       });
   };
 }

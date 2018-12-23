@@ -30,7 +30,7 @@ export function loadCourses() {
         dispatch(loadCoursesSuccess(courses));
       })
       .catch(error => {
-        throw error;
+        dispatch(ajaxCallError(error));
       });
   };
 }
@@ -48,7 +48,6 @@ export function saveCourse(course) {
       })
       .catch(error => {
         dispatch(ajaxCallError(error));
-        throw error;
       });
   };
 }
@@ -58,6 +57,7 @@ export function deleteCourse(course, callback) {
     // Doing optimistic delete, so not dispatching begin/end Ajax call actions since we don't want to show loading status for this.
     dispatch(deleteCourseOptimistic(course));
     return courseApi.deleteCourse(course.id).catch(error => {
+      dispatch(ajaxCallError(error));
       callback({ error: error });
     });
   };
