@@ -19,3 +19,16 @@ export function loadAuthors() {
       });
   };
 }
+
+// Async / await example to show the difference.
+// export function loadAuthors() {
+//   return async dispatch => {
+//     dispatch(beginAjaxCall());
+//     try {
+//       const authors = await authorApi.getAuthors();
+//       dispatch(loadAuthorsSuccess(authors));
+//     } catch (error) {
+//       dispatch(ajaxCallError(error));
+//     }
+//   };
+// }
