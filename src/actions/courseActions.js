@@ -52,13 +52,27 @@ export function saveCourse(course) {
   };
 }
 
-export function deleteCourse(course, callback) {
+export function deleteCourse(course) {
   return function(dispatch) {
     // Doing optimistic delete, so not dispatching begin/end Ajax call actions since we don't want to show loading status for this.
     dispatch(deleteCourseOptimistic(course));
     return courseApi.deleteCourse(course.id).catch(error => {
-      dispatch(ajaxCallError(error));
-      callback({ error: error });
+      dispatch(ajaxCallError());
+      throw error;
     });
   };
 }
+
+// Async / await example
+// export function deleteCourse(course) {
+//   return async function (dispatch) {
+//     // Doing optimistic delete, so not dispatching begin/end Ajax call actions since we don't want to show loading status for this.
+//     dispatch(deleteCourseOptimistic(course));
+//     try {
+//       await courseApi.deleteCourse(course.id);
+//     } catch (error) {
+//       dispatch(ajaxCallError(error));
+//       throw new Error(error);
+//     }
+//   };
+// }
