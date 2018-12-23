@@ -61,7 +61,7 @@ module.exports = {
       {
         test: /\.js$/,
         include: path.join(__dirname, "src"),
-        loader: "babel-loader"
+        use: ["babel-loader", "eslint-loader"]
       },
       {
         test: /\.css$/,
