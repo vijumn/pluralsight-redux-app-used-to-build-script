@@ -4,5 +4,7 @@ export function handleResponse(response) {
 }
 
 export function handleError(error) {
-  alert("Fetch failed: " + error);
+  // In a real app, would likely call an error logging service.
+  alert("Oops! " + error);
+  throw error;
 }
