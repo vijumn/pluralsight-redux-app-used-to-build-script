@@ -102,6 +102,7 @@
       "es6": true
     },
     "rules": {
+      "no-debugger": "warn",
       "react-hooks/rules-of-hooks": "error"
     }
   },
