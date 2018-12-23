@@ -4,7 +4,14 @@ import TextInput from "../common/TextInput";
 import SelectInput from "../common/SelectInput";
 import { authorPropType, coursePropType } from "../propTypes";
 
-const CourseForm = ({ course, authors, onSave, onChange, saving, errors }) => {
+const CourseForm = ({
+  course,
+  authors,
+  onSave,
+  onChange,
+  saving = false,
+  errors = {}
+}) => {
   return (
     <form>
       <h2>{course.id ? "Edit" : "Add"} Course</h2>
@@ -55,12 +62,12 @@ const CourseForm = ({ course, authors, onSave, onChange, saving, errors }) => {
 };
 
 CourseForm.propTypes = {
-  course: coursePropType.isRequired,
   authors: PropTypes.arrayOf(authorPropType).isRequired,
+  course: coursePropType.isRequired,
+  errors: PropTypes.object,
   onSave: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
-  errors: PropTypes.object
+  saving: PropTypes.bool
 };
 
 export default CourseForm;
