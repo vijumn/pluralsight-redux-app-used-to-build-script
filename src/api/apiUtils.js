@@ -5,6 +5,7 @@ export function handleResponse(response) {
 
 export function handleError(error) {
   // In a real app, would likely call an error logging service.
-  alert("Oops! " + error);
+  // For now, putting here so viewers are notified if any API call fails.
+  alert("API call failed. " + error);
   throw error;
 }
