@@ -93,6 +93,25 @@ export class ManageCoursePage extends React.Component {
       });
   };
 
+  // async/await
+  // handleSave = async event => {
+  //   event.preventDefault();
+
+  //   if (!this.formIsValid()) return;
+
+  //   try {
+  //     this.setState({ saving: true });
+  //     await this.props.saveCourse(this.state.course);
+  //     toast.success("Course saved.");
+  //     this.props.history.push("/courses");
+  //   } catch (error) {
+  //     this.setState({
+  //       saving: false,
+  //       errors: { onSave: error }
+  //     });
+  //   }
+  // };
+
   render() {
     return this.props.authors.length === 0 ? (
       <Spinner />

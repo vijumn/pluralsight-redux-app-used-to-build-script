@@ -75,14 +75,10 @@ function ManageCoursePage(props) {
 
   function handleSave(event) {
     event.preventDefault();
-
     if (!formIsValid()) return;
-
     setSaving(true);
 
     saveCourse(course)
-      // This uses an alternative style of redirect. See CoursesPage for <Redirect/>
-      // More: https://tylermcginnis.com/react-router-programmatically-navigate/
       .then(() => {
         toast.success("Course saved.");
         history.push("/courses");
@@ -94,6 +90,24 @@ function ManageCoursePage(props) {
         });
       });
   }
+
+  // async / await
+  // async function handleSave(event) {
+  //   event.preventDefault();
+  //   if (!formIsValid()) return;
+  //   setSaving(true);
+
+  //   try {
+  //     await saveCourse(course);
+  //     toast.success("Course saved.");
+  //     history.push("/courses");
+  //   } catch (error) {
+  //     setSaving(false);
+  //     setErrors({
+  //       onSave: error
+  //     });
+  //   }
+  // }
 
   return authors.length === 0 ? (
     <Spinner />
