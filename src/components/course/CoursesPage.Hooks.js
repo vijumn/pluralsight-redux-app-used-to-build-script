@@ -18,16 +18,16 @@ function CoursesPage({ dispatch, loading, courses, authors }) {
     if (authors.length === 0) dispatch(authorActions.loadAuthors());
   }, []);
 
-  function handleDeleteCourse(course) {
-    // Since optimistically deleting, can consider showing success message immediately.
+  async function handleDeleteCourse(course) {
+    // Since optimistically deleting, showing success message immediately.
     // There's a tradeoff here though. If the delete ultimately fails, then the user will see a subsequent error message a moment later.
-    toast.success("Course deleted");
-    dispatch(courseActions.deleteCourse(course, handleDeleteResponse));
-  }
-
-  function handleDeleteResponse(response) {
-    if (response.error) return toast.error(response.error);
     // toast.success("Course deleted");
+    try {
+      await dispatch(courseActions.deleteCourse(course));
+      toast.success("Course deleted");
+    } catch (error) {
+      toast.error("Delete failed: " + error.message, { autoClose: false });
+    }
   }
 
   return (

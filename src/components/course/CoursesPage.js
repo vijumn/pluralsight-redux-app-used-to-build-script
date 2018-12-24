@@ -20,17 +20,16 @@ class CoursesPage extends React.Component {
     if (this.props.authors.length === 0) this.props.dispatch(loadAuthors());
   }
 
-  handleDeleteCourse = course => {
+  handleDeleteCourse = async course => {
     // Since optimistically deleting, can consider showing success message immediately.
-    // There's a tradeoff here though. If the delete ultimately fails, then the user will see a subsequent error message a moment later.
+    // There's a tradeoff here though. If the delete ultimately fails, the user will see a subsequent error message a moment later.
     toast.success("Course deleted");
-    this.props.dispatch(deleteCourse(course, this.handleDeleteResponse));
+    try {
+      await this.props.dispatch(deleteCourse(course));
+    } catch (error) {
+      toast.error("Delete failed: " + error.message, { autoClose: false });
+    }
   };
-
-  handleDeleteResponse(response) {
-    if (response.error) return toast.error(response.error);
-    // toast.success("Course deleted");
-  }
 
   render() {
     return (
