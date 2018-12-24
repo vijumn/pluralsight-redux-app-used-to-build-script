@@ -1,22 +1,11 @@
 import * as courseApi from "../api/courseApi";
-import * as types from "./actionTypes";
 import { beginAjaxCall, ajaxCallError } from "./ajaxStatusActions";
+import { createAction } from "redux-starter-kit";
 
-export function loadCoursesSuccess(courses) {
-  return { type: types.LOAD_COURSES_SUCCESS, courses };
-}
-
-export function createCourseSuccess(course) {
-  return { type: types.CREATE_COURSE_SUCCESS, course };
-}
-
-export function updateCourseSuccess(course) {
-  return { type: types.UPDATE_COURSE_SUCCESS, course };
-}
-
-export function deleteCourseOptimistic(course) {
-  return { type: types.DELETE_COURSE_OPTIMISTIC, course };
-}
+export const loadCoursesSuccess = createAction("loadCoursesSuccess");
+export const createCourseSuccess = createAction("createCourseSuccess");
+export const updateCourseSuccess = createAction("updateCourseSuccess");
+export const deleteCourseOptimistic = createAction("deleteCourseOptimistic");
 
 // Functions below handle asynchronous calls.
 // Each returns a function that accepts a dispatch.

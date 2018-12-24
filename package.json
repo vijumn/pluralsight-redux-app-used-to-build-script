@@ -28,6 +28,7 @@
     "react-router-dom": "next",
     "react-toastify": "4.5.1",
     "redux": "4.0.1",
+    "redux-starter-kit": "0.3.0",
     "redux-thunk": "2.3.0",
     "reselect": "4.0.0"
   },

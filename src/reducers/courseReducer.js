@@ -1,4 +1,9 @@
-import * as types from "../actions/actionTypes";
+import {
+  loadCoursesSuccess,
+  createCourseSuccess,
+  updateCourseSuccess,
+  deleteCourseOptimistic
+} from "../actions/courseActions";
 import initialState from "./initialState";
 import { createSelector } from "reselect";
 // import { produce } from "immer";
@@ -10,19 +15,19 @@ import { createSelector } from "reselect";
 // and update values on the copy.
 export default function courses(state = initialState.courses, action) {
   switch (action.type) {
-    case types.LOAD_COURSES_SUCCESS:
-      return action.courses;
+    case loadCoursesSuccess().type:
+      return action.payload;
 
-    case types.CREATE_COURSE_SUCCESS:
-      return [...state, { ...action.course }];
+    case createCourseSuccess().type:
+      return [...state, { ...action.payload }];
 
-    case types.UPDATE_COURSE_SUCCESS:
+    case updateCourseSuccess().type:
       return state.map(course =>
-        course.id === action.course.id ? action.course : course
+        course.id === action.payload.id ? action.payload : course
       );
 
-    case types.DELETE_COURSE_OPTIMISTIC:
-      return state.filter(course => course.id !== action.course.id);
+    case deleteCourseOptimistic().type:
+      return state.filter(course => course.id !== action.payload.id);
 
     // Immer examples below
     // case types.CREATE_COURSE_SUCCESS:
