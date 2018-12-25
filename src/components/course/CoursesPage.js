@@ -47,11 +47,15 @@ class CoursesPage extends React.Component {
               Add Course
             </button>
 
-            <CourseList
-              authors={this.props.authors}
-              courses={this.props.courses}
-              onDeleteClick={this.handleDeleteCourse}
-            />
+            {this.props.courses.length > 0 ? (
+              <CourseList
+                authors={this.props.authors}
+                courses={this.props.courses}
+                onDeleteClick={this.handleDeleteCourse}
+              />
+            ) : (
+              <p>No courses.</p>
+            )}
           </>
         )}
       </>

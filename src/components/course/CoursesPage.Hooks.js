@@ -46,11 +46,15 @@ function CoursesPage({ dispatch, loading, courses, authors }) {
             Add Course
           </button>
 
-          <CourseList
-            courses={courses}
-            authors={authors}
-            onDeleteClick={handleDeleteCourse}
-          />
+          {courses.length > 0 ? (
+            <CourseList
+              courses={courses}
+              authors={authors}
+              onDeleteClick={handleDeleteCourse}
+            />
+          ) : (
+            <p>No courses.</p>
+          )}
         </>
       )}
     </>
