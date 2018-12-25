@@ -3,9 +3,9 @@ export function handleResponse(response) {
   throw new Error("Network response was not ok.");
 }
 
+// In a real app, would likely call an error logging service.
 export function handleError(error) {
-  // In a real app, would likely call an error logging service.
-  // For now, putting here so viewers are notified if any API call fails.
-  alert("API call failed. " + error);
+  // eslint-disable-next-line no-console
+  console.error("API call failed. " + error);
   throw error;
 }
