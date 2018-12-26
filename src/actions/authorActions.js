@@ -6,6 +6,7 @@ export function loadAuthorsSuccess(authors) {
   return { type: types.LOAD_AUTHORS_SUCCESS, authors };
 }
 
+// To handle this without using thunks/sagas, etc, could pass dispatch.
 export function loadAuthors() {
   return dispatch => {
     dispatch(beginAjaxCall());
