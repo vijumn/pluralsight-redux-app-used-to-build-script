@@ -14,8 +14,21 @@ function CoursesPage({ dispatch, loading, courses, authors }) {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
 
   useEffect(() => {
-    if (courses.length === 0) dispatch(courseActions.loadCourses());
-    if (authors.length === 0) dispatch(authorActions.loadAuthors());
+    if (courses.length === 0) {
+      dispatch(courseActions.loadCourses()).catch(error => {
+        toast.error("Courses failed to load. " + error.message, {
+          autoClose: false
+        });
+      });
+    }
+
+    if (authors.length === 0) {
+      dispatch(authorActions.loadAuthors()).catch(error => {
+        toast.error("Authors failed to load. " + error.message, {
+          autoClose: false
+        });
+      });
+    }
   }, []);
 
   async function handleDeleteCourse(course) {
@@ -46,7 +59,8 @@ function CoursesPage({ dispatch, loading, courses, authors }) {
             Add Course
           </button>
 
-          {courses.length > 0 ? (
+          {/* Render when course and author data is available */}
+          {courses.length > 0 && authors.length > 0 ? (
             <CourseList
               courses={courses}
               authors={authors}
@@ -76,4 +90,5 @@ function mapStateToProps(state) {
   };
 }
 
+// Omitting mapDispatchToProps, so dispatch is automatically passed on props by connect.
 export default connect(mapStateToProps)(CoursesPage);

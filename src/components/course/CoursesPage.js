@@ -16,8 +16,23 @@ class CoursesPage extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.courses.length === 0) this.props.dispatch(loadCourses());
-    if (this.props.authors.length === 0) this.props.dispatch(loadAuthors());
+    const { courses, authors, dispatch } = this.props;
+
+    if (courses.length === 0) {
+      dispatch(loadCourses()).catch(error => {
+        toast.error("Courses failed to load. " + error.message, {
+          autoClose: false
+        });
+      });
+    }
+
+    if (authors.length === 0) {
+      dispatch(loadAuthors()).catch(error => {
+        toast.error("Authors failed to load. " + error.message, {
+          autoClose: false
+        });
+      });
+    }
   }
 
   handleDeleteCourse = async course => {
@@ -32,6 +47,7 @@ class CoursesPage extends React.Component {
   };
 
   render() {
+    const { courses, authors } = this.props;
     return (
       <>
         {this.state.redirectToAddCoursePage && <Redirect to="/course" />}
@@ -47,10 +63,10 @@ class CoursesPage extends React.Component {
               Add Course
             </button>
 
-            {this.props.courses.length > 0 ? (
+            {courses.length > 0 && authors.length > 0 ? (
               <CourseList
-                authors={this.props.authors}
-                courses={this.props.courses}
+                authors={authors}
+                courses={courses}
                 onDeleteClick={this.handleDeleteCourse}
               />
             ) : (
