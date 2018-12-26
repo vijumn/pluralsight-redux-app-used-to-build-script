@@ -31,6 +31,7 @@ export function loadCourses() {
       })
       .catch(error => {
         dispatch(ajaxCallError(error));
+        throw error;
       });
   };
 }
@@ -48,6 +49,7 @@ export function saveCourse(course) {
       })
       .catch(error => {
         dispatch(ajaxCallError(error));
+        throw error;
       });
   };
 }
