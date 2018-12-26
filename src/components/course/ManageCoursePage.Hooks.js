@@ -86,7 +86,7 @@ function ManageCoursePage(props) {
       .catch(error => {
         setSaving(false);
         setErrors({
-          onSave: error
+          onSave: error.message
         });
       });
   }
@@ -104,7 +104,7 @@ function ManageCoursePage(props) {
   //   } catch (error) {
   //     setSaving(false);
   //     setErrors({
-  //       onSave: error
+  //       onSave: error.message
   //     });
   //   }
   // }
