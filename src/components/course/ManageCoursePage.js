@@ -14,9 +14,6 @@ import { produce } from "immer";
 export class ManageCoursePage extends React.Component {
   state = { course: { ...this.props.course }, errors: {}, saving: false };
 
-  // The key declared in App.js for this route means React will create a new component
-  // instance when the list of courses passed in on props is populated, and thus,
-  // the state initialization above will run again against the (now populated) course array.
   componentDidMount() {
     if (this.props.courses.length === 0) this.props.loadCourses();
     if (this.props.authors.length === 0) this.props.loadAuthors();
@@ -80,7 +77,6 @@ export class ManageCoursePage extends React.Component {
     this.props
       .saveCourse(this.state.course)
       // Note that this uses an alternative style of redirect. See CoursesPage for <Redirect/>
-      // More: https://tylermcginnis.com/react-router-programmatically-navigate/
       .then(() => {
         toast.success("Course saved.");
         this.props.history.push("/courses");
