@@ -5,7 +5,10 @@ import { toast } from "react-toastify";
 import { saveCourse, loadCourses } from "../../actions/courseActions";
 import { loadAuthors } from "../../actions/authorActions";
 import CourseForm from "./CourseForm";
-import { getCourseById, getCoursesSorted } from "../../reducers/courseReducer";
+import {
+  getCourseBySlug,
+  getCoursesSorted
+} from "../../reducers/courseReducer";
 import Spinner from "../common/Spinner";
 import { coursePropType, authorPropType } from "../propTypes";
 import { newCourse } from "../../../tools/mockData";
@@ -135,11 +138,11 @@ ManageCoursePage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  const courseId = ownProps.match.params.id; // from the path `/course/:id`
+  const slug = ownProps.match.params.slug; // from the path `/course/:slug`
 
   const course =
-    courseId && state.courses.length > 0
-      ? getCourseById(state.courses, courseId)
+    slug && state.courses.length > 0
+      ? getCourseBySlug(state.courses, slug)
       : newCourse;
 
   return {

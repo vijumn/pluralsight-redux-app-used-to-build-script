@@ -53,8 +53,8 @@ export default function courses(state = initialState.courses, action) {
 const getAllCoursesSelector = state => state;
 // const getCategorySelector = state => state.selectedCategory;
 
-export function getCourseById(courses, id) {
-  return courses.find(course => course.id === parseInt(id, 10)) || null;
+export function getCourseBySlug(courses, slug) {
+  return courses.find(course => course.slug === slug) || null;
 }
 
 // Memoized selectors

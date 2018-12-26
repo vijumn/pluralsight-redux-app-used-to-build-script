@@ -11,6 +11,7 @@ const CourseList = ({ authors, courses, onDeleteClick }) => (
         <th>Title</th>
         <th>Author</th>
         <th>Category</th>
+        <th />
       </tr>
     </thead>
     <tbody>
@@ -19,6 +20,19 @@ const CourseList = ({ authors, courses, onDeleteClick }) => (
         return (
           <tr key={course.id}>
             <td>
+              <a
+                className="btn btn-default"
+                href={"http://pluralsight.com/courses/" + course.slug}
+              >
+                Watch
+              </a>
+            </td>
+            <td>
+              <Link to={"/course/" + course.slug}>{course.title}</Link>
+            </td>
+            <td>{author.name}</td>
+            <td>{course.category}</td>
+            <td>
               <button
                 className="btn btn-outline-danger"
                 onClick={() => onDeleteClick(course)}
@@ -26,11 +40,6 @@ const CourseList = ({ authors, courses, onDeleteClick }) => (
                 Delete
               </button>
             </td>
-            <td>
-              <Link to={"/course/" + course.id}>{course.title}</Link>
-            </td>
-            <td>{author.name}</td>
-            <td>{course.category}</td>
           </tr>
         );
       })}

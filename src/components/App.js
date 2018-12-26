@@ -25,7 +25,7 @@ const App = ({ loading, courses }) => (
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/courses" component={CoursesPage} />
-        <Route path="/course/:id" component={ManageCoursePage} />
+        <Route path="/course/:slug" component={ManageCoursePage} />
         <Route path="/course" component={ManageCoursePage} />
         <Route path="/about" component={AboutPage} />
         <Route render={NotFoundPage} />
