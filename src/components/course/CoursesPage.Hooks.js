@@ -9,25 +9,22 @@ import { coursePropType, authorPropType } from "../propTypes";
 import Spinner from "../common/Spinner";
 import { getCoursesSorted } from "../../reducers/courseReducer";
 import { toast } from "react-toastify";
+import { toastError } from "../../utils/errors";
 
 function CoursesPage({ dispatch, loading, courses, authors }) {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
 
   useEffect(() => {
     if (courses.length === 0) {
-      dispatch(courseActions.loadCourses()).catch(error => {
-        toast.error("Courses failed to load. " + error.message, {
-          autoClose: false
-        });
-      });
+      dispatch(courseActions.loadCourses()).catch(error =>
+        toastError("Loading courses failed.", error)
+      );
     }
 
     if (authors.length === 0) {
-      dispatch(authorActions.loadAuthors()).catch(error => {
-        toast.error("Authors failed to load. " + error.message, {
-          autoClose: false
-        });
-      });
+      dispatch(authorActions.loadAuthors()).catch(error =>
+        toastError("Loading authors failed.", error)
+      );
     }
   }, []);
 
