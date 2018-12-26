@@ -16,6 +16,7 @@ export function loadAuthors() {
       })
       .catch(error => {
         dispatch(ajaxCallError(error));
+        throw error;
       });
   };
 }
@@ -29,6 +30,7 @@ export function loadAuthors() {
 //       dispatch(loadAuthorsSuccess(authors));
 //     } catch (error) {
 //       dispatch(ajaxCallError(error));
+//       throw error;
 //     }
 //   };
 // }
