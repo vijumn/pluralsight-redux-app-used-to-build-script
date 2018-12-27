@@ -22,14 +22,6 @@ export class ManageCoursePage extends React.Component {
     if (this.props.authors.length === 0) this.props.loadAuthors();
   }
 
-  // Populate form when an existing course is loaded directly.
-  static getDerivedStateFromProps(props, state) {
-    if (props.course.id !== state.course.id) {
-      return { course: props.course };
-    }
-    return null;
-  }
-
   handleChange = event => {
     // Destructure for two reasons:
     // 1. To shorten calls below

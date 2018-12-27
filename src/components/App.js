@@ -25,7 +25,11 @@ const App = ({ loading, courses }) => (
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/courses" component={CoursesPage} />
-        <Route path="/course/:slug" component={ManageCoursePage} />
+        {/* Key is required so that ManageCoursePage is remounted when courses are loaded. Thus, cdm re-runs */}
+        <Route
+          path="/course/:slug"
+          render={props => <ManageCoursePage {...props} key={courses.length} />}
+        />
         <Route path="/course" component={ManageCoursePage} />
         <Route path="/about" component={AboutPage} />
         <Route render={NotFoundPage} />
