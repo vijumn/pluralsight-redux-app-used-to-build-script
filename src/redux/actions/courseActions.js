@@ -1,4 +1,4 @@
-import * as courseApi from "../api/courseApi";
+import * as courseApi from "../../api/courseApi";
 import * as types from "./actionTypes";
 import { beginAjaxCall, ajaxCallError } from "./ajaxStatusActions";
 

@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { loadCourses, deleteCourse } from "../../actions/courseActions";
-import { loadAuthors } from "../../actions/authorActions";
+import { loadCourses, deleteCourse } from "../../redux/actions/courseActions";
+import { loadAuthors } from "../../redux/actions/authorActions";
 import CourseList from "./CourseList";
 import { coursePropType, authorPropType } from "../propTypes";
 import Spinner from "../common/Spinner";
-import { getCoursesSorted } from "../../reducers/courseReducer";
+import { getCoursesSorted } from "../../redux/reducers/courseReducer";
 import { toast } from "react-toastify";
 
 class CoursesPage extends React.Component {

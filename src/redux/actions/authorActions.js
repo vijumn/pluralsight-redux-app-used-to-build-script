@@ -1,4 +1,4 @@
-import * as authorApi from "../api/authorApi";
+import * as authorApi from "../../api/authorApi";
 import * as types from "./actionTypes";
 import { beginAjaxCall, ajaxCallError } from "./ajaxStatusActions";
 

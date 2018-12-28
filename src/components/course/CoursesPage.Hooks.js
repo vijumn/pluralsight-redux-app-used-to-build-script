@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import * as courseActions from "../../actions/courseActions";
-import * as authorActions from "../../actions/authorActions";
+import * as courseActions from "../../redux/actions/courseActions";
+import * as authorActions from "../../redux/actions/authorActions";
 import CourseList from "./CourseList";
 import { coursePropType, authorPropType } from "../propTypes";
 import Spinner from "../common/Spinner";
-import { getCoursesSorted } from "../../reducers/courseReducer";
+import { getCoursesSorted } from "../../redux/reducers/courseReducer";
 import { toast } from "react-toastify";
 import { toastError } from "../../utils/errors";
 

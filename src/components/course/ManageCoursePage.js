@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { saveCourse, loadCourses } from "../../actions/courseActions";
-import { loadAuthors } from "../../actions/authorActions";
+import { saveCourse, loadCourses } from "../../redux/actions/courseActions";
+import { loadAuthors } from "../../redux/actions/authorActions";
 import CourseForm from "./CourseForm";
 import {
   getCourseBySlug,
   getCoursesSorted
-} from "../../reducers/courseReducer";
+} from "../../redux/reducers/courseReducer";
 import Spinner from "../common/Spinner";
 import { coursePropType, authorPropType } from "../propTypes";
 import { newCourse } from "../../../tools/mockData";
