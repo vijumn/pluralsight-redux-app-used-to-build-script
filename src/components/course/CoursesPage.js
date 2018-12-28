@@ -9,6 +9,7 @@ import { coursePropType, authorPropType } from "../propTypes";
 import Spinner from "../common/Spinner";
 import { getCoursesSorted } from "../../redux/reducers/courseReducer";
 import { toast } from "react-toastify";
+import { toastError } from "../../utils/errors";
 
 class CoursesPage extends React.Component {
   state = {
@@ -20,17 +21,13 @@ class CoursesPage extends React.Component {
 
     if (courses.length === 0) {
       dispatch(loadCourses()).catch(error => {
-        toast.error("Courses failed to load. " + error.message, {
-          autoClose: false
-        });
+        toastError("Courses failed to load. " + error);
       });
     }
 
     if (authors.length === 0) {
       dispatch(loadAuthors()).catch(error => {
-        toast.error("Authors failed to load. " + error.message, {
-          autoClose: false
-        });
+        toastError("Authors failed to load. " + error);
       });
     }
   }
