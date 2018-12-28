@@ -21,7 +21,7 @@ const CourseList = ({ authors, courses, onDeleteClick }) => (
           <tr key={course.id}>
             <td>
               <a
-                className="btn btn-default"
+                className="btn btn-light"
                 href={"http://pluralsight.com/courses/" + course.slug}
               >
                 Watch
