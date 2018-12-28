@@ -7,7 +7,7 @@ import configureStore from "./store/configureStore";
 import ErrorBoundary from "./components/ErrorBoundary";
 // import { loadCourses } from "./actions/courseActions";
 // import { loadAuthors } from "./actions/authorActions";
-import "./styles/styles.css"; //Webpack can import CSS files too!
+import "./styles/styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const store = configureStore();
