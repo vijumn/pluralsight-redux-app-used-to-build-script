@@ -9,3 +9,12 @@ export function handleError(error) {
   console.error("API call failed. " + error);
   throw error;
 }
+
+// Returns array with each element nested under its slug.
+// Useful for performance and normalization purposes.
+export function nestBySlug(array) {
+  return array.reduce((prev, cur) => {
+    prev[cur.slug] = cur;
+    return prev;
+  }, {});
+}

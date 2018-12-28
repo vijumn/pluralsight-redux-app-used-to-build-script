@@ -9,20 +9,19 @@ import { createSelector } from "reselect";
 // Note that I'm using Object spread to create a copy of current state
 // and update values on the copy.
 export default function courses(state = initialState.courses, action) {
+  let updatedState; // declared here to avoid linting warning
   switch (action.type) {
     case types.LOAD_COURSES_SUCCESS:
       return action.courses;
 
     case types.CREATE_COURSE_SUCCESS:
-      return [...state, { ...action.course }];
-
     case types.UPDATE_COURSE_SUCCESS:
-      return state.map(course =>
-        course.id === action.course.id ? action.course : course
-      );
+      return { ...state, [action.course.id]: { ...action.course } };
 
     case types.DELETE_COURSE_OPTIMISTIC:
-      return state.filter(course => course.id !== action.course.id);
+      updatedState = { ...state };
+      delete updatedState[action.course.slug];
+      return updatedState;
 
     // Immer examples below
     // case types.CREATE_COURSE_SUCCESS:
@@ -50,21 +49,28 @@ export default function courses(state = initialState.courses, action) {
 
 // Plain input selectors. Not memoized since these don't transform the data they select.
 // These merely select a relevant piece of state from this reducer.
-const getAllCoursesSelector = state => state;
+const getAllCoursesSelector = state => state.courses;
 // const getCategorySelector = state => state.selectedCategory;
 
+// Accepts an object with keys for each slug and returns an array of objects.
+export function denormalize(obj) {
+  if (!obj) return [];
+  const objKeys = Object.keys(obj);
+  return objKeys.map(slug => obj[slug]);
+}
+
 export function getCourseBySlug(courses, slug) {
-  return courses.find(course => course.slug === slug) || null;
+  return courses[slug] || null;
 }
 
 // Memoized selectors
 // Pass an array of input selectors as first arg.
-export const getCoursesSorted = createSelector(
+export const getCoursesSortedByTitle = createSelector(
   getAllCoursesSelector,
   courses => {
     // Since sort is an in place algorithm, cloning the array before sorting.
     // Via https://stackoverflow.com/a/9645447/26180
-    return [...courses].sort((a, b) =>
+    return denormalize(courses).sort((a, b) =>
       a.title.localeCompare(b.title, "en", {
         sensitivity: "base"
       })

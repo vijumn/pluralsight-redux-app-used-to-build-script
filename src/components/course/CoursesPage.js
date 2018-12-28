@@ -7,7 +7,7 @@ import { loadAuthors } from "../../actions/authorActions";
 import CourseList from "./CourseList";
 import { coursePropType, authorPropType } from "../propTypes";
 import Spinner from "../common/Spinner";
-import { getCoursesSorted } from "../../reducers/courseReducer";
+import { getCoursesSortedByTitle } from "../../reducers/courseReducer";
 import { toast } from "react-toastify";
 
 class CoursesPage extends React.Component {
@@ -89,7 +89,7 @@ CoursesPage.propTypes = {
 function mapStateToProps(state) {
   return {
     authors: state.authors,
-    courses: getCoursesSorted(state.courses),
+    courses: getCoursesSortedByTitle(state),
     loading: state.ajaxCallsInProgress > 0
   };
 }

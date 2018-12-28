@@ -7,7 +7,7 @@ import { loadAuthors } from "../../actions/authorActions";
 import CourseForm from "./CourseForm";
 import {
   getCourseBySlug,
-  getCoursesSorted
+  getCoursesSortedByTitle
 } from "../../reducers/courseReducer";
 import Spinner from "../common/Spinner";
 import { coursePropType, authorPropType } from "../propTypes";
@@ -133,13 +133,13 @@ ManageCoursePage.propTypes = {
 function mapStateToProps(state, ownProps) {
   const slug = ownProps.match.params.slug; // from the path `/course/:slug`
   const course =
-    slug && state.courses.length > 0
+    slug && Object.keys(state.courses).length > 0
       ? getCourseBySlug(state.courses, slug)
       : newCourse;
 
   return {
     course,
-    courses: getCoursesSorted(state.courses),
+    courses: getCoursesSortedByTitle(state.courses),
     authors: state.authors
   };
 }

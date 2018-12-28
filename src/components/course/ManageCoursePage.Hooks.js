@@ -5,10 +5,7 @@ import { toast } from "react-toastify";
 import { saveCourse, loadCourses } from "../../actions/courseActions";
 import { loadAuthors } from "../../actions/authorActions";
 import CourseForm from "./CourseForm";
-import {
-  getCourseBySlug,
-  getCoursesSorted
-} from "../../reducers/courseReducer";
+import { getCourseBySlug } from "../../reducers/courseReducer";
 import Spinner from "../common/Spinner";
 import { coursePropType, authorPropType } from "../propTypes";
 import { newCourse } from "../../../tools/mockData";
@@ -138,7 +135,7 @@ function mapStateToProps(state, ownProps) {
 
   return {
     course,
-    courses: getCoursesSorted(state.courses),
+    courses: state.courses,
     authors: state.authors
   };
 }

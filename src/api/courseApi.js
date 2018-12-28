@@ -1,9 +1,10 @@
-import { handleResponse, handleError } from "./apiUtils";
+import { handleResponse, handleError, nestBySlug } from "./apiUtils";
 const baseUrl = process.env.API_URL + "/courses/";
 
 export function getCourses() {
   return fetch(baseUrl)
     .then(handleResponse)
+    .then(courses => nestBySlug(courses))
     .catch(handleError);
 }
 
