@@ -5,10 +5,7 @@ import { toast } from "react-toastify";
 import { saveCourse, loadCourses } from "../../redux/actions/courseActions";
 import { loadAuthors } from "../../redux/actions/authorActions";
 import CourseForm from "./CourseForm";
-import {
-  getCourseBySlug,
-  getCoursesSorted
-} from "../../redux/reducers/courseReducer";
+import { getCourseBySlug } from "../../redux/reducers/courseReducer";
 import Spinner from "../common/Spinner";
 import { coursePropType, authorPropType } from "../propTypes";
 import { newCourse } from "../../../tools/mockData";
