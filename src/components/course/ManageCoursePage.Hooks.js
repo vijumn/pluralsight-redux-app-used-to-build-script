@@ -138,7 +138,7 @@ function mapStateToProps(state, ownProps) {
 
   return {
     course,
-    courses: getCoursesSorted(state.courses),
+    courses: state.courses,
     authors: state.authors
   };
 }
