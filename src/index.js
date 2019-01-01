@@ -7,7 +7,7 @@ import configureStore from "./redux/configureStore";
 import ErrorBoundary from "./components/ErrorBoundary";
 // import { loadCourses } from "./actions/courseActions";
 // import { loadAuthors } from "./actions/authorActions";
-import "./styles/styles.css";
+import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const store = configureStore();
