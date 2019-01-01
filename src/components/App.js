@@ -16,11 +16,11 @@ import { coursePropType } from "./propTypes";
 // Lazy load the courses page. Just an example. Could do the same for others.
 const CoursesPage = React.lazy(() => import("./course/CoursesPage.Hooks"));
 
-const App = ({ loading, courses }) => (
+const App = ({ courses }) => (
   <div className="container-fluid">
     {/* Note: Could choose to connect the header. But a good reminder that you should NOT connect all components.
     Pass props when components are close (yes, this app using Redux at all is overkill) */}
-    <Header loading={loading} numCourses={courses.length} />
+    <Header numCourses={courses.length} />
     <Suspense fallback={<Spinner />}>
       <Switch>
         <Route exact path="/" component={HomePage} />
@@ -40,15 +40,12 @@ const App = ({ loading, courses }) => (
 );
 
 App.propTypes = {
-  courses: PropTypes.arrayOf(coursePropType).isRequired,
-  loading: PropTypes.bool.isRequired
+  courses: PropTypes.arrayOf(coursePropType).isRequired
 };
 
 function mapStateToProps(state) {
-  // eslint-disable-line no-unused-vars
   return {
-    courses: state.courses,
-    loading: state.ajaxCallsInProgress > 0
+    courses: state.courses
   };
 }
 
