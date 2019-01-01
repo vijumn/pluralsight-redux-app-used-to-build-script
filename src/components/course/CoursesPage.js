@@ -54,6 +54,7 @@ class CoursesPage extends React.Component {
           <>
             <h2>Courses</h2>
             <button
+              style={{ marginBottom: 20 }}
               className="btn btn-primary add-course"
               onClick={() => this.setState({ redirectToAddCoursePage: true })}
             >

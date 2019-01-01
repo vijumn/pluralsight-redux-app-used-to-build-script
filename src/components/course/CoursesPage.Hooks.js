@@ -50,6 +50,7 @@ function CoursesPage({ dispatch, loading, courses, authors }) {
           <h2>Courses</h2>
 
           <button
+            style={{ marginBottom: 20 }}
             className="btn btn-primary add-course"
             onClick={() => setRedirectToAddCoursePage(true)}
           >
