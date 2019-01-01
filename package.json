@@ -91,9 +91,10 @@
       "es6": true
     },
     "rules": {
-      "no-debugger": "warn",
+      "no-debugger": "off",
+      "no-console": "off",
       "no-unused-vars": "warn",
-      "no-console": "warn"
+      "react/prop-types": "warn"
     },
     "settings": {
       "react": {
