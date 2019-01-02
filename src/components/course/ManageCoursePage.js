@@ -150,10 +150,9 @@ const mapDispatchToProps = {
 
 // Or, more explicit:
 // function mapDispatchToProps(dispatch) {
-// return {
-//   saveCourse: dispatch(saveCourse),
-//   loadAuthors: dispatch(loadAuthors)
-// };
+//   return {
+//     actions: bindActionCreators(courseActions, dispatch)
+//   };
 // }
 
 export default connect(
