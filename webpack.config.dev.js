@@ -9,7 +9,7 @@ module.exports = {
   mode: "development",
   target: "web",
   devtool: "cheap-module-source-map", // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
-  // entry: "./src/index", // Default, so can omit.
+  entry: "./src/index", // Default, so can omit.
   output: {
     path: path.resolve(__dirname, "dist"), // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: "/", // Necessary so historyApiFallback works
@@ -36,8 +36,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        include: path.join(__dirname, "src"),
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
         // Processed bottom up, so eslint-loader should be last.
         use: ["babel-loader", "eslint-loader"]
       },
