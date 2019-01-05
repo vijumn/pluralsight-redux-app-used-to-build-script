@@ -1,10 +1,3 @@
-const newCourse = {
-  id: null,
-  title: "",
-  authorId: null,
-  category: ""
-};
-
 const courses = [
   {
     id: 1,
@@ -83,6 +76,13 @@ const authors = [
   { id: 2, name: "Scott Allen" },
   { id: 3, name: "Dan Wahlin" }
 ];
+
+const newCourse = {
+  id: null,
+  title: "",
+  authorId: null,
+  category: ""
+};
 
 // Using CommonJS style export so we can consume via Node (without using Babel-node)
 module.exports = {
