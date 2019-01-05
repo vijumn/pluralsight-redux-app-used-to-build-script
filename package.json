@@ -5,7 +5,7 @@
   "scripts": {
     "start": "run-p start:dev start:api",
     "start:dev": "webpack-dev-server --config webpack.config.dev.js",
-    "prestart:api": "node tools/resetDb.js",
+    "prestart:api": "node tools/createMockDb.js",
     "start:api": "json-server --watch tools/db.json --delay 1000",
     "test": "jest",
     "test:watch": "jest --watchAll",
@@ -33,6 +33,10 @@
   },
   "devDependencies": {
     "@babel/core": "7.2.2",
+    "@babel/plugin-proposal-class-properties": "7.2.3",
+    "@babel/plugin-syntax-dynamic-import": "7.2.0",
+    "@babel/plugin-transform-runtime": "7.2.0",
+    "@babel/preset-react": "7.0.0",
     "@babel/register": "7.0.0",
     "autoprefixer": "9.4.3",
     "babel-core": "7.0.0-bridge.0",
@@ -104,7 +108,13 @@
   },
   "babel": {
     "presets": [
-      "babel-preset-react-app"
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-transform-runtime"
     ]
   },
   "jest": {
