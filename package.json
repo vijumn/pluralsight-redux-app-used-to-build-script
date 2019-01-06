@@ -1,7 +1,10 @@
 {
   "name": "ps-redux",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.dev.js"
+    "start": "run-p start:dev start:api",
+    "start:dev": "webpack-dev-server --config webpack.config.dev.js",
+    "prestart:api": "node tools/createMockDb.js",
+    "start:api": "json-server --watch tools/db.json"
   },
   "engines": {
     "node": ">=8"
