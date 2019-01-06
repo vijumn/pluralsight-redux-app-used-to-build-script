@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -24,12 +25,19 @@ module.exports = {
     headers: { "Access-Control-Allow-Origin": "*" },
     https: false
   },
-  plugins: [new HtmlWebpackPlugin({ template: "src/index.html" })],
+  plugins: [
+    // Note that because the plugin does a direct text replacement, the value given to it must include actual quotes inside of the string itself.
+    // Typically, this is done either with alternate quotes, such as '"production"', or by using JSON.stringify('production').
+    new webpack.DefinePlugin({
+      "process.env.API_URL": JSON.stringify("http://localhost:3000")
+    }),
+    new HtmlWebpackPlugin({ template: "src/index.html" })
+  ],
   module: {
     rules: [
       {
-        test: /\.js$/,
-        include: path.join(__dirname, "src"),
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
         // Processed bottom up, so eslint-loader should be last.
         use: ["babel-loader", "eslint-loader"]
       },
