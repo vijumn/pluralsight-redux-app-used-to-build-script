@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { coursePropType, authorPropType } from "../propTypes";
+import { authorPropType } from "../propTypes";
 
-const CourseList = ({ authors, courses, onDeleteClick }) => (
+const CourseList = ({ courses, onDeleteClick }) => (
   <table className="table">
     <thead>
       <tr>
@@ -16,7 +16,6 @@ const CourseList = ({ authors, courses, onDeleteClick }) => (
     </thead>
     <tbody>
       {courses.map(course => {
-        const author = authors.find(a => a.id === course.authorId);
         return (
           <tr key={course.id}>
             <td>
@@ -30,7 +29,7 @@ const CourseList = ({ authors, courses, onDeleteClick }) => (
             <td>
               <Link to={"/course/" + course.slug}>{course.title}</Link>
             </td>
-            <td>{author.name}</td>
+            <td>{course.authorName}</td>
             <td>{course.category}</td>
             <td>
               <button
@@ -49,7 +48,7 @@ const CourseList = ({ authors, courses, onDeleteClick }) => (
 
 CourseList.propTypes = {
   authors: PropTypes.arrayOf(authorPropType).isRequired,
-  courses: PropTypes.arrayOf(coursePropType).isRequired,
+  courses: PropTypes.array.isRequired,
   onDeleteClick: PropTypes.func.isRequired
 };
 
