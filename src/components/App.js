@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 import { coursePropType } from "./propTypes";
 
 // Lazy load the courses page. Just an example. Could do the same for others.
-const CoursesPage = React.lazy(() => import("./course/CoursesPage.Hooks"));
+const CoursesPage = React.lazy(() => import("./course/CoursesPage"));
 
 const App = ({ courses }) => (
   <div className="container-fluid">
@@ -25,7 +25,7 @@ const App = ({ courses }) => (
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/courses" component={CoursesPage} />
-        {/* Key is required so that ManageCoursePage is remounted when courses are loaded. Thus, cdm re-runs */}
+        {/* Key is shown here to show how ManageCoursePage could be remounted when courses are loaded. Thus, componentDidMount would re-run when the list of courses is loaded. However, using getDerivedStateFromProps since it is arguably simpler since it doesn't require this component to be connected to the Redux store. */}
         <Route
           path="/course/:slug"
           render={props => <ManageCoursePage {...props} key={courses.length} />}
