@@ -12,11 +12,21 @@ import { newCourse } from "../../../tools/mockData";
 import { produce } from "immer";
 
 export class ManageCoursePage extends React.Component {
-  state = { course: { ...this.props.course }, errors: {}, saving: false };
+  state = {
+    course: { ...this.props.course },
+    errors: {},
+    saving: false
+  };
 
   componentDidMount() {
     if (this.props.courses.length === 0) this.props.loadCourses();
     if (this.props.authors.length === 0) this.props.loadAuthors();
+  }
+
+  // Populate form when an existing course is loaded directly.
+  static getDerivedStateFromProps(props, state) {
+    if (props.course.id !== state.course.id) return { course: props.course };
+    return null;
   }
 
   handleChange = event => {

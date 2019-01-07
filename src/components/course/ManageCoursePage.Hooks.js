@@ -26,11 +26,20 @@ function ManageCoursePage(props) {
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
-  // This effect replaces componentDidMount
-  useEffect(() => {
-    if (authors.length === 0) loadAuthors();
-    if (courses.length === 0) loadCourses();
-  }, []);
+  // This effect replaces both componentDidMount and getDerivedStateFromProps.
+  useEffect(
+    () => {
+      if (courses.length === 0) {
+        loadCourses();
+      } else {
+        setCourse({
+          ...props.course
+        });
+      }
+      if (authors.length === 0) loadAuthors();
+    },
+    [props.courses]
+  );
 
   function handleChange(event) {
     // Destructure for two reasons:
