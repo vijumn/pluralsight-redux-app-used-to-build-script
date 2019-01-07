@@ -11,7 +11,9 @@ export function saveCourse(course) {
   return fetch(baseUrl + (course.id || ""), {
     method: course.id ? "PUT" : "POST", // POST for create, PUT to update when id already exists.
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ ...course, slug: createSlug(course.title) })
+    body: course.id
+      ? JSON.stringify(course)
+      : JSON.stringify({ ...course, slug: createSlug(course.title) })
   })
     .then(handleResponse)
     .catch(handleError);
