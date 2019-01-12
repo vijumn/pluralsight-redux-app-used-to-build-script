@@ -50,11 +50,11 @@ export default function courses(state = initialState.courses, action) {
 
 // Plain input selectors. Not memoized since these don't transform the data they select.
 // These merely select a relevant piece of state from this reducer.
-const getAllCoursesSelector = state => state;
+const getAllCoursesSelector = state => state.courses;
 // const getCategorySelector = state => state.selectedCategory;
 
 export function getCourseBySlug(courses, slug) {
-  return courses.find(course => course.slug === slug) || null;
+  return courses.find(course => course.slug === slug);
 }
 
 // Memoized selectors
