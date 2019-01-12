@@ -33,3 +33,13 @@ function createSlug(value) {
         .replace(/^-|-$/g, "")
         .toLowerCase();
 }
+
+// Async await version
+// export async function deleteCourse(courseId) {
+//   try {
+//     const response = await fetch(baseUrl + courseId, { method: "DELET" });
+//     handleResponse(response);
+//   } catch (error) {
+//     handleError(error);
+//   }
+// }

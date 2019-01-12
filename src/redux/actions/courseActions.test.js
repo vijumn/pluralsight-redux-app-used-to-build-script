@@ -35,14 +35,14 @@ describe("Async Actions", () => {
   });
 
   describe("Course Actions Thunk", () => {
-    it("should create BEGIN_AJAX_CALL and LOAD_COURSES_SUCCESS when loading courses", () => {
+    it("should create BEGIN_API_CALL and LOAD_COURSES_SUCCESS when loading courses", () => {
       fetchMock.mock("*", {
         body: courses,
         headers: { "content-type": "application/json" }
       });
 
       const expectedActions = [
-        { type: types.BEGIN_AJAX_CALL },
+        { type: types.BEGIN_API_CALL },
         { type: types.LOAD_COURSES_SUCCESS, courses }
       ];
 

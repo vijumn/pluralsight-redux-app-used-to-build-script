@@ -1,6 +1,6 @@
 import * as courseApi from "../../api/courseApi";
 import * as types from "./actionTypes";
-import { beginAjaxCall, ajaxCallError } from "./ajaxStatusActions";
+import { beginApiCall, apiCallError } from "./apiStatusActions";
 
 export function loadCoursesSuccess(courses) {
   return { type: types.LOAD_COURSES_SUCCESS, courses };
@@ -23,14 +23,14 @@ export function deleteCourseOptimistic(course) {
 // These are used by redux-thunk to support asynchronous interactions.
 export function loadCourses() {
   return function(dispatch) {
-    dispatch(beginAjaxCall());
+    dispatch(beginApiCall());
     return courseApi
       .getCourses()
       .then(courses => {
         dispatch(loadCoursesSuccess(courses));
       })
       .catch(error => {
-        dispatch(ajaxCallError(error));
+        dispatch(apiCallError(error));
         throw error;
       });
   };
@@ -39,7 +39,7 @@ export function loadCourses() {
 export function saveCourse(course) {
   //eslint-disable-next-line no-unused-vars
   return function(dispatch, getState) {
-    dispatch(beginAjaxCall());
+    dispatch(beginApiCall());
     return courseApi
       .saveCourse(course)
       .then(savedCourse => {
@@ -48,7 +48,7 @@ export function saveCourse(course) {
           : dispatch(createCourseSuccess(savedCourse));
       })
       .catch(error => {
-        dispatch(ajaxCallError(error));
+        dispatch(apiCallError(error));
         throw error;
       });
   };
@@ -56,10 +56,10 @@ export function saveCourse(course) {
 
 export function deleteCourse(course) {
   return function(dispatch) {
-    // Doing optimistic delete, so not dispatching begin/end Ajax call actions since we don't want to show loading status for this.
+    // Doing optimistic delete, so not dispatching begin/end api call actions since we don't want to show loading status for this.
     dispatch(deleteCourseOptimistic(course));
     return courseApi.deleteCourse(course.id).catch(error => {
-      dispatch(ajaxCallError());
+      dispatch(apiCallError());
       throw error;
     });
   };
@@ -68,12 +68,12 @@ export function deleteCourse(course) {
 // Async / await example
 // export function deleteCourse(course) {
 //   return async function (dispatch) {
-//     // Doing optimistic delete, so not dispatching begin/end Ajax call actions since we don't want to show loading status for this.
+//     // Doing optimistic delete, so not dispatching begin/end api call actions since we don't want to show loading status for this.
 //     dispatch(deleteCourseOptimistic(course));
 //     try {
 //       await courseApi.deleteCourse(course.id);
 //     } catch (error) {
-//       dispatch(ajaxCallError(error));
+//       dispatch(apiCallError(error));
 //       throw new Error(error);
 //     }
 //   };
