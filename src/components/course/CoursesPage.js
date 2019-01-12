@@ -63,7 +63,6 @@ class CoursesPage extends React.Component {
 
             {courses.length > 0 && authors.length > 0 ? (
               <CourseList
-                authors={authors}
                 courses={courses}
                 onDeleteClick={this.handleDeleteCourse}
               />
@@ -85,10 +84,21 @@ CoursesPage.propTypes = {
 };
 
 function mapStateToProps(state) {
+  const { apiCallsInProgress, authors, courses } = state;
+
   return {
-    authors: state.authors,
-    courses: getCoursesSorted(state.courses),
-    loading: state.ajaxCallsInProgress > 0
+    courses:
+      // Weave author data into courses when both are available.
+      authors.length > 0 && courses.length > 0
+        ? getCoursesSorted(state).map(course => {
+            return {
+              ...course,
+              authorName: authors.find(a => a.id === course.authorId).name
+            };
+          })
+        : [],
+    authors,
+    loading: apiCallsInProgress > 0
   };
 }
 
