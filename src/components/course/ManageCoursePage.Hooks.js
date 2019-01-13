@@ -65,9 +65,13 @@ function ManageCoursePage(props) {
   }
 
   function formIsValid() {
-    let errors = {};
-    if (course.title.length < 2) errors.title = "Title must be 2+ characters.";
-    if (!course.authorId) errors.author = "Author is required.";
+    const { title, authorId, category } = this.state.course;
+    const errors = {};
+
+    if (!title) errors.title = "Title is required.";
+    if (!authorId) errors.author = "Author is required";
+    if (!category) errors.category = "Category is required";
+
     setErrors(errors);
     // Form is valid if the errors object still has no properties
     return Object.keys(errors).length === 0;
@@ -109,7 +113,7 @@ function ManageCoursePage(props) {
   //   }
   // }
 
-  return authors.length === 0 ? (
+  return authors.length === 0 || courses.length === 0 ? (
     <Spinner />
   ) : (
     <CourseForm

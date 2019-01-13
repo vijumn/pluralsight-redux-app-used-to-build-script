@@ -60,11 +60,12 @@ export class ManageCoursePage extends React.Component {
   };
 
   formIsValid() {
-    let errors = {};
-    const { course } = this.state;
+    const { title, authorId, category } = this.state.course;
+    const errors = {};
 
-    if (course.title.length < 2) errors.title = "Title must be 2+ characters.";
-    if (!course.authorId) errors.author = "Author is required.";
+    if (!title) errors.title = "Title is required.";
+    if (!authorId) errors.author = "Author is required";
+    if (!category) errors.category = "Category is required";
 
     this.setState({ errors });
     return Object.keys(errors).length === 0;
@@ -86,7 +87,7 @@ export class ManageCoursePage extends React.Component {
       .catch(error => {
         this.setState({
           saving: false,
-          errors: { onSave: error }
+          errors: { onSave: error.message }
         });
       });
   };
@@ -111,7 +112,8 @@ export class ManageCoursePage extends React.Component {
   // };
 
   render() {
-    return this.props.authors.length === 0 ? (
+    return this.props.authors.length === 0 ||
+      this.props.courses.length === 0 ? (
       <Spinner />
     ) : (
       <CourseForm
