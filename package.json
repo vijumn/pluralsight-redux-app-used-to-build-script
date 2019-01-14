@@ -2,9 +2,9 @@
   "name": "ps-redux",
   "scripts": {
     "start": "run-p start:dev start:api",
-    "start:dev": "webpack-dev-server --config webpack.config.dev.js",
+    "start:dev": "webpack-dev-server --config webpack.config.dev.js --port 3000",
     "prestart:api": "node tools/createMockDb.js",
-    "start:api": "json-server --watch tools/db.json"
+    "start:api": "node tools/apiServer.js"
   },
   "engines": {
     "node": ">=8"
@@ -80,7 +80,8 @@
     "env": {
       "browser": true,
       "node": true,
-      "es6": true
+      "es6": true,
+      "jest": true
     },
     "rules": {
       "no-debugger": "off",
