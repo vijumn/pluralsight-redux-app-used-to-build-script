@@ -5,11 +5,14 @@ import { loadCourses, saveCourse } from "../../redux/actions/courseActions";
 import { loadAuthors } from "../../redux/actions/authorActions";
 import CourseForm from "./CourseForm";
 import { newCourse } from "../../../tools/mockData";
+import Spinner from "../common/Spinner";
+import { toast } from "react-toastify";
 
 class ManageCoursesPage extends React.Component {
   state = {
     course: { ...this.props.course },
-    errors: {}
+    errors: {},
+    saving: false
   };
 
   componentDidMount() {
@@ -34,11 +37,34 @@ class ManageCoursesPage extends React.Component {
     return null;
   }
 
+  formIsValid() {
+    const { title, authorId, category } = this.state.course;
+    const errors = {};
+
+    if (!title) errors.title = "Title is required.";
+    if (!authorId) errors.author = "Author is required";
+    if (!category) errors.category = "Category is required";
+
+    this.setState({ errors });
+    return Object.keys(errors).length === 0;
+  }
+
   handleSave = event => {
     event.preventDefault();
-    this.props.saveCourse(this.state.course).then(() => {
-      this.props.history.push("/courses");
-    });
+    if (!this.formIsValid()) return;
+    this.setState({ saving: true });
+    this.props
+      .saveCourse(this.state.course)
+      .then(() => {
+        toast.success("Course saved.");
+        this.props.history.push("/courses");
+      })
+      .catch(error => {
+        this.setState({
+          saving: false,
+          errors: { onSave: error.message }
+        });
+      });
   };
 
   handleChange = event => {
@@ -55,13 +81,17 @@ class ManageCoursesPage extends React.Component {
   };
 
   render() {
-    return (
+    return this.props.authors.length === 0 ||
+      this.props.courses.length === 0 ? (
+      <Spinner />
+    ) : (
       <CourseForm
         course={this.state.course}
         errors={this.state.errors}
         authors={this.props.authors}
         onChange={this.handleChange}
         onSave={this.handleSave}
+        saving={this.state.saving}
       />
     );
   }
