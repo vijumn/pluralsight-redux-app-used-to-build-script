@@ -1,5 +1,4 @@
 import React from "react";
-import expect from "expect";
 import Header from "./Header";
 import { MemoryRouter } from "react-router-dom";
 import { mount, shallow } from "enzyme";
