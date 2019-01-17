@@ -6,7 +6,7 @@
     "start": "run-p start:dev start:api",
     "start:dev": "webpack-dev-server --config webpack.config.dev.js",
     "prestart:api": "node tools/createMockDb.js",
-    "start:api": "json-server --watch tools/db.json --delay 1000",
+    "start:api": "node tools/apiServer.js",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "clean-dist": "rimraf ./dist && mkdir dist",
@@ -92,7 +92,8 @@
     "env": {
       "browser": true,
       "node": true,
-      "es6": true
+      "es6": true,
+      "jest": true
     },
     "rules": {
       "no-debugger": "off",
@@ -119,7 +120,6 @@
   },
   "jest": {
     "setupFiles": [
-      "raf/polyfill",
       "./tools/testSetup.js"
     ],
     "moduleNameMapper": {
