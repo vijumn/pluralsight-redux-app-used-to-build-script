@@ -29,6 +29,6 @@ describe("Manage Course Page", () => {
     expect(saveButton.prop("type")).toBe("submit"); //assure we found the submit.
     saveButton.simulate("click");
     const error = wrapper.find(".alert").first();
-    expect(error.text()).toBe("Title must be 2+ characters.");
+    expect(error.text()).toBe("Title is required.");
   });
 });
