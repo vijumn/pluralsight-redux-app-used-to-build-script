@@ -1,6 +1,6 @@
 const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 // Required by babel-preset-react-app
 process.env.NODE_ENV = "development";
