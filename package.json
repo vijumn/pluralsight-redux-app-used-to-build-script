@@ -9,8 +9,8 @@
     "start:api": "node tools/apiServer.js",
     "test:ci": "jest",
     "test": "jest --watchAll",
-    "clean-dist": "rimraf ./dist && mkdir dist",
-    "prebuild": "run-p clean-dist test:ci",
+    "clean-build": "rimraf ./build && mkdir build",
+    "prebuild": "run-p clean-build test:ci",
     "build": "webpack --config webpack.config.prod.js"
   },
   "author": "Cory House",
