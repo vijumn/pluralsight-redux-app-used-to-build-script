@@ -10,7 +10,7 @@
     "test:ci": "jest",
     "test": "jest --watchAll",
     "clean-dist": "rimraf ./dist && mkdir dist",
-    "prebuild": "run-p clean-dist test",
+    "prebuild": "run-p clean-dist test:ci",
     "build": "webpack --config webpack.config.prod.js"
   },
   "author": "Cory House",
