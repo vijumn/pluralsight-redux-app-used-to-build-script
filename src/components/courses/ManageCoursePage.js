@@ -8,7 +8,7 @@ import { newCourse } from "../../../tools/mockData";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 
-class ManageCoursesPage extends React.Component {
+export class ManageCoursePage extends React.Component {
   state = {
     course: { ...this.props.course },
     errors: {},
@@ -97,7 +97,7 @@ class ManageCoursesPage extends React.Component {
   }
 }
 
-ManageCoursesPage.propTypes = {
+ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   loadAuthors: PropTypes.func.isRequired,
   loadCourses: PropTypes.func.isRequired,
@@ -136,4 +136,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ManageCoursesPage);
+)(ManageCoursePage);
