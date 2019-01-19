@@ -11,7 +11,7 @@ module.exports = {
   devtool: "cheap-module-source-map", // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
   entry: "./src/index", // Default, so can omit.
   output: {
-    path: path.resolve(__dirname, "dist"), // Note: Physical files are only output by the production build task `npm run build`.
+    path: path.resolve(__dirname, "build"), // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: "/", // Necessary so historyApiFallback works
     filename: "bundle.js"
   },
