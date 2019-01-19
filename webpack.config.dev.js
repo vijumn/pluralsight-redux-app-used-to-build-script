@@ -29,7 +29,7 @@ module.exports = {
     // Note that because the plugin does a direct text replacement, the value given to it must include actual quotes inside of the string itself.
     // Typically, this is done either with alternate quotes, such as '"production"', or by using JSON.stringify('production').
     new webpack.DefinePlugin({
-      "process.env.API_URL": JSON.stringify("http://localhost:3000")
+      "process.env.API_URL": JSON.stringify("http://localhost:3001")
     }),
     new HtmlWebpackPlugin({ template: "src/index.html" })
   ],
