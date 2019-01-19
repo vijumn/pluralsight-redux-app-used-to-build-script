@@ -23,11 +23,7 @@ function render(args) {
 describe("Manage Course Page", () => {
   it("sets error when attempting to save an empty title field", () => {
     const wrapper = render();
-    const saveButton = wrapper.find("button");
-    // uncomment to debug
-    // console.log(wrapper.debug());
-    expect(saveButton.prop("type")).toBe("submit"); //assure we found the submit.
-    saveButton.simulate("click");
+    wrapper.find("form").simulate("submit");
     const error = wrapper.find(".alert").first();
     expect(error.text()).toBe("Title is required.");
   });
