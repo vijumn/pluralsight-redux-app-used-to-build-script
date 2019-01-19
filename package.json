@@ -7,8 +7,8 @@
     "start:dev": "webpack-dev-server --config webpack.config.dev.js",
     "prestart:api": "node tools/createMockDb.js",
     "start:api": "node tools/apiServer.js",
-    "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test:ci": "jest",
+    "test": "jest --watchAll",
     "clean-dist": "rimraf ./dist && mkdir dist",
     "prebuild": "run-p clean-dist test",
     "build": "webpack --config webpack.config.prod.js"
