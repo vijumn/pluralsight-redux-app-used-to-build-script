@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import CourseForm from "./CourseForm";
 
-function render(args) {
+function renderCourseForm(args) {
   const defaultProps = {
     authors: [],
     course: {},
@@ -18,18 +18,18 @@ function render(args) {
 
 describe("CourseForm via Enzyme", () => {
   it("renders form and header", () => {
-    const wrapper = render();
+    const wrapper = renderCourseForm();
     expect(wrapper.find("form").length).toBe(1);
     expect(wrapper.find("h2").text()).toEqual("Add Course");
   });
 
-  it('save button is labeled "Save" when not saving', () => {
-    const wrapper = render();
+  it('labels save buttons as "Save" when not saving', () => {
+    const wrapper = renderCourseForm();
     expect(wrapper.find("button").text()).toBe("Save");
   });
 
-  it('save button is labeled "Saving..." when saving', () => {
-    const wrapper = render({ saving: true });
+  it('labels save button as "Saving..." when saving', () => {
+    const wrapper = renderCourseForm({ saving: true });
     expect(wrapper.find("button").text()).toBe("Saving...");
   });
 });
