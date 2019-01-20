@@ -6,12 +6,12 @@ import Header from "./common/Header";
 import HomePage from "./home/HomePage";
 import ManageCoursePage from "./course/ManageCoursePage"; //eslint-disable-line import/no-named-as-default
 import AboutPage from "./about/AboutPage";
-import NotFoundPage from "./NotFoundPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from "./common/Spinner";
 import { connect } from "react-redux";
 import { coursePropType } from "./propTypes";
+import PageNotFound from "./PageNotFound";
 
 // Lazy load the courses page. Just an example. Could do the same for others.
 const CoursesPage = React.lazy(() => import("./course/CoursesPage"));
@@ -32,7 +32,7 @@ const App = ({ courses }) => (
         />
         <Route path="/course" component={ManageCoursePage} />
         <Route path="/about" component={AboutPage} />
-        <Route render={NotFoundPage} />
+        <Route render={PageNotFound} />
       </Switch>
     </Suspense>
     <ToastContainer autoClose={3000} hideProgressBar />
