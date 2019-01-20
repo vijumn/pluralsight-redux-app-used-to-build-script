@@ -30,8 +30,8 @@ module.exports = {
     }),
     // Generate HTML file that contains references to generated bundles. See here for how this works: https://github.com/ampedandwired/html-webpack-plugin#basic-usage
     new HtmlWebpackPlugin({
-      favicon: "src/favicon.ico",
       template: "src/index.html",
+      favicon: "src/favicon.ico",
       minify: {
         // see https://github.com/kangax/html-minifier#options-quick-reference
         removeComments: true,
@@ -68,7 +68,7 @@ module.exports = {
           {
             loader: "postcss-loader",
             options: {
-              plugins: () => [require("cssnano"), require("autoprefixer")],
+              plugins: () => [require("cssnano")],
               sourceMap: true
             }
           }
