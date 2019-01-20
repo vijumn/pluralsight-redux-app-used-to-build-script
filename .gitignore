@@ -26,10 +26,10 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-#dist folder
-dist
+# Build folder
+build
 
-#Webstorm metadata
+# Webstorm metadata
 .idea
 
 # Mac files
@@ -37,6 +37,3 @@ dist
 
 # json-server db
 db.json
-
-# build folder
-build
