@@ -13,7 +13,7 @@ module.exports = {
   devtool: "source-map", // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
   entry: "./src/index", // Can omit, since default.
   output: {
-    path: path.resolve(__dirname, "dist"), // Note: Physical files are only output by the production build task `npm run build`.
+    path: path.resolve(__dirname, "build"), // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: "/",
     filename: "bundle.js"
   },

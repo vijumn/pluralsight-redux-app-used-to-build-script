@@ -37,3 +37,6 @@ dist
 
 # json-server db
 db.json
+
+# build folder
+build
