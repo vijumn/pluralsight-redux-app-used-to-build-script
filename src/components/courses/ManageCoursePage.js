@@ -19,8 +19,19 @@ export class ManageCoursePage extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.courses.length === 0) this.props.loadCourses();
-    if (this.props.authors.length === 0) this.props.loadAuthors();
+    const { courses, authors, loadAuthors, loadCourses } = this.props;
+
+    if (courses.length === 0) {
+      loadCourses().catch(error => {
+        alert("Courses failed to load. " + error);
+      });
+    }
+
+    if (authors.length === 0) {
+      loadAuthors().catch(error => {
+        alert("Authors failed to load. " + error);
+      });
+    }
   }
 
   // Populate form when an existing course is loaded directly.
