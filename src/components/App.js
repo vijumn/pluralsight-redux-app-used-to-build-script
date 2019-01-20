@@ -7,6 +7,7 @@ import ManageCoursePage from "./courses/ManageCoursePage"; // eslint-disable-lin
 import Header from "./common/Header";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PageNotFound from "./PageNotFound";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/course/:slug" component={ManageCoursePage} />
         <Route path="/course" component={ManageCoursePage} />
         <Route path="/about" component={AboutPage} />
+        <Route component={PageNotFound} />
       </Switch>
       <ToastContainer autoClose={3000} hideProgressBar />
     </div>
