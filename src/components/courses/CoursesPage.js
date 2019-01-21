@@ -77,20 +77,28 @@ CoursesPage.propTypes = {
 };
 
 function mapStateToProps(state) {
-  // Can't weave author data into courses until it's available.
-  if (state.authors.length === 0)
-    return { courses: [], authors: [], loading: true };
-
   return {
-    courses: state.courses.map(course => {
-      return {
-        ...course,
-        authorName: state.authors.find(a => a.id === course.authorId).name
-      };
-    }),
+    courses:
+      // Can't create courses array until author data is available.
+      state.authors.length === 0
+        ? []
+        : state.courses.map(course => {
+            return {
+              ...course,
+              authorName: state.authors.find(a => a.id === course.authorId).name
+            };
+          }),
     authors: state.authors,
     loading: state.apiCallsInProgress > 0
   };
+}
+
+export function deleteAuthor(dispatch, authorId) {
+  return AuthorApi.deleteAuthor(authorId)
+    .then(() => {
+      dispatch(deletedAuthor(authorId));
+    })
+    .catch(handleError);
 }
 
 function mapDispatchToProps(dispatch) {
