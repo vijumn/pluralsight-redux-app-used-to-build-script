@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Route, Switch } from "react-router-dom";
 import Header from "./common/Header";
 import HomePage from "./home/HomePage";
-import ManageCoursePage from "./course/ManageCoursePage"; //eslint-disable-line import/no-named-as-default
+import ManageCoursePage from "./courses/ManageCoursePage"; //eslint-disable-line import/no-named-as-default
 import AboutPage from "./about/AboutPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,7 +14,7 @@ import { coursePropType } from "./propTypes";
 import PageNotFound from "./PageNotFound";
 
 // Lazy load the courses page. Just an example. Could do the same for others.
-const CoursesPage = React.lazy(() => import("./course/CoursesPage"));
+const CoursesPage = React.lazy(() => import("./courses/CoursesPage"));
 
 const App = ({ courses }) => (
   <div className="container-fluid">
