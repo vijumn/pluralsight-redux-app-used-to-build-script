@@ -27,19 +27,16 @@ function ManageCoursePage(props) {
   const [saving, setSaving] = useState(false);
 
   // This effect replaces both componentDidMount and getDerivedStateFromProps.
-  useEffect(
-    () => {
-      if (courses.length === 0) {
-        loadCourses();
-      } else {
-        setCourse({
-          ...props.course
-        });
-      }
-      if (authors.length === 0) loadAuthors();
-    },
-    [props.courses]
-  );
+  useEffect(() => {
+    if (courses.length === 0) {
+      loadCourses();
+    } else {
+      setCourse({
+        ...props.course
+      });
+    }
+    if (authors.length === 0) loadAuthors();
+  }, [props.course]);
 
   function handleChange(event) {
     // Destructure for two reasons:
@@ -65,7 +62,7 @@ function ManageCoursePage(props) {
   }
 
   function formIsValid() {
-    const { title, authorId, category } = this.state.course;
+    const { title, authorId, category } = course;
     const errors = {};
 
     if (!title) errors.title = "Title is required.";
@@ -140,7 +137,7 @@ ManageCoursePage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   const slug = ownProps.match.params.slug; // from the path `/course/:slug`
-
+  debugger;
   const course =
     slug && state.courses.length > 0
       ? getCourseBySlug(state.courses, slug)
