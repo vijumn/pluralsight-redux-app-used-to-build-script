@@ -10,6 +10,7 @@ import Spinner from "../common/Spinner";
 import { coursePropType, authorPropType } from "../propTypes";
 import { newCourse } from "../../../tools/mockData";
 import { produce } from "immer";
+import { validateCourse } from "../../utils/validators";
 
 function ManageCoursePage(props) {
   const {
@@ -62,21 +63,14 @@ function ManageCoursePage(props) {
   }
 
   function formIsValid() {
-    const { title, authorId, category } = course;
-    const errors = {};
-
-    if (!title) errors.title = "Title is required.";
-    if (!authorId) errors.author = "Author is required";
-    if (!category) errors.category = "Category is required";
-
+    const errors = validateCourse(course);
     setErrors(errors);
-    // Form is valid if the errors object still has no properties
     return Object.keys(errors).length === 0;
   }
 
   function handleSave(event) {
     event.preventDefault();
-    if (!formIsValid()) return;
+    //if (!formIsValid()) return;
     setSaving(true);
 
     saveCourse(course)
@@ -86,9 +80,7 @@ function ManageCoursePage(props) {
       })
       .catch(error => {
         setSaving(false);
-        setErrors({
-          onSave: error.message
-        });
+        setErrors(JSON.parse(error.message));
       });
   }
 
@@ -137,7 +129,6 @@ ManageCoursePage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   const slug = ownProps.match.params.slug; // from the path `/course/:slug`
-  debugger;
   const course =
     slug && state.courses.length > 0
       ? getCourseBySlug(state.courses, slug)

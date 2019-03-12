@@ -15,9 +15,9 @@ const CourseForm = ({
   return (
     <form onSubmit={onSave}>
       <h2>{course.id ? "Edit" : "Add"} Course</h2>
-      {errors.onSave && (
+      {Object.keys(errors).length > 0 && (
         <div className="alert alert-danger" role="alert">
-          {errors.onSave}
+          Please correct the errors below.
         </div>
       )}
       <TextInput

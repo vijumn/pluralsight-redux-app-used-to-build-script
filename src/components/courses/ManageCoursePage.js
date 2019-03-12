@@ -10,6 +10,7 @@ import Spinner from "../common/Spinner";
 import { coursePropType, authorPropType } from "../propTypes";
 import { newCourse } from "../../../tools/mockData";
 import { produce } from "immer";
+import { validateCourse } from "../../utils/validators";
 
 export class ManageCoursePage extends React.Component {
   state = {
@@ -71,13 +72,7 @@ export class ManageCoursePage extends React.Component {
   };
 
   formIsValid() {
-    const { title, authorId, category } = this.state.course;
-    const errors = {};
-
-    if (!title) errors.title = "Title is required.";
-    if (!authorId) errors.author = "Author is required";
-    if (!category) errors.category = "Category is required";
-
+    const errors = validateCourse(this.state.course);
     this.setState({ errors });
     return Object.keys(errors).length === 0;
   }
@@ -85,7 +80,7 @@ export class ManageCoursePage extends React.Component {
   handleSave = event => {
     event.preventDefault();
 
-    if (!this.formIsValid()) return;
+    // if (!this.formIsValid()) return;
 
     this.setState({ saving: true });
     this.props

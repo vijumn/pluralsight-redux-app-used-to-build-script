@@ -15,6 +15,7 @@ const jsonServer = require("json-server");
 const server = jsonServer.create();
 const path = require("path");
 const router = jsonServer.router(path.join(__dirname, "db.json"));
+const { validateCourse } = require("../src/utils/validators");
 
 // Can pass a limited number of options to this to override (some) defaults. See https://github.com/typicode/json-server#api
 const middlewares = jsonServer.defaults();
@@ -42,9 +43,10 @@ server.use((req, res, next) => {
 });
 
 server.post("/courses/", function(req, res, next) {
-  const error = validateCourse(req.body);
-  if (error) {
-    res.status(400).send(error);
+  // Call a validator function that's shared by client and server. 👍
+  const errors = validateCourse(req.body);
+  if (Object.keys(errors).length > 0) {
+    res.status(400).send(errors);
   } else {
     req.body.slug = createSlug(req.body.title); // Generate a slug for new courses.
     next();
@@ -68,11 +70,4 @@ function createSlug(value) {
     .replace(/[^a-z0-9_]+/gi, "-")
     .replace(/^-|-$/g, "")
     .toLowerCase();
-}
-
-function validateCourse(course) {
-  if (!course.title) return "Title is required.";
-  if (!course.authorId) return "Author is required.";
-  if (!course.category) return "Category is required.";
-  return "";
 }
