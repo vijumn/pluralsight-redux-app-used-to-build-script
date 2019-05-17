@@ -1,41 +1,79 @@
-import webpack from 'webpack';
-import path from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+const webpack = require("webpack");
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpackBundleAnalyzer = require("webpack-bundle-analyzer");
 
-const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('production'), //This global makes sure React is built in prod mode. https://facebook.github.io/react/downloads.html
-  __DEV__: false // potentially useful for feature flags. More info: https://github.com/petehunt/webpack-howto#6-feature-flags
-};
+// Required by babel-preset-react-app
+process.env.NODE_ENV = "production";
 
-export default {
-  debug: true,
-  devtool: 'source-map', // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
-  noInfo: true, // set to false to see a list of every file being bundled.
-  entry: './src/index',
-  target: 'web',
+module.exports = {
+  mode: "production",
+  target: "web",
+  devtool: "source-map", // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
+  entry: "./src/index", // Can omit, since default.
   output: {
-    path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
-  devServer: {
-    contentBase: './dist'
+    path: path.resolve(__dirname, "build"), // Note: Physical files are only output by the production build task `npm run build`.
+    publicPath: "/",
+    filename: "bundle.js"
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin(GLOBALS),
-    new ExtractTextPlugin('styles.css'),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin()
+    // Note that because the plugin does a direct text replacement, the value given to it must include actual quotes inside of the string itself.
+    // Typically, this is done either with alternate quotes, such as '"production"', or by using JSON.stringify('production').
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV), // This global makes sure React is built in prod mode.
+      "process.env.API_URL": JSON.stringify("http://localhost:3001") // Would set to prod API URL in real app
+    }),
+    new webpackBundleAnalyzer.BundleAnalyzerPlugin({ analyzerMode: "static" }), // Display bundle stats
+    new MiniCssExtractPlugin({
+      filename: "[name].[contenthash].css"
+    }),
+    // Generate HTML file that contains references to generated bundles. See here for how this works: https://github.com/ampedandwired/html-webpack-plugin#basic-usage
+    new HtmlWebpackPlugin({
+      template: "src/index.html",
+      favicon: "src/favicon.ico",
+      minify: {
+        // see https://github.com/kangax/html-minifier#options-quick-reference
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      }
+    })
   ],
   module: {
-    loaders: [
-      {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
-      {test: /(\.css)$/, loader: ExtractTextPlugin.extract("css?sourceMap")},
-      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
-      {test: /\.(woff|woff2)$/, loader: "url?prefix=font/&limit=5000"},
-      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"},
-      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"}
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        // Processed bottom up, so eslint-loader should be last.
+        use: ["babel-loader", "eslint-loader"]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins: () => [require("cssnano")],
+              sourceMap: true
+            }
+          }
+        ]
+      }
     ]
   }
 };

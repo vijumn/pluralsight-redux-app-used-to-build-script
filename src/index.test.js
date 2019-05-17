@@ -1,1 +1,3 @@
-// Tests for index.js go here.
+it("should pass", () => {
+  expect(true).toEqual(true);
+});

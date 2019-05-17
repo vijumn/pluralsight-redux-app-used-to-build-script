@@ -1,76 +1,114 @@
 {
   "name": "ps-redux",
   "version": "1.0.0",
-  "description": "Starter kit for React and Redux Pluralsight course by Cory House",
+  "description": "React and Redux Pluralsight course by Cory House",
   "scripts": {
-    "prestart": "babel-node tools/startMessage.js",
-    "start": "npm-run-all --parallel test:watch open:src lint:watch",
-    "open:src": "babel-node tools/srcServer.js",
-    "lint": "node_modules/.bin/esw webpack.config.* src tools",
-    "lint:watch": "npm run lint -- --watch",
-    "test": "mocha --reporter spec tools/testSetup.js src/**/*.test.js src/components/**/*.test.js",
-    "test:watch": "npm run test -- --watch",
-    "clean-dist": "npm run remove-dist && mkdir dist",
-    "remove-dist": "node_modules/.bin/rimraf ./dist",
-    "build:html": "babel-node tools/buildHtml.js",
-    "prebuild": "npm-run-all clean-dist test lint build:html",
-    "build": "babel-node tools/build.js",
-    "postbuild": "babel-node tools/distServer.js"
+    "start": "run-p start:dev start:api",
+    "start:dev": "webpack-dev-server --config webpack.config.dev.js --port 3000",
+    "prestart:api": "node tools/createMockDb.js",
+    "start:api": "node tools/apiServer.js",
+    "test": "jest --watchAll",
+    "test:ci": "jest",
+    "clean:build": "rimraf ./build && mkdir build",
+    "serve:build": "http-server ./build",
+    "prebuild": "run-p clean:build test:ci",
+    "build": "webpack --config webpack.config.prod.js",
+    "postbuild": "run-p start:api serve:build"
   },
-  "author": "Cory House",
-  "license": "MIT",
+  "engines": {
+    "node": ">=8"
+  },
   "dependencies": {
-    "babel-polyfill": "6.8.0",
-    "bootstrap": "3.3.6",
-    "jquery": "2.2.3",
-    "react": "15.0.2",
-    "react-dom": "15.0.2",
-    "react-redux": "4.4.5",
-    "react-router": "2.4.0",
-    "react-router-redux": "4.0.4",
-    "redux": "3.5.2",
-    "redux-thunk": "2.0.1",
-    "toastr": "2.1.2"
+    "bootstrap": "4.2.1",
+    "immer": "1.10.5",
+    "prop-types": "15.6.2",
+    "react": "16.8.0-alpha.1",
+    "react-dom": "16.8.0-alpha.1",
+    "react-redux": "6.0.0",
+    "react-router-dom": "4.3.1",
+    "react-toastify": "4.5.2",
+    "redux": "4.0.1",
+    "redux-thunk": "2.3.0",
+    "reselect": "4.0.0"
   },
   "devDependencies": {
-    "babel-cli": "6.8.0",
-    "babel-core": "6.8.0",
-    "babel-loader": "6.2.4",
-    "babel-plugin-react-display-name": "2.0.0",
-    "babel-preset-es2015": "6.6.0",
-    "babel-preset-react": "6.5.0",
-    "babel-preset-react-hmre": "1.1.1",
-    "babel-register": "6.8.0",
-    "colors": "1.1.2",
-    "cross-env": "1.0.7",
-    "css-loader": "0.23.1",
-    "enzyme": "2.2.0",
-    "eslint": "2.9.0",
-    "eslint-plugin-import": "1.6.1",
-    "eslint-plugin-react": "5.0.1",
-    "eslint-watch": "2.1.11",
-    "eventsource-polyfill": "0.9.6",
-    "expect": "1.19.0",
-    "express": "4.13.4",
-    "extract-text-webpack-plugin": "1.0.1",
-    "file-loader": "0.8.5",
-    "jsdom": "8.5.0",
-    "mocha": "2.4.5",
-    "nock": "8.0.0",
-    "npm-run-all": "1.8.0",
-    "open": "0.0.5",
-    "react-addons-test-utils": "15.0.2",
-    "redux-immutable-state-invariant": "1.2.3",
-    "redux-mock-store": "1.0.2",
-    "rimraf": "2.5.2",
-    "style-loader": "0.13.1",
-    "url-loader": "0.5.7",
-    "webpack": "1.13.0",
-    "webpack-dev-middleware": "1.6.1",
-    "webpack-hot-middleware": "2.10.0"
+    "@babel/core": "7.2.2",
+    "babel-eslint": "10.0.1",
+    "babel-loader": "8.0.5",
+    "babel-preset-react-app": "6.1.0",
+    "css-loader": "2.1.0",
+    "cssnano": "4.1.8",
+    "enzyme": "3.8.0",
+    "enzyme-adapter-react-16": "1.7.1",
+    "eslint": "5.12.1",
+    "eslint-loader": "2.1.1",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-react": "7.12.4",
+    "fetch-mock": "7.3.0",
+    "html-webpack-plugin": "3.2.0",
+    "http-server": "0.11.1",
+    "jest": "24.0.0",
+    "json-server": "0.14.2",
+    "mini-css-extract-plugin": "0.5.0",
+    "node-fetch": "^2.3.0",
+    "npm-run-all": "4.1.5",
+    "postcss-loader": "3.0.0",
+    "react-test-renderer": "16.7.0",
+    "react-testing-library": "5.4.4",
+    "redux-immutable-state-invariant": "2.1.0",
+    "redux-mock-store": "1.5.3",
+    "rimraf": "2.6.3",
+    "style-loader": "0.23.1",
+    "webpack": "4.28.4",
+    "webpack-bundle-analyzer": "3.0.3",
+    "webpack-cli": "3.2.1",
+    "webpack-dev-server": "3.1.14"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/coryhouse/pluralsight-redux-starter"
+  "babel": {
+    "presets": [
+      "babel-preset-react-app"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true,
+      "jest": true
+    },
+    "rules": {
+      "no-debugger": "off",
+      "no-console": "off",
+      "no-unused-vars": "warn",
+      "react/prop-types": "warn"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }
+  },
+  "jest": {
+    "setupFiles": [
+      "./tools/testSetup.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/tools/styleMock.js"
+    }
   }
 }

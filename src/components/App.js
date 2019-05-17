@@ -1,30 +1,29 @@
-// This component handles the App template used on every page.
-import React, {PropTypes} from 'react';
-import Header from './common/Header';
-import {connect} from 'react-redux';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import HomePage from "./home/HomePage";
+import AboutPage from "./about/AboutPage";
+import CoursesPage from "./courses/CoursesPage";
+import ManageCoursePage from "./courses/ManageCoursePage"; // eslint-disable-line import/no-named-as-default
+import Header from "./common/Header";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import PageNotFound from "./PageNotFound";
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="container-fluid">
-        <Header
-          loading={this.props.loading}
-        />
-        {this.props.children}
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="container-fluid">
+      <Header />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/courses" component={CoursesPage} />
+        <Route path="/course/:slug" component={ManageCoursePage} />
+        <Route path="/course" component={ManageCoursePage} />
+        <Route path="/about" component={AboutPage} />
+        <Route component={PageNotFound} />
+      </Switch>
+      <ToastContainer autoClose={3000} hideProgressBar />
+    </div>
+  );
 }
 
-App.propTypes = {
-  children: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired
-};
-
-function mapStateToProps(state, ownProps) {
-  return {
-    loading: state.ajaxCallsInProgress > 0
-  };
-}
-
-export default connect(mapStateToProps)(App);
+export default App;
